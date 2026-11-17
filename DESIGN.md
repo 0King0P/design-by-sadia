@@ -1,6 +1,6 @@
 ---
-version: "2.0"
-name: Design by Sadia - Velvet Espresso & Champagne Atelier
+version: "3.0"
+name: Design by Sadia - Velvet Espresso & Champagne Atelier (v3)
 description: Vogue Bridal x Aesop x Sabyasachi architectural couture design system for Design by Sadia (@design.by.sadia), a bespoke freehand henna and body art studio in Sterling, VA.
 colors:
   primary: "#f3eee6"
@@ -94,7 +94,7 @@ components:
 
 ## Overview
 
-Design by Sadia (`@design.by.sadia`) v2 embodies a Velvet Espresso Noir and Brushed Champagne Gold architectural couture aesthetic crafted for Sadia Shoyeb's freehand henna atelier in Sterling, VA. Inspired by Vogue Bridal editorials, Aesop tactile apothecary ledgers, and Sabyasachi heritage craft, the interface eliminates rounded SaaS containers, monospace developer fonts, and cartoon vector substitutes in favor of gallery-grade photography and hairline print typography.
+Design by Sadia (`@design.by.sadia`) v3 refines the Velvet Espresso Noir and Brushed Champagne Gold architectural couture aesthetic crafted for Sadia Shoyeb's freehand henna atelier in Sterling, VA. Inspired by Vogue Bridal editorials, Aesop tactile apothecary ledgers, and Sabyasachi heritage craft, the interface pairs gallery-grade hand-focused photography (100% unique across all 27 image slots) with disciplined sentence-case typography and a unified single-flow commission configurator and Instagram DM reservation desk.
 
 ## Colors
 
@@ -114,21 +114,21 @@ Design by Sadia (`@design.by.sadia`) v2 embodies a Velvet Espresso Noir and Brus
 
 ## Layout & Architecture
 
-- **74px Centered Typographic Masthead:** Desktop 3-column grid (`Archive / Styles / Process / Investment` left, centered `DESIGN BY SADIA / STERLING, VIRGINIA` masthead, `Saved (0)` + Instagram + `Reserve a Date` right) collapsing cleanly to a single-row 2-column mobile bar below `1120px`.
-- **5 Architectural Chapters:**
-  1. **Editorial Split Cover:** Full-bleed couture bridal hands portrait (`hero-couture-bridal.jpg`), interactive archival plate preview, and 3-column studio ledger.
-  2. **Signature Traditions & 15-Work Client Archive:** 4-column lookbook (`SIGNATURE_STYLES`) paired with underline-filtered 15-plate asymmetrical archive, lightbox inspection, and `localStorage.sadia_moodboard_v1` pinning.
-  3. **Process & Four-Formula Oxidation Study:** Interactive iPad Blueprint-to-Stain comparator plus 4-formula macro studio photography switcher (`stain-organic-macro.jpg`, `stain-jagua-macro.jpg`, `stain-crimson-macro.jpg`, `stain-obsidian-macro.jpg`) with `0h` to `48h` oxidation modulation.
-  4. **Investment & Session Estimator:** Roman-numeral (`I..VI`) studio rate menu synchronized directly to a live Atelier Session Calculator and Reservation Desk preset trigger.
-  5. **Private Reservation Desk & Editorial Notes:** 2-column hairline-split booking desk with monthly calendar, time window, travel zone, formula, hidden bridal initials, pinned archive strip, `DBS-` dossier generation, `.ics` download, and Instagram DM (`https://ig.me/m/design.by.sadia`) handoff.
+- **74px Centered Typographic Masthead:** Desktop 3-column grid (`Styles / Archive / Process / Rates & Inquiry` left in strict DOM scroll order, centered `DESIGN BY SADIA / STERLING, VIRGINIA` masthead, `Saved (0)` + Instagram + `Reserve a Date` right) collapsing cleanly to a single-row 2-column mobile bar below `1120px`.
+- **5 Distinct Architectural Chapters:**
+  1. **Editorial Split Cover:** Full-bleed couture bridal hands portrait (`hero-couture-bridal.jpg`), interactive atelier preview (`hero-atelier.jpg`), and single-line colophon.
+  2. **Signature Traditions & 15-Work Client Archive:** Centered editorial intro with 4 dedicated non-repeating lookbook plates (`style-rajasthani-couture.jpg`, `style-khaleeji-plate.jpg`, `style-jagua-contemporary.jpg`, `style-heirloom-monogram.jpg`) paired with an inline-baseline 15-plate hand-cropped archive, lightbox inspection, and `localStorage.sadia_moodboard_v1` pinning.
+  3. **Process & Four-Formula Oxidation Study:** Interactive iPad Blueprint-to-Stain comparator plus 4-formula macro studio photography switcher (`stain-organic-macro.jpg`, `stain-jagua-macro.jpg`, `stain-crimson-macro.jpg`, `stain-obsidian-macro.jpg`) with an above-fold `0h` to `48h` oxidation scrubber.
+  4. **Unified Studio Rates & Date Inquiry:** Roman-numeral (`I..VI`) commission menu + coverage configurator synced live via `sadia:estimate-sync` / `sadia:preset-request` to the Private Reservation Desk (zero duplicated dropdowns) with monthly calendar, time window, hidden bridal initials, pinned archive strip, `DBS-` dossier auto-copy, `.ics` download, and direct `@design.by.sadia` Instagram DM (`https://ig.me/m/design.by.sadia`) handoff.
+  5. **Client Notes, Care FAQ & Studio Terms:** Full-width 2x2 client testimonial spread above a balanced `1.15fr / 0.85fr` FAQ & Studio Terms split.
 
 ## Shapes & Motion
 
 - **Architectural Print Geometry:** Strictly `0px` (`--radius-sm`) and `2px` (`--radius-md`, `--radius-lg`) corners across every button, photograph frame, calendar cell, and drawer. Zero `18px` or `9999px` pill containers.
-- **Tactile Restraint:** `150ms` press feedback (`scale(0.98)`), `scroll-margin-top: 92px` across all anchored chapters, and `loading="eager"` across archive and study photography for zero layout shift.
+- **Tactile Restraint & Mobile Cellular Discipline:** `150ms` press feedback (`scale(0.98)`), `scroll-margin-top: 92px` across all anchored chapters, `loading="eager" fetchpriority="high"` on cover imagery only, and `loading="lazy"` with explicit dimensions across below-fold photography (`< 1.8 MB` initial mobile transfer).
 
 ## Do's and Don'ts
 
-- **Do:** Keep all asset, manifest, and module URLs relative (`./assets/...`) with cache-busted `?v=2` suffixes for GitHub Pages subpath hosting (`/design-by-sadia/`).
+- **Do:** Keep all asset, manifest, and module URLs relative (`./assets/...`) with cache-busted `?v=3` suffixes for GitHub Pages subpath hosting (`/design-by-sadia/`), alongside OpenGraph `og-share-card.jpg` (`1200x630`), `favicon.svg`, and `BeautySalon` JSON-LD.
 - **Do:** Keep the client staging drawer gated strictly behind `?review=1` so the public URL displays zero floating review badges.
-- **Don't:** Introduce `JetBrains Mono`, cartoon `<svg>` hands, `18px`/`9999px` pill borders, `border-left` accent rails, or em-dashes (`—`).
+- **Don't:** Introduce `JetBrains Mono`, cartoon `<svg>` hands, `18px`/`9999px` pill borders, `border-left` accent rails, duplicate photographs, bouncing email addresses, or em-dashes (`—`).

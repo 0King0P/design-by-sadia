@@ -1,4 +1,4 @@
-/* Design by Sadia (v2): Vogue Bridal x Aesop x Sabyasachi Architectural Couture Stylesheet */
+/* Design by Sadia (v3): Vogue Bridal x Aesop x Sabyasachi Architectural Couture Stylesheet */
 
 *,
 *::before,
@@ -109,6 +109,16 @@ p {
   text-transform: uppercase;
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--text-muted);
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--text-secondary);
 }
 
 :focus-visible {
@@ -226,10 +236,10 @@ p {
   padding-bottom: 0.28rem;
   border-bottom: 1px solid var(--border-strong);
   font-family: var(--font-sans);
-  font-size: 0.74rem;
+  font-size: 0.88rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--text-primary);
   transition: color var(--dur-ui) var(--ease-tactile), border-color var(--dur-ui) var(--ease-tactile);
 }
@@ -272,10 +282,10 @@ p {
 
 .nav-links a {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--text-secondary);
   white-space: nowrap;
   padding-block: 0.35rem;
@@ -334,10 +344,10 @@ p {
   min-height: 36px;
   padding: 0.25rem 0.1rem;
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.84rem;
   font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--text-secondary);
   border-bottom: 1px solid transparent;
@@ -484,30 +494,14 @@ p {
   margin-top: 0.35rem;
 }
 
-.cover-ledger {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.cover-colophon {
   border-top: 1px solid var(--border-subtle);
-  padding-top: 1.35rem;
-  gap: 1rem;
-}
-
-.cover-ledger__item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.cover-ledger__item:not(:first-child) {
-  padding-left: 1.15rem;
-  border-left: 1px solid var(--border-subtle);
-}
-
-.cover-ledger__val {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
+  padding-top: 1.25rem;
+  font-size: var(--text-meta);
   font-weight: 400;
-  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--text-secondary);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -604,7 +598,7 @@ p {
   color: var(--accent-henna);
 }
 
-/* Chapter Sections & Architectural Headers */
+/* Chapter Sections & Distinct Editorial Openings */
 .atelier-section {
   padding-block: var(--section-pad);
   border-bottom: 1px solid var(--border-subtle);
@@ -614,46 +608,50 @@ p {
   background: var(--plane-1-surface);
 }
 
-.chapter-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
-  gap: 2rem;
-  align-items: end;
-  padding-bottom: 2.25rem;
-  margin-bottom: 2.75rem;
-  border-bottom: 1px solid var(--border-subtle);
+.anchor-beacon {
+  position: relative;
+  height: 0;
+  scroll-margin-top: 92px;
 }
 
-.chapter-header__copy {
+.chapter-intro {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 }
 
-.chapter-header h2 {
+.chapter-intro h2 {
   font-size: var(--text-h2);
   color: var(--text-primary);
 }
 
-.chapter-header__aside {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.55rem;
-  text-align: right;
-}
-
-.chapter-header__aside p {
-  font-size: 0.94rem;
+.chapter-intro__deck {
+  font-size: 0.96rem;
   color: var(--text-secondary);
-  max-width: 42ch;
 }
 
-/* Chapter II Part 1: 4-Column Signature Artistry Lookbook */
-.styles-subsection {
-  margin-bottom: clamp(4rem, 7vw, 5.75rem);
+.chapter-intro--centered {
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2.75rem;
 }
 
+.chapter-intro--centered .chapter-intro__deck {
+  max-width: 54ch;
+}
+
+.chapter-intro--stacked {
+  align-items: flex-start;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.chapter-intro--stacked .chapter-intro__deck {
+  max-width: 56ch;
+}
+
+/* Chapter 1: 4-Column Signature Artistry Lookbook */
 .styles-lookbook {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -720,32 +718,50 @@ p {
   flex: 1;
 }
 
-/* Chapter II Part 2: Editorial Underline Filter Bar & Asymmetric Client Archive */
-.archive-controls {
+/* Chapter 2: Inline Baseline Archive Header & Asymmetric Client Archive */
+.archive-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 2.25rem;
-  padding-bottom: 1rem;
+  align-items: baseline;
+  gap: 1.5rem 2.5rem;
+  padding-bottom: 1.65rem;
+  margin-bottom: 2.35rem;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.archive-header__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.archive-header h2 {
+  font-size: var(--text-h2);
+  color: var(--text-primary);
+}
+
+.archive-header__deck {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  max-width: 50ch;
 }
 
 .filter-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.65rem;
+  gap: 1.5rem;
 }
 
 .filter-tab {
   position: relative;
   padding: 0.45rem 0;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.88rem;
   font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-variant-numeric: tabular-nums lining-nums;
   color: var(--text-secondary);
   border-bottom: 1.5px solid transparent;
   transition: color var(--dur-ui) var(--ease-tactile), border-color var(--dur-ui) var(--ease-tactile);
@@ -759,15 +775,6 @@ p {
   color: var(--accent-henna);
   border-bottom-color: var(--accent-henna);
   font-weight: 500;
-}
-
-.archive-count {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums lining-nums;
-  color: var(--text-muted);
 }
 
 .archive-grid {
@@ -804,6 +811,14 @@ p {
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   aspect-ratio: 4 / 5;
+}
+
+.archive-plate__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 36px rgba(9, 8, 7, 0.28);
 }
 
 .archive-plate--lead .archive-plate__media {
@@ -860,14 +875,14 @@ p {
   align-items: center;
   gap: 0.35rem;
   min-height: 32px;
-  padding: 0.25rem 0.65rem;
+  padding: 0.25rem 0.7rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--text-secondary);
   white-space: nowrap;
   flex-shrink: 0;
@@ -885,68 +900,41 @@ p {
   background: var(--accent-henna-soft);
 }
 
-/* Chapter III: Atelier Process & Four Formulas */
+/* Chapter 3: Atelier Process & Four Formulas */
 .process-block {
   padding-bottom: clamp(3.5rem, 6vw, 5rem);
   margin-bottom: clamp(3.5rem, 6vw, 5rem);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.subsection-intro {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 1.25rem;
-  margin-bottom: 2.25rem;
-}
-
-.subsection-intro h3 {
-  font-size: clamp(1.65rem, 2.5vw, 2.35rem);
-  color: var(--text-primary);
-}
-
-.subsection-intro p {
-  max-width: 52ch;
-  font-size: 0.94rem;
-  color: var(--text-secondary);
-}
-
 .mount-shell {
   min-height: 120px;
 }
 
-/* Chapter V: Client Notes (Pull Quotes) & Studio Policies Accordion */
-.notes-policies-grid {
+/* Chapter 5: 2x2 Client Notes Spread & Balanced 50/50 FAQ / Studio Terms */
+.testimonials-spread {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2.5rem, 5vw, 5rem);
-  align-items: start;
-}
-
-.client-notes-list {
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .client-note {
-  padding-block: 1.85rem;
+  padding-top: 1.4rem;
   border-top: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-}
-
-.client-note:last-child {
-  border-bottom: 1px solid var(--border-subtle);
+  justify-content: space-between;
+  gap: 0.95rem;
 }
 
 .client-note__quote {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.28rem, 1.7vw, 1.52rem);
-  line-height: 1.38;
+  font-size: clamp(1.24rem, 1.6vw, 1.46rem);
+  line-height: 1.4;
   color: var(--text-primary);
 }
 
@@ -955,10 +943,10 @@ p {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.5rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: var(--text-meta);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--text-secondary);
 }
 
 .client-note__author {
@@ -966,10 +954,18 @@ p {
   font-weight: 500;
 }
 
-.faq-policies-col {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.faq-policies-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  padding-top: 3rem;
+  align-items: start;
+}
+
+.subsection-heading {
+  font-size: 1.55rem;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
 }
 
 .faq-list {
@@ -985,13 +981,13 @@ p {
 .faq-item summary {
   list-style: none;
   cursor: pointer;
-  padding: 1.2rem 0;
+  padding: 1.05rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.25rem;
   font-family: var(--font-display);
-  font-size: 1.32rem;
+  font-size: 1.28rem;
   font-weight: 400;
   color: var(--text-primary);
 }
@@ -1013,26 +1009,14 @@ p {
 }
 
 .faq-item__body {
-  padding-bottom: 1.35rem;
-  font-size: 0.93rem;
-  line-height: 1.7;
+  padding-bottom: 1.2rem;
+  font-size: 0.92rem;
+  line-height: 1.66;
   color: var(--text-secondary);
 }
 
-.policies-ledger {
-  border-top: 1px solid var(--border-strong);
-  padding-top: 1.75rem;
-}
-
-.policies-ledger h3 {
-  font-size: 1.55rem;
-  margin-bottom: 0.45rem;
-}
-
-.policies-ledger__intro {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-bottom: 1.35rem;
+.policies-col {
+  padding-top: 0;
 }
 
 .policy-row {
@@ -1045,10 +1029,10 @@ p {
 }
 
 .policy-row__title {
-  font-size: 0.74rem;
+  font-size: 0.92rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--accent-henna);
 }
 
@@ -1126,10 +1110,10 @@ p {
   align-items: center;
   gap: 1rem;
   padding-top: 1.75rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: var(--text-meta);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--text-secondary);
 }
 
 /* Cinema Lightbox Modal */
@@ -1260,10 +1244,11 @@ p {
 
 .lightbox-spec-label {
   display: block;
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--text-secondary);
 }
 
 .lightbox-spec-val {
@@ -1399,16 +1384,15 @@ p {
 
 @media (max-width: 960px) {
   .cover-grid,
-  .chapter-header,
-  .notes-policies-grid,
+  .testimonials-spread,
+  .faq-policies-split,
   .footer-grid,
   .lightbox-dialog {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .chapter-header__aside {
-    align-items: flex-start;
-    text-align: left;
+  .faq-policies-split {
+    gap: 2.5rem;
   }
 
   .cover-secondary-print {
@@ -1435,18 +1419,6 @@ p {
     max-width: none;
     width: 100%;
     margin-top: 0.5rem;
-  }
-
-  .cover-ledger {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.9rem;
-  }
-
-  .cover-ledger__item:not(:first-child) {
-    padding-left: 0;
-    border-left: none;
-    padding-top: 0.9rem;
-    border-top: 1px solid var(--border-subtle);
   }
 
   .styles-lookbook {
@@ -1504,8 +1476,8 @@ p {
   }
 
   .nav-saved-trigger {
-    font-size: 0.66rem;
-    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
   }
 
   .mobile-menu-btn {

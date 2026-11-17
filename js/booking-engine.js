@@ -1,4 +1,4 @@
-// Single-spread Private Reservation Desk and Atelier Dossier fulfillment for Design by Sadia (v2).
+// Single-spread Private Reservation Desk and Honest Instagram DM Dossier fulfillment for Design by Sadia (v3).
 
 const BOOKING_STYLES_ID = 'dbs-booking-module-styles';
 const STORAGE_BOOKINGS_KEY = 'sadia_bookings_v1';
@@ -220,6 +220,7 @@ function buildIcsContent(record) {
   const descLines = [
     `Reference: ${record.ref}`,
     `Commission: ${record.packageName}`,
+    record.coverageSummary ? `Coverage: ${record.coverageSummary}` : '',
     `Paste Formula: ${record.formulaName}`,
     `Estimated Investment: $${record.estimatedAmount} (50% Retainer: $${Math.round(record.estimatedAmount * 0.5)})`,
     record.hiddenInitials ? `Hidden Initials / Motif: ${record.hiddenInitials}` : '',
@@ -236,7 +237,7 @@ function buildIcsContent(record) {
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:${record.ref.toLowerCase()}@designbysadia.com`,
+    `UID:${record.ref.toLowerCase()}@design-by-sadia.local`,
     `DTSTAMP:${dtStamp}`,
     `DTSTART:${formatIcsUtc(startLocal)}`,
     `DTEND:${formatIcsUtc(endLocal)}`,
@@ -254,13 +255,14 @@ function buildDossierPlainText(record) {
     `DESIGN BY SADIA | ATELIER RESERVATION DOSSIER`,
     `Reference: ${record.ref}`,
     `Client: ${record.clientName}`,
-    `Email: ${record.clientEmail}`,
-    `Phone: ${record.clientPhone}`,
+    `Instagram / Phone: ${record.clientContact}`,
+    record.clientEmail ? `Email (Receipt): ${record.clientEmail}` : '',
     `Date: ${formatReadableDate(record.dateIso)}`,
     `Time Window: ${record.timeSlotLabel}`,
     `Travel Zone: ${record.travelZoneLabel}`,
     `Venue / Neighborhood: ${record.venue || 'Sterling Studio / To Be Confirmed'}`,
     `Commission Type: ${record.packageName}`,
+    record.coverageSummary ? `Coverage Details: ${record.coverageSummary}` : '',
     `Paste Formula: ${record.formulaName}`,
     record.hiddenInitials ? `Hidden Initials / Motif Note: ${record.hiddenInitials}` : '',
     `Estimated Investment: $${record.estimatedAmount} (50% Retainer: $${Math.round(record.estimatedAmount * 0.5)})`,
@@ -279,17 +281,65 @@ function injectBookingStyles() {
       border-radius: 2px;
       background: var(--plane-1-surface, #191512);
     }
-    .dbs-desk-banner {
+    .dbs-desk-summary-bar {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      padding: 0.9rem 1.75rem;
-      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+      gap: 0.75rem 1.5rem;
+      padding: 1rem clamp(1.25rem, 3vw, 2.5rem);
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));
       background: color-mix(in oklch, var(--accent-henna, #c9a96e) 8%, transparent);
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
       color: var(--text-primary, #f4ece0);
+    }
+    .dbs-desk-summary-bar__text {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 0.55rem;
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+    .dbs-desk-summary-bar__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem 1.25rem;
+    }
+    .dbs-inline-action {
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--border-accent, rgba(201, 169, 110, 0.45));
+      padding: 0 0 0.15rem;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.84rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--accent-henna, #c9a96e);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 150ms ease, border-color 150ms ease;
+    }
+    .dbs-inline-action:hover {
+      color: var(--accent-henna-hover, #d8ba82);
+      border-bottom-color: var(--accent-henna-hover, #d8ba82);
+    }
+    .dbs-override-drawer {
+      padding: 1.15rem clamp(1.25rem, 3vw, 2.5rem);
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));
+      background: var(--plane-0-void, #120f0d);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+    @media (max-width: 820px) {
+      .dbs-override-drawer {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
     .dbs-desk-grid {
       display: grid;
@@ -298,7 +348,7 @@ function injectBookingStyles() {
     .dbs-desk-col {
       padding: clamp(1.5rem, 3vw, 2.5rem);
       display: grid;
-      gap: 1.45rem;
+      gap: 1.35rem;
       align-content: start;
       min-width: 0;
     }
@@ -317,10 +367,10 @@ function injectBookingStyles() {
 
     .dbs-desk-kicker {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.72rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--accent-henna, #c9a96e);
     }
@@ -337,11 +387,11 @@ function injectBookingStyles() {
       display: block;
       margin-bottom: 0.45rem;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.69rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted, #8e8171);
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--text-secondary, #b8ab9a);
     }
     .dbs-desk-input,
     .dbs-desk-select {
@@ -358,7 +408,7 @@ function injectBookingStyles() {
     }
     .dbs-desk-input::placeholder {
       color: var(--text-muted, #8e8171);
-      opacity: 0.75;
+      opacity: 0.78;
     }
     .dbs-desk-input:focus,
     .dbs-desk-select:focus {
@@ -371,7 +421,7 @@ function injectBookingStyles() {
     .dbs-desk-error {
       margin-top: 0.32rem;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--color-destructive, #e07c6d);
     }
 
@@ -420,9 +470,10 @@ function injectBookingStyles() {
       text-align: center;
       padding: 0.25rem 0;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.66rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: none;
       color: var(--text-muted, #8e8171);
     }
     .dbs-cal-day {
@@ -451,7 +502,7 @@ function injectBookingStyles() {
       cursor: not-allowed;
     }
 
-    /* Time Windows & Formula Square Toggles */
+    /* Time Windows */
     .dbs-slot-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -469,7 +520,7 @@ function injectBookingStyles() {
       background: var(--plane-0-void, #120f0d);
       color: var(--text-secondary, #b8ab9a);
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-variant-numeric: tabular-nums lining-nums;
       text-align: left;
       cursor: pointer;
@@ -542,6 +593,7 @@ function injectBookingStyles() {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      gap: 1rem;
       padding: 0.85rem 0;
       border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));
       border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));
@@ -552,6 +604,7 @@ function injectBookingStyles() {
       font-weight: 500;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--text-primary, #f4ece0);
+      white-space: nowrap;
     }
 
     .dbs-btn-primary {
@@ -609,7 +662,7 @@ function injectBookingStyles() {
     .dbs-dossier {
       padding: clamp(1.75rem, 3.5vw, 3rem);
       display: grid;
-      gap: 1.75rem;
+      gap: 1.5rem;
     }
     .dbs-dossier-head {
       display: flex;
@@ -617,8 +670,29 @@ function injectBookingStyles() {
       align-items: flex-end;
       flex-wrap: wrap;
       gap: 1rem;
-      padding-bottom: 1.25rem;
+      padding-bottom: 1.15rem;
       border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.12));
+    }
+    .dbs-dossier-callout {
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--accent-henna, #c9a96e);
+      border-radius: 2px;
+      background: var(--accent-henna-soft, rgba(201, 169, 110, 0.12));
+      display: grid;
+      gap: 0.35rem;
+    }
+    .dbs-dossier-callout__title {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-primary, #f4ece0);
+    }
+    .dbs-dossier-callout__note {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-secondary, #b8ab9a);
+      margin: 0;
     }
     .dbs-dossier-grid {
       display: grid;
@@ -636,7 +710,7 @@ function injectBookingStyles() {
       justify-content: space-between;
       align-items: baseline;
       gap: 1rem;
-      padding: 0.85rem 0;
+      padding: 0.82rem 0;
       border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
     }
     .dbs-dossier-actions {
@@ -664,28 +738,34 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
   const portfolioItems = Array.isArray(studioData.PORTFOLIO_ITEMS) ? studioData.PORTFOLIO_ITEMS : [];
   const brandProfile = studioData.BRAND_PROFILE || {};
   const igDmUrl = brandProfile.igDmUrl || 'https://ig.me/m/design.by.sadia';
-  const studioEmail = brandProfile.email || 'bookings@designbysadia.com';
+  const studioEmail = typeof brandProfile.email === 'string' ? brandProfile.email.trim() : '';
 
   const now = new Date();
   const todayIso = toIsoDate(now);
   const defaultDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3);
   const baseMonthDate = new Date(now.getFullYear(), now.getMonth(), 1);
 
+  const initialEstimate = window.__SADIA_ACTIVE_ESTIMATE__ || null;
+
   const state = {
     monthOffset: 0,
     dateIso: toIsoDate(defaultDate),
     timeSlotId: TIME_WINDOWS[1].id,
-    travelZoneId: travelZones[0].id,
+    travelZoneId: initialEstimate?.travelZoneId || travelZones[0].id,
+    travelFee: typeof initialEstimate?.travelFee === 'number' ? initialEstimate.travelFee : Number(travelZones[0].fee) || 0,
     venue: '',
-    packageId: packages[0].id,
-    formulaId: formulas[0].id,
+    packageId: initialEstimate?.packageId || packages[0].id,
+    formulaId: initialEstimate?.formulaId || formulas[0].id,
+    coverageSummary: initialEstimate?.coverageSummary || '',
+    conesCount: initialEstimate?.conesCount || null,
     hiddenInitials: '',
     clientName: '',
+    clientContact: '',
     clientEmail: '',
-    clientPhone: '',
-    estimatedTotal: null,
-    durationMins: null,
-    presetBanner: '',
+    estimatedTotal: initialEstimate?.estimatedAmount ?? null,
+    retainerAmount: initialEstimate?.retainerAmount ?? null,
+    durationMins: initialEstimate?.durationMins ?? null,
+    showOverrideControls: false,
     errors: {},
     confirmedRecord: null,
     dmNotice: ''
@@ -738,11 +818,15 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
     const base = state.estimatedTotal !== null
       ? Number(state.estimatedTotal)
       : (Number(pkg.startingPrice) || 120) + (state.formulaId === 'jagua' ? 15 : 0) + (Number(zone.fee) || 0);
+    const amount = Math.max(0, Math.round(base));
+    const retainer = state.retainerAmount !== null ? Math.round(Number(state.retainerAmount)) : Math.round(amount * 0.5);
     const durationMins = state.durationMins !== null ? Number(state.durationMins) : Number(pkg.durationMins) || 90;
+    const travelFee = typeof state.travelFee === 'number' ? state.travelFee : Number(zone.fee) || 0;
     return {
-      amount: Math.max(0, Math.round(base)),
-      retainer: Math.round(base * 0.5),
-      durationMins
+      amount,
+      retainer,
+      durationMins,
+      travelFee
     };
   }
 
@@ -751,13 +835,13 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
     if (!pinned.length) return '';
     return `
       <div class="dbs-archive-strip" data-archive-strip>
-        <div class="dbs-desk-label" style="margin: 0;">Saved Archive References (${pinned.length})</div>
+        <div class="dbs-desk-label" style="margin: 0;">Saved Archive Plates (${pinned.length})</div>
         <div class="dbs-archive-thumbs">
           ${pinned
             .map(
               (item) => `
                 <div class="dbs-archive-thumb" title="${escapeHtml(item.title)}">
-                  <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" width="56" height="56" loading="eager">
+                  <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" width="56" height="56" loading="lazy">
                   <button
                     type="button"
                     class="dbs-archive-remove"
@@ -831,28 +915,31 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
     if (!state.clientName.trim()) {
       errors.clientName = 'Enter your full name.';
     }
-    const email = state.clientEmail.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.clientEmail = 'Enter a valid email address for your dossier.';
+    const contact = state.clientContact.trim();
+    const digitsCount = contact.replace(/\D/g, '').length;
+    const isIgHandle = /^@?[a-zA-Z0-9._]{2,30}$/.test(contact);
+    if (!contact || (digitsCount < 7 && !isIgHandle)) {
+      errors.clientContact = 'Enter your Instagram handle or a reachable phone number.';
     }
-    if (!state.clientPhone.trim() || state.clientPhone.replace(/\D/g, '').length < 7) {
-      errors.clientPhone = 'Enter a reachable phone number.';
+    const email = state.clientEmail.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.clientEmail = 'Enter a valid email address or leave this field blank.';
     }
     state.errors = errors;
     return Object.keys(errors).length === 0;
   }
 
   function renderConfirmedDossier(record) {
-    const emailSubject = encodeURIComponent(`Reservation Inquiry ${record.ref} | ${record.packageName}`);
-    const emailBody = encodeURIComponent(buildDossierPlainText(record));
-    const mailtoHref = `mailto:${studioEmail}?subject=${emailSubject}&body=${emailBody}`;
+    const mailtoHref = studioEmail
+      ? `mailto:${studioEmail}?subject=${encodeURIComponent(`Reservation Inquiry ${record.ref} | ${record.packageName}`)}&body=${encodeURIComponent(buildDossierPlainText(record))}`
+      : '';
 
     mountBooking.innerHTML = `
       <div class="dbs-desk-shell">
         <div class="dbs-dossier">
           <div class="dbs-dossier-head">
             <div>
-              <span class="dbs-desk-kicker">Atelier Reservation Dossier</span>
+              <span class="dbs-desk-kicker">Prepared Reservation Dossier</span>
               <h3 class="dbs-desk-heading" style="font-size: clamp(1.9rem, 3vw, 2.5rem);">${escapeHtml(record.ref)}</h3>
             </div>
             <div style="text-align: right;">
@@ -861,10 +948,21 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
             </div>
           </div>
 
+          <div class="dbs-dossier-callout" role="status">
+            <div class="dbs-dossier-callout__title">${escapeHtml(state.dmNotice || 'Dossier Prepared & Copied: Send via Instagram DM to Confirm Date')}</div>
+            <p class="dbs-dossier-callout__note">
+              Your itemized brief has been copied to your clipboard. Open @design.by.sadia on Instagram below and paste your dossier so Sadia can confirm availability and retainer details.
+            </p>
+          </div>
+
           <div class="dbs-dossier-grid">
             <div class="dbs-dossier-row">
               <span class="dbs-desk-label" style="margin: 0;">Client</span>
               <span>${escapeHtml(record.clientName)}</span>
+            </div>
+            <div class="dbs-dossier-row">
+              <span class="dbs-desk-label" style="margin: 0;">Instagram / Phone</span>
+              <span>${escapeHtml(record.clientContact)}</span>
             </div>
             <div class="dbs-dossier-row">
               <span class="dbs-desk-label" style="margin: 0;">Preferred Date</span>
@@ -894,6 +992,14 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
               <span class="dbs-desk-label" style="margin: 0;">Estimated Duration</span>
               <span>${escapeHtml(formatDuration(record.durationMins))}</span>
             </div>
+            ${
+              record.coverageSummary
+                ? `<div class="dbs-dossier-row">
+                    <span class="dbs-desk-label" style="margin: 0;">Coverage Selection</span>
+                    <span>${escapeHtml(record.coverageSummary)}</span>
+                  </div>`
+                : ''
+            }
           </div>
 
           ${
@@ -908,14 +1014,6 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
               : ''
           }
 
-          ${
-            state.dmNotice
-              ? `<div role="status" style="padding: 0.85rem 1rem; border: 1px solid var(--accent-henna, #c9a96e); border-radius: 2px; background: var(--accent-henna-soft, rgba(201, 169, 110, 0.12)); font-size: 0.88rem; color: var(--text-primary);">
-                  ${escapeHtml(state.dmNotice)}
-                </div>`
-              : ''
-          }
-
           <div class="dbs-dossier-actions">
             <a
               href="${escapeHtml(igDmUrl)}"
@@ -923,11 +1021,12 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
               rel="noopener noreferrer"
               class="dbs-btn-primary"
               data-action-ig
-            >Send Dossier via Instagram DM</a>
-            <button type="button" class="dbs-btn-ghost" data-action-ics>Download .ICS Hold</button>
-            <a href="${escapeHtml(mailtoHref)}" class="dbs-btn-ghost">Compose Studio Email</a>
-            <button type="button" class="dbs-btn-ghost" data-action-print>Print Dossier</button>
-            <button type="button" class="dbs-btn-ghost" data-action-new-inquiry>Edit Details</button>
+            >Open @design.by.sadia Instagram DM</a>
+            <button type="button" class="dbs-btn-ghost" data-action-copy>Copy Dossier Text</button>
+            <button type="button" class="dbs-btn-ghost" data-action-ics>Download .ics Calendar Hold</button>
+            ${mailtoHref ? `<a href="${escapeHtml(mailtoHref)}" class="dbs-btn-ghost">Compose Studio Email</a>` : ''}
+            <button type="button" class="dbs-btn-ghost" data-action-print>Print / Save PDF</button>
+            <button type="button" class="dbs-btn-ghost" data-action-new-inquiry>Edit Inquiry Details</button>
           </div>
         </div>
       </div>
@@ -936,8 +1035,20 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
     mountBooking.querySelector('[data-action-ig]')?.addEventListener('click', () => {
       const text = buildDossierPlainText(record);
       void copyTextSafe(text).then(() => {
-        state.dmNotice = 'Dossier copied to clipboard. Paste directly into your @design.by.sadia Instagram message.';
-        render();
+        state.dmNotice = 'Copied to clipboard. Paste into @design.by.sadia Instagram DM to confirm your date.';
+        const titleEl = mountBooking.querySelector('.dbs-dossier-callout__title');
+        if (titleEl) titleEl.textContent = state.dmNotice;
+      });
+    });
+
+    mountBooking.querySelector('[data-action-copy]')?.addEventListener('click', () => {
+      const text = buildDossierPlainText(record);
+      void copyTextSafe(text).then((ok) => {
+        state.dmNotice = ok
+          ? 'Copied to clipboard. Ready to paste into @design.by.sadia Instagram DM.'
+          : 'Clipboard access blocked by browser. Select and copy your dossier details above.';
+        const titleEl = mountBooking.querySelector('.dbs-dossier-callout__title');
+        if (titleEl) titleEl.textContent = state.dmNotice;
       });
     });
 
@@ -971,16 +1082,70 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
       return;
     }
 
+    const activeId = document.activeElement && mountBooking.contains(document.activeElement)
+      ? document.activeElement.id
+      : '';
+    const selectionStart = activeId && typeof document.activeElement.selectionStart === 'number'
+      ? document.activeElement.selectionStart
+      : null;
+
     const pkg = getSelectedPackage();
+    const formula = getSelectedFormula();
+    const zone = getSelectedZone();
     const summary = computeSummary();
+    const travelLabel = summary.travelFee === 0 ? '$0 Travel' : `+$${summary.travelFee} Travel`;
 
     mountBooking.innerHTML = `
       <div class="dbs-desk-shell">
+        <div class="dbs-desk-summary-bar" data-active-summary-bar>
+          <div class="dbs-desk-summary-bar__text">
+            <strong style="font-weight: 500; color: var(--text-secondary);">Selected:</strong>
+            <span>${escapeHtml(pkg.name)}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>${escapeHtml(formula.name)}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>${escapeHtml(zone.label)} (${escapeHtml(travelLabel)})</span>
+            <span aria-hidden="true">&middot;</span>
+            <span style="color: var(--accent-henna, #c9a96e); font-weight: 500;">Est. $${summary.amount} ($${summary.retainer} Retainer)</span>
+          </div>
+          <div class="dbs-desk-summary-bar__actions">
+            <button type="button" class="dbs-inline-action" data-modify-config>Modify configuration &uarr;</button>
+            <button type="button" class="dbs-inline-action" data-toggle-override aria-expanded="${state.showOverrideControls ? 'true' : 'false'}">
+              ${state.showOverrideControls ? 'Close quick change' : 'Change commission or formula'}
+            </button>
+          </div>
+        </div>
+
         ${
-          state.presetBanner
-            ? `<div class="dbs-desk-banner" role="status">
-                <span>${escapeHtml(state.presetBanner)}</span>
-                <button type="button" class="dbs-btn-ghost" style="min-height: 30px; padding: 0.25rem 0.7rem; font-size: 0.68rem;" data-dismiss-banner>Clear</button>
+          state.showOverrideControls
+            ? `<div class="dbs-override-drawer" data-override-drawer>
+                <div>
+                  <label for="dbs-override-pkg" class="dbs-desk-label">Commission Tier</label>
+                  <select id="dbs-override-pkg" class="dbs-desk-select">
+                    ${packages
+                      .map((p) => `<option value="${escapeHtml(p.id)}" ${p.id === state.packageId ? 'selected' : ''}>${escapeHtml(formatPackageOptionLabel(p))}</option>`)
+                      .join('')}
+                  </select>
+                </div>
+                <div>
+                  <label for="dbs-override-formula" class="dbs-desk-label">Paste Formula</label>
+                  <select id="dbs-override-formula" class="dbs-desk-select">
+                    ${formulas
+                      .map((f) => `<option value="${escapeHtml(f.id)}" ${f.id === state.formulaId ? 'selected' : ''}>${escapeHtml(FORMULA_SHORT_LABELS[f.id] || f.name)}</option>`)
+                      .join('')}
+                  </select>
+                </div>
+                <div>
+                  <label for="dbs-override-zone" class="dbs-desk-label">Travel Zone</label>
+                  <select id="dbs-override-zone" class="dbs-desk-select">
+                    ${travelZones
+                      .map((z) => {
+                        const feeTxt = z.fee === 0 ? '$0 Travel' : `+$${z.fee} Travel`;
+                        return `<option value="${escapeHtml(z.id)}" ${z.id === state.travelZoneId ? 'selected' : ''}>${escapeHtml(z.label)} (${feeTxt})</option>`;
+                      })
+                      .join('')}
+                  </select>
+                </div>
               </div>`
             : ''
         }
@@ -988,7 +1153,7 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
         <div class="dbs-desk-grid">
           <div class="dbs-desk-col dbs-desk-col--left">
             <div>
-              <span class="dbs-desk-kicker">01 / Select Date, Time &amp; Location</span>
+              <span class="dbs-desk-kicker">Step 1 &middot; Preferred Date, Time &amp; Venue</span>
               <h3 class="dbs-desk-heading">Preferred Studio Date</h3>
             </div>
 
@@ -1015,18 +1180,6 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
             </div>
 
             <div>
-              <label for="dbs-book-zone" class="dbs-desk-label">Northern Virginia / DMV Area</label>
-              <select id="dbs-book-zone" class="dbs-desk-select">
-                ${travelZones
-                  .map((z) => {
-                    const feeNote = z.fee === 0 ? 'Sterling Studio / $0 Travel' : `+$${z.fee} Travel`;
-                    return `<option value="${escapeHtml(z.id)}" ${z.id === state.travelZoneId ? 'selected' : ''}>${escapeHtml(z.label)} (${feeNote})</option>`;
-                  })
-                  .join('')}
-              </select>
-            </div>
-
-            <div>
               <label for="dbs-venue" class="dbs-desk-label">Venue or Neighborhood</label>
               <input
                 id="dbs-venue"
@@ -1040,39 +1193,8 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
 
           <div class="dbs-desk-col">
             <div>
-              <span class="dbs-desk-kicker">02 / Commission Details &amp; Client Contact</span>
+              <span class="dbs-desk-kicker">Step 2 &middot; Personalization &amp; Client Details</span>
               <h3 class="dbs-desk-heading">Private Dossier Brief</h3>
-            </div>
-
-            <div>
-              <label for="dbs-commission-type" class="dbs-desk-label">Commission Type</label>
-              <select id="dbs-commission-type" class="dbs-desk-select">
-                ${packages
-                  .map(
-                    (p) => `<option value="${escapeHtml(p.id)}" ${p.id === state.packageId ? 'selected' : ''}>${escapeHtml(formatPackageOptionLabel(p))}</option>`
-                  )
-                  .join('')}
-              </select>
-            </div>
-
-            <div>
-              <span class="dbs-desk-label">Paste Formula</span>
-              <div class="dbs-slot-grid" role="group" aria-label="Paste formula">
-                ${formulas
-                  .map((f) => {
-                    const label = FORMULA_SHORT_LABELS[f.id] || f.name;
-                    const pressed = f.id === state.formulaId;
-                    return `
-                      <button
-                        type="button"
-                        class="dbs-slot-btn"
-                        data-book-formula="${escapeHtml(f.id)}"
-                        aria-pressed="${pressed ? 'true' : 'false'}"
-                      >${escapeHtml(label)}</button>
-                    `;
-                  })
-                  .join('')}
-              </div>
             </div>
 
             <div>
@@ -1097,7 +1219,7 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
                 type="text"
                 class="dbs-desk-input"
                 value="${escapeHtml(state.clientName)}"
-                placeholder="Amina Khan"
+                placeholder="Your full name"
                 aria-invalid="${state.errors.clientName ? 'true' : 'false'}"
               >
               ${state.errors.clientName ? `<div class="dbs-desk-error">${escapeHtml(state.errors.clientName)}</div>` : ''}
@@ -1105,50 +1227,103 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
 
             <div class="dbs-contact-row">
               <div>
-                <label for="dbs-client-email" class="dbs-desk-label">Email Address</label>
+                <label for="dbs-client-contact" class="dbs-desk-label">Instagram Handle or Phone</label>
+                <input
+                  id="dbs-client-contact"
+                  type="text"
+                  class="dbs-desk-input"
+                  value="${escapeHtml(state.clientContact)}"
+                  placeholder="@handle or phone number"
+                  aria-invalid="${state.errors.clientContact ? 'true' : 'false'}"
+                >
+                ${state.errors.clientContact ? `<div class="dbs-desk-error">${escapeHtml(state.errors.clientContact)}</div>` : ''}
+              </div>
+              <div>
+                <label for="dbs-client-email" class="dbs-desk-label">Email Address (Optional, for calendar receipt)</label>
                 <input
                   id="dbs-client-email"
                   type="email"
                   class="dbs-desk-input"
                   value="${escapeHtml(state.clientEmail)}"
-                  placeholder="amina@example.com"
+                  placeholder="Optional email for .ics copy"
                   aria-invalid="${state.errors.clientEmail ? 'true' : 'false'}"
                 >
                 ${state.errors.clientEmail ? `<div class="dbs-desk-error">${escapeHtml(state.errors.clientEmail)}</div>` : ''}
               </div>
-              <div>
-                <label for="dbs-client-phone" class="dbs-desk-label">Phone Number</label>
-                <input
-                  id="dbs-client-phone"
-                  type="tel"
-                  class="dbs-desk-input"
-                  value="${escapeHtml(state.clientPhone)}"
-                  placeholder="(703) 555-0194"
-                  aria-invalid="${state.errors.clientPhone ? 'true' : 'false'}"
-                >
-                ${state.errors.clientPhone ? `<div class="dbs-desk-error">${escapeHtml(state.errors.clientPhone)}</div>` : ''}
-              </div>
             </div>
 
-            <div class="dbs-desk-summary">
+            <div class="dbs-desk-summary" data-desk-summary>
               <div>
-                <div class="dbs-desk-label" style="margin-bottom: 0.15rem;">${escapeHtml(pkg.name)}</div>
-                <div style="font-size: 0.82rem; color: var(--text-secondary); font-variant-numeric: tabular-nums lining-nums;">
+                <div class="dbs-desk-label" style="margin-bottom: 0.15rem;">${escapeHtml(pkg.name)}${state.coverageSummary ? ` (${escapeHtml(state.coverageSummary)})` : ''}</div>
+                <div style="font-size: 0.84rem; color: var(--text-secondary); font-variant-numeric: tabular-nums lining-nums;">
                   ${escapeHtml(formatReadableDate(state.dateIso))} &middot; 50% Retainer: $${summary.retainer}
                 </div>
               </div>
               <div class="dbs-desk-price">$${summary.amount}</div>
             </div>
 
-            <button type="button" class="dbs-btn-primary" style="width: 100%;" data-submit-booking>Reserve a Date</button>
+            <button type="button" class="dbs-btn-primary" style="width: 100%;" data-submit-booking>Prepare Dossier &amp; Message @design.by.sadia</button>
           </div>
         </div>
       </div>
     `;
 
-    mountBooking.querySelector('[data-dismiss-banner]')?.addEventListener('click', () => {
-      state.presetBanner = '';
+    if (activeId) {
+      const restored = document.getElementById(activeId);
+      if (restored && typeof restored.focus === 'function') {
+        restored.focus({ preventScroll: true });
+        if (selectionStart !== null && typeof restored.setSelectionRange === 'function') {
+          restored.setSelectionRange(selectionStart, selectionStart);
+        }
+      }
+    }
+
+    mountBooking.querySelector('[data-modify-config]')?.addEventListener('click', () => {
+      const estimatorEl = document.getElementById('coverage-estimator-mount') || document.getElementById('estimator');
+      if (estimatorEl) {
+        estimatorEl.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+      } else {
+        window.scrollBy({ top: -300, behavior: 'smooth' });
+      }
+    });
+
+    mountBooking.querySelector('[data-toggle-override]')?.addEventListener('click', () => {
+      state.showOverrideControls = !state.showOverrideControls;
       render();
+    });
+
+    mountBooking.querySelector('#dbs-override-pkg')?.addEventListener('change', (ev) => {
+      const nextPkgId = ev.target.value;
+      state.packageId = nextPkgId;
+      state.estimatedTotal = null;
+      state.retainerAmount = null;
+      state.durationMins = null;
+      document.dispatchEvent(new CustomEvent('sadia:preset-request', {
+        detail: { packageId: nextPkgId, source: 'booking-override' }
+      }));
+    });
+
+    mountBooking.querySelector('#dbs-override-formula')?.addEventListener('change', (ev) => {
+      const nextFormulaId = ev.target.value;
+      state.formulaId = nextFormulaId;
+      state.estimatedTotal = null;
+      state.retainerAmount = null;
+      document.dispatchEvent(new CustomEvent('sadia:preset-request', {
+        detail: { formulaId: nextFormulaId, source: 'booking-override' }
+      }));
+    });
+
+    mountBooking.querySelector('#dbs-override-zone')?.addEventListener('change', (ev) => {
+      const nextZoneId = ev.target.value;
+      state.travelZoneId = nextZoneId;
+      state.estimatedTotal = null;
+      state.retainerAmount = null;
+      document.dispatchEvent(new CustomEvent('sadia:preset-request', {
+        detail: { travelZoneId: nextZoneId, source: 'booking-override' }
+      }));
     });
 
     mountBooking.querySelector('[data-cal-prev]')?.addEventListener('click', () => {
@@ -1180,29 +1355,8 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
       });
     });
 
-    mountBooking.querySelector('#dbs-book-zone')?.addEventListener('change', (ev) => {
-      state.travelZoneId = ev.target.value;
-      state.estimatedTotal = null;
-      render();
-    });
-
     mountBooking.querySelector('#dbs-venue')?.addEventListener('input', (ev) => {
       state.venue = ev.target.value;
-    });
-
-    mountBooking.querySelector('#dbs-commission-type')?.addEventListener('change', (ev) => {
-      state.packageId = ev.target.value;
-      state.estimatedTotal = null;
-      state.durationMins = null;
-      render();
-    });
-
-    mountBooking.querySelectorAll('[data-book-formula]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.formulaId = btn.getAttribute('data-book-formula') || formulas[0].id;
-        state.estimatedTotal = null;
-        render();
-      });
     });
 
     mountBooking.querySelector('#dbs-hidden-initials')?.addEventListener('input', (ev) => {
@@ -1223,17 +1377,17 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
       }
     });
 
-    mountBooking.querySelector('#dbs-client-email')?.addEventListener('input', (ev) => {
-      state.clientEmail = ev.target.value;
-      if (state.errors.clientEmail && ev.target.value.trim()) {
-        delete state.errors.clientEmail;
+    mountBooking.querySelector('#dbs-client-contact')?.addEventListener('input', (ev) => {
+      state.clientContact = ev.target.value;
+      if (state.errors.clientContact && ev.target.value.trim()) {
+        delete state.errors.clientContact;
       }
     });
 
-    mountBooking.querySelector('#dbs-client-phone')?.addEventListener('input', (ev) => {
-      state.clientPhone = ev.target.value;
-      if (state.errors.clientPhone && ev.target.value.trim()) {
-        delete state.errors.clientPhone;
+    mountBooking.querySelector('#dbs-client-email')?.addEventListener('input', (ev) => {
+      state.clientEmail = ev.target.value;
+      if (state.errors.clientEmail) {
+        delete state.errors.clientEmail;
       }
     });
 
@@ -1259,6 +1413,7 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
         packageName: selectedPkg.name,
         formulaId: selectedFormula.id,
         formulaName: selectedFormula.name,
+        coverageSummary: state.coverageSummary,
         hiddenInitials: state.hiddenInitials.trim(),
         dateIso: state.dateIso,
         timeSlotId: slot.id,
@@ -1271,22 +1426,49 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
         estimatedAmount: finalSummary.amount,
         durationMins: finalSummary.durationMins,
         clientName: state.clientName.trim(),
+        clientContact: state.clientContact.trim(),
         clientEmail: state.clientEmail.trim(),
-        clientPhone: state.clientPhone.trim(),
         moodboardIds: pinned.map((p) => p.id),
         moodboardTitles: pinned.map((p) => p.title)
       };
 
+      const plainText = buildDossierPlainText(record);
+      void copyTextSafe(plainText);
       saveBookingRecord(record);
       state.confirmedRecord = record;
-      state.dmNotice = '';
+      state.dmNotice = 'Dossier Prepared & Copied: Send via Instagram DM to Confirm Date';
       render();
     });
+  }
+
+  function applyEstimateSync(detail = {}) {
+    if (!detail || !detail.packageId) return;
+    state.packageId = detail.packageId;
+    if (detail.formulaId) state.formulaId = detail.formulaId;
+    if (detail.travelZoneId) state.travelZoneId = detail.travelZoneId;
+    if (typeof detail.travelFee === 'number') state.travelFee = detail.travelFee;
+    if (typeof detail.estimatedAmount === 'number') state.estimatedTotal = detail.estimatedAmount;
+    if (typeof detail.retainerAmount === 'number') state.retainerAmount = detail.retainerAmount;
+    if (typeof detail.durationMins === 'number') state.durationMins = detail.durationMins;
+    if (typeof detail.coverageSummary === 'string') state.coverageSummary = detail.coverageSummary;
+    if (typeof detail.conesCount === 'number') state.conesCount = detail.conesCount;
+    if (!state.confirmedRecord) {
+      render();
+    }
   }
 
   function applyPreset(preset = {}) {
     state.confirmedRecord = null;
     state.dmNotice = '';
+
+    const hasConfigChange = Boolean(
+      preset.packageId ||
+      preset.mode ||
+      preset.formulaId ||
+      preset.medium ||
+      preset.travelZoneId ||
+      preset.estimatedTotal
+    );
 
     if (preset.packageId) {
       const match =
@@ -1314,29 +1496,22 @@ export function initBookingEngine({ mountBooking, studioData = {}, getMoodboardI
 
     if (preset.estimatedTotal) {
       state.estimatedTotal = Number(preset.estimatedTotal);
-    } else {
+      state.retainerAmount = Math.round(Number(preset.estimatedTotal) * 0.5);
+      state.durationMins = preset.durationMins ? Number(preset.durationMins) : state.durationMins;
+    } else if (hasConfigChange) {
       state.estimatedTotal = null;
-    }
-
-    if (preset.durationMins) {
-      state.durationMins = Number(preset.durationMins);
-    } else {
-      state.durationMins = null;
-    }
-
-    const selectedPkg = getSelectedPackage();
-    if (preset.estimatedTotal) {
-      state.presetBanner = `${selectedPkg.name} ($${preset.estimatedTotal} estimate) synced from Calculator.`;
-    } else if (preset.customSketch) {
-      state.presetBanner = `Custom iPad Blueprint session synced (${selectedPkg.name}).`;
-    } else {
-      state.presetBanner = `${selectedPkg.name} selected for your reservation brief.`;
+      state.retainerAmount = null;
+      state.durationMins = preset.durationMins ? Number(preset.durationMins) : null;
     }
 
     render();
   }
 
   activeBookingApi = { applyPreset };
+
+  document.addEventListener('sadia:estimate-sync', (ev) => {
+    applyEstimateSync(ev?.detail);
+  });
 
   document.addEventListener('sadia:moodboard-change', () => {
     const liveContainer = mountBooking.querySelector('[data-moodboard-live-container]');
@@ -1358,8 +1533,9 @@ export function openBookingWithPreset(preset = {}) {
   if (activeBookingApi && typeof activeBookingApi.applyPreset === 'function') {
     activeBookingApi.applyPreset(preset);
   }
-  const bookSection = document.getElementById('book');
-  if (bookSection) {
-    bookSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.dispatchEvent(new CustomEvent('sadia:preset-request', { detail: preset }));
+  const target = document.getElementById('booking-concierge-mount') || document.getElementById('book');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }

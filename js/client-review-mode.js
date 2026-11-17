@@ -1,15 +1,14 @@
-// Client Staging Sign-Off Drawer for Design by Sadia (v2), mounted strictly when ?review=1 is present.
+// Client Staging Sign-Off Drawer for Design by Sadia (v3), mounted strictly when ?review=1 is present.
 
 const REVIEW_STYLES_ID = 'dbs-review-module-styles';
 const STORAGE_REVIEW_KEY = 'sadia_client_review_v1';
 
 const REVIEW_SECTIONS = [
   { id: 'hero-voice', label: 'Hero Editorial & Brand Voice' },
-  { id: 'portfolio-15', label: 'Curated Client Archive (15 Works)' },
-  { id: 'sketch-stain', label: 'iPad Blueprint to Living Stain' },
-  { id: 'stain-lab', label: 'Four Paste Formulas & 48h Oxidation' },
-  { id: 'nova-pricing', label: 'Studio Rate Menu & Session Calculator' },
-  { id: 'booking-ig', label: 'Private Reservation Desk & IG Dossier' }
+  { id: 'styles-archive', label: 'Four Traditions & Curated Client Archive' },
+  { id: 'sketch-stain', label: 'Blueprint & 48-Hour Stain Oxidation Lab' },
+  { id: 'rates-booking', label: 'Studio Rates & Private IG DM Dossier' },
+  { id: 'notes-policies', label: 'Bride Testimonials, FAQ & Studio Terms' }
 ];
 
 function escapeHtml(value) {
@@ -85,12 +84,12 @@ function injectReviewStyles() {
       gap: 1.25rem;
       box-shadow: 24px 0 64px rgba(0, 0, 0, 0.65);
     }
-    .dbs-review-micro {
+    .dbs-review-kicker {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.7rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--accent-henna, #c9a96e);
     }
@@ -311,7 +310,7 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
           >
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));">
               <div>
-                <div class="dbs-review-micro">Pre-Production Sign-Off</div>
+                <div class="dbs-review-kicker">Pre-Production Sign-Off</div>
                 <h2 class="dbs-review-title">Atelier Staging Review</h2>
               </div>
               <button
@@ -329,8 +328,8 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
 
             <div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-                <span class="dbs-review-micro" style="color: var(--text-muted);">Sign-Off Progress</span>
-                <span class="dbs-review-micro">${completedCount} / ${REVIEW_SECTIONS.length} (${pct}%)</span>
+                <span class="dbs-review-kicker" style="color: var(--text-secondary);">Sign-off progress</span>
+                <span class="dbs-review-kicker">${completedCount} / ${REVIEW_SECTIONS.length} (${pct}%)</span>
               </div>
               <div style="height: 3px; background: var(--plane-0-void, #120f0d); overflow: hidden;">
                 <div style="height: 100%; width: ${pct}%; background: var(--accent-henna, #c9a96e); transition: width 200ms ease;"></div>
@@ -355,14 +354,14 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
             </div>
 
             <div style="display: grid; gap: 0.45rem;">
-              <label for="dbs-review-notes" class="dbs-review-micro">Revision &amp; Rate Notes</label>
+              <label for="dbs-review-notes" class="dbs-review-kicker" style="color: var(--text-secondary);">Revision &amp; Rate Notes</label>
               <textarea
                 id="dbs-review-notes"
                 class="dbs-review-textarea"
                 rows="4"
                 placeholder="Example: Adjust bridal starting rate to $300, update Sterling travel note, or approve as shown."
               >${escapeHtml(reviewState.notes)}</textarea>
-              <div style="font-size: 0.76rem; color: var(--text-muted);">
+              <div style="font-size: 0.78rem; color: var(--text-muted);">
                 Saved automatically in this browser while previewing.
               </div>
             </div>

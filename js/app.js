@@ -1,7 +1,7 @@
-import * as studioData from "../data/studio-data.js?v=2";
-import { initInteractiveTools } from "./interactive-tools.js?v=2";
-import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js?v=2";
-import { initClientReviewMode } from "./client-review-mode.js?v=2";
+import * as studioData from "../data/studio-data.js?v=3";
+import { initInteractiveTools } from "./interactive-tools.js?v=3";
+import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js?v=3";
+import { initClientReviewMode } from "./client-review-mode.js?v=3";
 
 const MOODBOARD_KEY = "sadia_moodboard_v1";
 
@@ -17,7 +17,7 @@ const FALLBACK_SIGNATURE_STYLES = [
     roman: "I",
     title: "Royal Rajasthani & Mughlai Bridal",
     notes: "Micro-jali latticework, negative-space lotus medallions, scalloped forearm cuffs, and partner initials woven cleanly into the palm.",
-    src: generatedArtifacts.heroCouture || "./assets/portfolio/portfolio-02-royal-bridal-palms.jpg",
+    src: "./assets/generated/style-rajasthani-couture.jpg",
     packageId: "royal-bridal",
     formulaId: "organic",
   },
@@ -26,7 +26,7 @@ const FALLBACK_SIGNATURE_STYLES = [
     roman: "II",
     title: "Khaleeji Shaded Rose & Gulf Vine",
     notes: "Sweeping diagonal rose clusters, high-contrast petal shading, and elongated index trails balanced by open skin breathing room.",
-    src: generatedArtifacts.styleKhaleeji || "./assets/portfolio/portfolio-05-velvet-cuff-paisley.jpg",
+    src: "./assets/generated/style-khaleeji-plate.jpg",
     packageId: "custom-sketch-session",
     formulaId: "organic",
   },
@@ -35,7 +35,7 @@ const FALLBACK_SIGNATURE_STYLES = [
     roman: "III",
     title: "Contemporary Botanical Jagua",
     notes: "Amazonian Genipa americana fine-line botanical cuffs and architectural florals oxidizing into deep slate blue-black over 48 hours.",
-    src: generatedArtifacts.stainJagua || "./assets/portfolio/portfolio-14-minimalist-palm-sprigs.jpg",
+    src: "./assets/generated/style-jagua-contemporary.jpg",
     packageId: "intimate-nikah",
     formulaId: "jagua",
   },
@@ -44,7 +44,7 @@ const FALLBACK_SIGNATURE_STYLES = [
     roman: "IV",
     title: "Bespoke Heirloom & Hidden Initials",
     notes: "Custom couple monograms, wedding dates, and delicate pearl-chain haathphool motifs composed freehand to match ring and bangle proportions.",
-    src: "./assets/portfolio/portfolio-03-rose-vine-initials.jpg",
+    src: "./assets/generated/style-heirloom-monogram.jpg",
     packageId: "royal-bridal",
     formulaId: "organic",
   },
@@ -173,9 +173,9 @@ function renderSignatureStyles() {
               alt="${escapeHtml(rawTitle)} freehand henna study"
               width="960"
               height="1200"
-              loading="eager"
+              loading="lazy"
               decoding="async"
-              onerror="this.onerror=null;this.src='./assets/portfolio/portfolio-02-royal-bridal-palms.jpg';"
+              onerror="this.onerror=null;this.src='./assets/generated/hero-couture-bridal.jpg';"
             >
           </div>
           <span class="style-column__numeral">${escapeHtml(roman)}</span>
@@ -197,17 +197,15 @@ function renderSignatureStyles() {
     .join("");
 }
 
-function renderPortfolioGrid() {
+function renderPortfolioGrid(animate = false) {
   const grid = document.getElementById("portfolio-grid");
-  const countEl = document.getElementById("portfolio-visible-count");
-  const totalEl = document.getElementById("portfolio-total-label");
+  const allCountEl = document.getElementById("portfolio-all-count");
   if (!grid) return;
 
   const visible = getVisiblePortfolioItems();
   const saved = new Set(getMoodboardIds());
 
-  if (totalEl) totalEl.textContent = `${portfolioItems.length} REAL CLIENT WORKS`;
-  if (countEl) countEl.textContent = `Showing ${visible.length} of ${portfolioItems.length} works`;
+  if (allCountEl) allCountEl.textContent = String(portfolioItems.length);
 
   const renderMarkup = () => {
     grid.innerHTML = visible
@@ -226,7 +224,7 @@ function renderPortfolioGrid() {
                 alt="${escapeHtml(item.title)} · ${escapeHtml(item.medium || "Organic Henna")} by Design by Sadia"
                 width="${escapeHtml(w)}"
                 height="${escapeHtml(h)}"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
               >
             </div>
@@ -251,8 +249,20 @@ function renderPortfolioGrid() {
   };
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (typeof document.startViewTransition === "function" && !reduceMotion) {
-    document.startViewTransition(renderMarkup);
+  const canTransition =
+    animate &&
+    typeof document.startViewTransition === "function" &&
+    document.visibilityState === "visible" &&
+    !reduceMotion;
+
+  if (canTransition) {
+    try {
+      const vt = document.startViewTransition(renderMarkup);
+      vt?.ready?.catch(() => {});
+      vt?.finished?.catch(() => {});
+    } catch {
+      renderMarkup();
+    }
   } else {
     renderMarkup();
   }
@@ -413,27 +423,25 @@ function renderHeroDetails() {
     heroImg.src = generatedArtifacts.heroCouture;
   }
 
-  const secondary =
-    portfolioItems.find((item) => item.id === "rose-vine-initials") ||
-    portfolioItems[1] ||
-    portfolioItems[0];
   const floatBtn = document.getElementById("hero-float-preview");
   const floatImg = document.getElementById("hero-float-img");
   const floatTitle = document.getElementById("hero-float-title");
   const floatSub = document.getElementById("hero-float-sub");
+  const atelierSrc = generatedArtifacts.heroEditorial || "./assets/generated/hero-atelier.jpg";
 
-  if (secondary && floatBtn) {
+  if (floatBtn) {
     if (floatImg) {
-      floatImg.src = secondary.src;
-      floatImg.alt = `${secondary.title} archival print`;
+      floatImg.src = atelierSrc;
+      floatImg.alt = "Hand-rolled organic henna cones and paste preparation at the Sterling atelier";
     }
-    if (floatTitle) floatTitle.textContent = "Rose-Vine & Initials";
-    if (floatSub) floatSub.textContent = `${secondary.medium || "Organic Henna"} · Inspect Plate`;
+    if (floatTitle) floatTitle.textContent = "Atelier Preparation";
+    if (floatSub) floatSub.textContent = "Hand-Rolled Cones & Paste";
     floatBtn.addEventListener("click", () => {
-      activeCategory = "all";
-      syncFilterButtons();
-      renderPortfolioGrid();
-      openLightboxById(secondary.id);
+      playTactileTick();
+      const target = document.getElementById("process");
+      if (target) {
+        target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      }
     });
   }
 }
@@ -540,7 +548,7 @@ function bindEvents() {
     activeCategory = cat;
     playTactileTick();
     syncFilterButtons();
-    renderPortfolioGrid();
+    renderPortfolioGrid(true);
   });
 
   const grid = document.getElementById("portfolio-grid");

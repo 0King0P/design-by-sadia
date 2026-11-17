@@ -1,11 +1,11 @@
-// Architectural editorial interactive modules for Design by Sadia (v2).
+// Architectural editorial interactive modules for Design by Sadia (v3).
 
 const STYLES_ID = 'dbs-interactive-module-styles';
 
 const DEFAULT_SKETCH_STAIN = {
   sketchSrc: './assets/portfolio/sketch-floral-vine.jpg',
   stainSrc: './assets/portfolio/stain-floral-vine.jpg',
-  title: 'Bespoke Concept to Living Stain',
+  title: 'Custom Bridal Proportion Mapping',
   description:
     'Every custom bridal and private commission begins with an anatomical proportion study drawn on iPad over your hand silhouette, ensuring every petal, arch, and lattice balances naturally before a single cone is unsealed.',
   completionMinutes: 45,
@@ -238,7 +238,7 @@ function injectInteractiveStyles() {
     .dbs-spread {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: clamp(1.75rem, 4vw, 3.75rem);
+      gap: clamp(1.5rem, 3.5vw, 3.25rem);
       align-items: start;
     }
     .dbs-spread--centered {
@@ -250,7 +250,7 @@ function injectInteractiveStyles() {
     @media (max-width: 960px) {
       .dbs-spread {
         grid-template-columns: minmax(0, 1fr);
-        gap: 2rem;
+        gap: 1.75rem;
       }
       .dbs-col-5,
       .dbs-col-6,
@@ -259,12 +259,12 @@ function injectInteractiveStyles() {
       }
     }
 
-    .dbs-micro {
+    .dbs-kicker {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.72rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--accent-henna, #c9a96e);
     }
@@ -279,8 +279,8 @@ function injectInteractiveStyles() {
     }
     .dbs-prose {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.98rem;
-      line-height: 1.7;
+      font-size: 0.96rem;
+      line-height: 1.65;
       color: var(--text-secondary, #b8ab9a);
       margin: 0;
     }
@@ -376,25 +376,30 @@ function injectInteractiveStyles() {
     .dbs-underline-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
+      gap: 1.35rem;
       border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
     }
     .dbs-underline-tab {
       position: relative;
-      padding: 0.7rem 0;
+      padding: 0.6rem 0;
       margin-bottom: -1px;
       background: transparent;
       border: 0;
       border-bottom: 1.5px solid transparent;
       border-radius: 0;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.74rem;
+      font-size: 0.86rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       color: var(--text-muted, #8e8171);
       cursor: pointer;
       transition: color 160ms ease, border-color 160ms ease;
+    }
+    .dbs-underline-tab--formula {
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
     .dbs-underline-tab:hover {
       color: var(--text-primary, #f4ece0);
@@ -411,37 +416,62 @@ function injectInteractiveStyles() {
     }
     .dbs-ledger-row {
       display: grid;
-      grid-template-columns: minmax(140px, 34%) minmax(0, 1fr);
+      grid-template-columns: minmax(145px, 35%) minmax(0, 1fr);
       gap: 1rem;
-      padding: 0.95rem 0;
+      padding: 0.85rem 0;
       border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
       align-items: baseline;
     }
     @media (max-width: 560px) {
       .dbs-ledger-row {
         grid-template-columns: minmax(0, 1fr);
-        gap: 0.3rem;
+        gap: 0.25rem;
+      }
+    }
+    .dbs-ledger--compact {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 1.75rem;
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+    }
+    .dbs-ledger--compact .dbs-ledger-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.2rem;
+      padding: 0.62rem 0;
+    }
+    @media (max-width: 640px) {
+      .dbs-ledger--compact {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
     .dbs-ledger-key {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.7rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted, #8e8171);
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--text-secondary, #b8ab9a);
     }
     .dbs-ledger-val {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.93rem;
-      line-height: 1.55;
+      font-size: 0.88rem;
+      line-height: 1.5;
       color: var(--text-primary, #f4ece0);
     }
 
     /* Section B: 48-Hour Oxidation Lab */
+    .dbs-lab-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem 2rem;
+      margin-bottom: 1.15rem;
+    }
     .dbs-lab-photo {
       position: relative;
       width: 100%;
+      max-height: 500px;
       aspect-ratio: 4 / 5;
       border-radius: 2px;
       border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.15));
@@ -467,16 +497,27 @@ function injectInteractiveStyles() {
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 0.75rem 0;
+      padding: 0.55rem 0;
       border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
     }
-    .dbs-lab-range-wrap {
-      padding: 0.95rem 0 0.65rem;
+    .dbs-lab-scrubber-box {
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.12));
+      border-radius: 2px;
+      background: color-mix(in oklch, var(--plane-0-void, #120f0d) 65%, transparent);
+      display: grid;
+      gap: 0.55rem;
+    }
+    .dbs-lab-scrubber-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
     }
     .dbs-lab-range {
       width: 100%;
       height: 2px;
-      margin: 0;
+      margin: 0.2rem 0;
       appearance: none;
       background: var(--border-strong, rgba(244, 236, 224, 0.22));
       border-radius: 0;
@@ -502,15 +543,15 @@ function injectInteractiveStyles() {
     .dbs-swatch-bar {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.5rem;
-      margin-top: 0.45rem;
+      gap: 0.45rem;
+      margin-top: 0.15rem;
     }
     .dbs-swatch-btn {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.35rem;
-      padding: 0 0 0.5rem;
+      gap: 0.25rem;
+      padding: 0 0 0.35rem;
       background: transparent;
       border: 0;
       border-bottom: 1.5px solid transparent;
@@ -524,16 +565,16 @@ function injectInteractiveStyles() {
     }
     .dbs-swatch-chip {
       width: 100%;
-      height: 22px;
+      height: 18px;
       border-radius: 2px;
       border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
     }
     .dbs-swatch-hour {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: none;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--text-muted, #8e8171);
     }
@@ -542,9 +583,9 @@ function injectInteractiveStyles() {
     }
     .dbs-swatch-hex {
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.64rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      text-transform: none;
       font-variant-numeric: tabular-nums lining-nums;
       color: var(--text-secondary, #b8ab9a);
     }
@@ -557,9 +598,9 @@ function injectInteractiveStyles() {
       width: 100%;
       display: grid;
       grid-template-columns: 2.2rem minmax(0, 1fr) auto;
-      gap: 0.65rem 1.15rem;
+      gap: 0.6rem 1.15rem;
       align-items: baseline;
-      padding: 1.3rem 0.75rem;
+      padding: 1.25rem 0.75rem;
       background: transparent;
       border: 0;
       border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
@@ -599,10 +640,11 @@ function injectInteractiveStyles() {
     .dbs-rate-sub {
       margin-top: 0.2rem;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.71rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted, #8e8171);
+      font-size: 0.84rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--text-secondary, #b8ab9a);
     }
     .dbs-rate-summary {
       grid-column: 2 / -1;
@@ -634,10 +676,10 @@ function injectInteractiveStyles() {
     .dbs-calc-panel {
       border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
       border-radius: 2px;
-      padding: 2.25rem;
+      padding: 2rem;
       background: var(--plane-1-surface, #191512);
       display: grid;
-      gap: 1.35rem;
+      gap: 1.25rem;
     }
     @media (max-width: 560px) {
       .dbs-calc-panel {
@@ -651,15 +693,15 @@ function injectInteractiveStyles() {
       border-radius: 2px;
     }
     .dbs-seg-btn {
-      padding: 0.68rem 0.75rem;
+      padding: 0.64rem 0.75rem;
       background: transparent;
       border: 0;
       border-radius: 0;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.72rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-transform: none;
       color: var(--text-secondary, #b8ab9a);
       cursor: pointer;
       transition: background-color 160ms ease, color 160ms ease;
@@ -683,7 +725,8 @@ function injectInteractiveStyles() {
       background: transparent;
       color: var(--text-secondary, #b8ab9a);
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.8rem;
+      font-size: 0.84rem;
+      font-weight: 500;
       text-align: left;
       cursor: pointer;
       transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
@@ -697,11 +740,11 @@ function injectInteractiveStyles() {
       display: block;
       margin-bottom: 0.45rem;
       font-family: var(--font-sans, "DM Sans", sans-serif);
-      font-size: 0.69rem;
+      font-size: 0.84rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted, #8e8171);
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--text-secondary, #b8ab9a);
     }
     .dbs-select-arch {
       width: 100%;
@@ -763,9 +806,9 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
     <div class="dbs-spread dbs-spread--centered">
       <div class="dbs-col-6">
         <div class="dbs-split-frame" data-split-frame>
-          <img src="${escapeHtml(data.stainSrc)}" alt="Finished freehand organic henna stain by Sadia" loading="eager">
+          <img src="${escapeHtml(data.stainSrc)}" alt="Finished freehand organic henna stain by Sadia" width="900" height="1200" loading="lazy">
           <div class="dbs-split-layer" data-split-layer style="clip-path: inset(0 ${100 - splitPct}% 0 0);">
-            <img src="${escapeHtml(data.sketchSrc)}" alt="Digital iPad botanical blueprint drawn prior to session" loading="eager">
+            <img src="${escapeHtml(data.sketchSrc)}" alt="Digital iPad botanical blueprint drawn prior to session" width="900" height="1200" loading="lazy">
           </div>
           <div class="dbs-split-rule" data-split-rule style="left: ${splitPct}%;"></div>
           <button
@@ -795,8 +838,7 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
       </div>
 
       <div class="dbs-col-6" style="display: grid; gap: 1.5rem;">
-        <div style="display: grid; gap: 0.85rem;">
-          <span class="dbs-micro">iPad Proportion Mapping</span>
+        <div style="display: grid; gap: 0.75rem;">
           <h3 class="dbs-display-title" style="font-size: clamp(1.85rem, 2.7vw, 2.45rem);">${escapeHtml(data.title)}</h3>
           <p class="dbs-prose">${escapeHtml(data.description)}</p>
         </div>
@@ -921,16 +963,23 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
     const photoSrc = formula.stainPhotoSrc || STAIN_PHOTO_FALLBACK[formula.id] || STAIN_PHOTO_FALLBACK.organic;
 
     mountEl.innerHTML = `
+      <div class="dbs-lab-head">
+        <h3 class="dbs-display-title" style="font-size: clamp(1.65rem, 2.4vw, 2.2rem);">48-Hour Stain Oxidation Study</h3>
+        <p class="dbs-prose" style="font-size: 0.92rem; max-width: 52ch;">Compare organic lawsone, Amazonian jagua, crimson, and midnight black across each stage of maturation.</p>
+      </div>
+
       <div class="dbs-spread">
-        <div class="dbs-col-5" style="display: grid; gap: 0.65rem;">
+        <div class="dbs-col-5" style="display: grid; gap: 0.5rem;">
           <div class="dbs-lab-photo">
             <img
               class="dbs-lab-photo__img"
               data-lab-photo
               src="${escapeHtml(photoSrc)}"
               alt="${escapeHtml(formula.name)} macro studio stain study at ${escapeHtml(stageMeta.hour)}"
+              width="960"
+              height="1200"
+              loading="lazy"
               style="filter: ${stageMeta.filter};"
-              loading="eager"
             >
             <div
               class="dbs-lab-photo__veil"
@@ -940,12 +989,44 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
           </div>
 
           <div class="dbs-lab-caption">
-            <span class="dbs-micro" data-lab-stage-label>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)}</span>
-            <span class="dbs-micro" style="color: var(--text-secondary);" data-lab-stage-hex>${escapeHtml(activeHex)}</span>
+            <span class="dbs-kicker" data-lab-photo-stage>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)}</span>
+            <span style="font-size: 0.82rem; color: var(--text-secondary); font-variant-numeric: tabular-nums lining-nums;" data-lab-photo-hex>${escapeHtml(activeHex)}</span>
+          </div>
+        </div>
+
+        <div class="dbs-col-7" style="display: grid; gap: 1.05rem;">
+          <div class="dbs-underline-tabs" role="tablist" aria-label="Paste formulas">
+            ${formulas
+              .map((f) => {
+                const tabLabel = FORMULA_TAB_LABELS[f.id] || f.name;
+                const selected = f.id === formula.id;
+                return `
+                  <button
+                    type="button"
+                    role="tab"
+                    class="dbs-underline-tab dbs-underline-tab--formula"
+                    data-formula-tab="${escapeHtml(f.id)}"
+                    aria-selected="${selected ? 'true' : 'false'}"
+                  >${escapeHtml(tabLabel)}</button>
+                `;
+              })
+              .join('')}
           </div>
 
-          <div class="dbs-lab-range-wrap">
-            <label for="dbs-oxidation-range" class="dbs-field-label" style="margin-bottom: 0.55rem;">48-Hour Oxidation Scrub</label>
+          <div style="display: grid; gap: 0.35rem;">
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem;">
+              <h4 class="dbs-display-title" style="font-size: clamp(1.5rem, 2.2vw, 1.95rem);">${escapeHtml(formula.name)}</h4>
+              <span class="dbs-kicker">${escapeHtml(formula.badge || 'Apothecary Formula')}</span>
+            </div>
+            <p class="dbs-prose" style="font-size: 0.92rem; line-height: 1.55;">${escapeHtml(formula.tagline)}</p>
+          </div>
+
+          <div class="dbs-lab-scrubber-box" data-lab-scrubber>
+            <div class="dbs-lab-scrubber-top">
+              <label for="dbs-oxidation-range" class="dbs-field-label" style="margin: 0;">Oxidation timeline (0h to 48h)</label>
+              <span class="dbs-kicker" data-lab-stage-label>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)} (${escapeHtml(activeHex)})</span>
+            </div>
+
             <input
               id="dbs-oxidation-range"
               class="dbs-lab-range"
@@ -956,54 +1037,28 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
               value="${activeStageIdx}"
               aria-label="Scrub across 48-hour stain oxidation stages"
             >
-          </div>
 
-          <div class="dbs-swatch-bar" role="group" aria-label="Oxidation pigment swatches">
-            ${STAGE_META.map((st, idx) => {
-              const hex = stages[idx] || activeHex;
-              const isPressed = idx === activeStageIdx;
-              return `
-                <button
-                  type="button"
-                  class="dbs-swatch-btn"
-                  data-stain-stage="${idx}"
-                  aria-pressed="${isPressed ? 'true' : 'false'}"
-                >
-                  <span class="dbs-swatch-chip" style="background-color: ${escapeHtml(hex)};"></span>
-                  <span class="dbs-swatch-hour">${escapeHtml(st.hour)}</span>
-                  <span class="dbs-swatch-hex">${escapeHtml(hex)}</span>
-                </button>
-              `;
-            }).join('')}
-          </div>
-        </div>
-
-        <div class="dbs-col-7" style="display: grid; gap: 1.6rem;">
-          <div class="dbs-underline-tabs" role="tablist" aria-label="Paste formulas">
-            ${formulas
-              .map((f) => {
-                const tabLabel = FORMULA_TAB_LABELS[f.id] || f.name;
-                const selected = f.id === formula.id;
+            <div class="dbs-swatch-bar" role="group" aria-label="Oxidation pigment swatches">
+              ${STAGE_META.map((st, idx) => {
+                const hex = stages[idx] || activeHex;
+                const isPressed = idx === activeStageIdx;
                 return `
                   <button
                     type="button"
-                    role="tab"
-                    class="dbs-underline-tab"
-                    data-formula-tab="${escapeHtml(f.id)}"
-                    aria-selected="${selected ? 'true' : 'false'}"
-                  >${escapeHtml(tabLabel)}</button>
+                    class="dbs-swatch-btn"
+                    data-stain-stage="${idx}"
+                    aria-pressed="${isPressed ? 'true' : 'false'}"
+                  >
+                    <span class="dbs-swatch-chip" style="background-color: ${escapeHtml(hex)};"></span>
+                    <span class="dbs-swatch-hour">${escapeHtml(st.hour)}</span>
+                    <span class="dbs-swatch-hex">${escapeHtml(hex)}</span>
+                  </button>
                 `;
-              })
-              .join('')}
+              }).join('')}
+            </div>
           </div>
 
-          <div style="display: grid; gap: 0.75rem;">
-            <span class="dbs-micro">${escapeHtml(formula.badge || 'Apothecary Formula')}</span>
-            <h3 class="dbs-display-title" style="font-size: clamp(1.9rem, 2.8vw, 2.55rem);">${escapeHtml(formula.name)}</h3>
-            <p class="dbs-prose">${escapeHtml(formula.tagline)}</p>
-          </div>
-
-          <div class="dbs-ledger">
+          <div class="dbs-ledger--compact">
             <div class="dbs-ledger-row">
               <span class="dbs-ledger-key">Peak Maturation</span>
               <span class="dbs-ledger-val" style="font-variant-numeric: tabular-nums lining-nums;">${escapeHtml(formula.maturityHours)}</span>
@@ -1021,7 +1076,7 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
               <span class="dbs-ledger-val">${escapeHtml(formula.bestFor)}</span>
             </div>
             <div class="dbs-ledger-row">
-              <span class="dbs-ledger-key">Aftercare Seal Ritual</span>
+              <span class="dbs-ledger-key">Aftercare Ritual</span>
               <span class="dbs-ledger-val">${escapeHtml(formula.aftercareTip)}</span>
             </div>
             <div class="dbs-ledger-row">
@@ -1056,7 +1111,8 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
       const img = mountEl.querySelector('[data-lab-photo]');
       const veil = mountEl.querySelector('[data-lab-veil]');
       const capLabel = mountEl.querySelector('[data-lab-stage-label]');
-      const capHex = mountEl.querySelector('[data-lab-stage-hex]');
+      const photoStage = mountEl.querySelector('[data-lab-photo-stage]');
+      const photoHex = mountEl.querySelector('[data-lab-photo-hex]');
       const range = mountEl.querySelector('#dbs-oxidation-range');
 
       if (img) img.style.filter = meta.filter;
@@ -1064,8 +1120,9 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
         veil.style.backgroundColor = hex;
         veil.style.opacity = String(meta.veilOpacity);
       }
-      if (capLabel) capLabel.textContent = `${meta.hour} \u00b7 ${meta.label}`;
-      if (capHex) capHex.textContent = hex;
+      if (capLabel) capLabel.textContent = `${meta.hour} \u00b7 ${meta.label} (${hex})`;
+      if (photoStage) photoStage.textContent = `${meta.hour} \u00b7 ${meta.label}`;
+      if (photoHex) photoHex.textContent = hex;
       if (range && Number(range.value) !== activeStageIdx) range.value = String(activeStageIdx);
 
       mountEl.querySelectorAll('[data-stain-stage]').forEach((sw) => {
@@ -1092,7 +1149,7 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
   render();
 }
 
-function mountEstimatorSection(mountEl, studioData, onPresetBook) {
+function mountEstimatorSection(mountEl, studioData) {
   if (!mountEl) return;
 
   const packages = Array.isArray(studioData?.SERVICE_PACKAGES) && studioData.SERVICE_PACKAGES.length
@@ -1120,7 +1177,9 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
   }
 
   function selectPackage(pkgId) {
-    const pkg = packages.find((p) => p.id === pkgId);
+    const pkg =
+      packages.find((p) => p.id === pkgId) ||
+      packages.find((p) => p.id.includes(pkgId) || p.category === pkgId);
     if (!pkg) return;
     state.packageId = pkg.id;
     if (pkg.category === 'party' || pkg.category === 'events' || pkg.priceUnit === 'per hour' || pkg.priceUnit === '3-hour block') {
@@ -1143,6 +1202,7 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
 
   function computeQuote() {
     const pkg = getSelectedPackage();
+    const formula = formulas.find((f) => f.id === state.formulaId) || formulas[0];
     const zone = zones.find((z) => z.id === state.travelZoneId) || zones[0];
     const formulaFee = state.formulaId === 'jagua' ? 15 : 0;
 
@@ -1178,9 +1238,14 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
     const travelFee = Number(zone.fee) || 0;
     const total = baseInvestment + formulaFee + travelFee;
     const retainer = Math.round(total * 0.5);
+    const coverageSummary =
+      state.mode === 'party'
+        ? `${state.partyHours} hours guest artistry (${state.partyHours * 12}-${state.partyHours * 15} guests est.)`
+        : `${state.sides === 'both' ? 'Both sides' : 'One side'}, ${state.hands === 'pair' ? 'pair of hands' : 'single hand'}`;
 
     return {
       pkg,
+      formula,
       zone,
       baseInvestment,
       formulaFee,
@@ -1188,17 +1253,39 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
       total,
       retainer,
       durationMins,
-      cones
+      cones,
+      coverageSummary
     };
+  }
+
+  function publishEstimate(q) {
+    const detail = {
+      packageId: q.pkg.id,
+      packageName: q.pkg.name,
+      formulaId: q.formula.id,
+      formulaName: q.formula.name,
+      travelZoneId: q.zone.id,
+      travelZoneLabel: q.zone.label,
+      travelFee: q.travelFee,
+      coverageSummary: q.coverageSummary,
+      durationMins: q.durationMins,
+      conesCount: q.cones,
+      estimatedAmount: q.total,
+      retainerAmount: q.retainer
+    };
+    window.__SADIA_ACTIVE_ESTIMATE__ = detail;
+    document.dispatchEvent(new CustomEvent('sadia:estimate-sync', { detail }));
+    return detail;
   }
 
   function render() {
     const q = computeQuote();
+    publishEstimate(q);
 
     mountEl.innerHTML = `
       <div class="dbs-spread">
         <div class="dbs-col-7">
-          <div class="dbs-micro" style="margin-bottom: 1rem;">Studio Commission Menu &middot; Select a Tier</div>
+          <div class="dbs-kicker" style="margin-bottom: 0.9rem;">Studio Commission Menu &middot; Select a Tier</div>
           <div class="dbs-rate-menu" role="list">
             ${packages
               .map((pkg, idx) => {
@@ -1229,7 +1316,7 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
         <div class="dbs-col-5">
           <div class="dbs-calc-panel">
             <div>
-              <span class="dbs-micro">Atelier Session Calculator</span>
+              <span class="dbs-kicker">Coverage &amp; Travel Configurator</span>
               <h3 class="dbs-display-title" style="font-size: 1.65rem; margin-top: 0.35rem;">${escapeHtml(q.pkg.name)}</h3>
             </div>
 
@@ -1320,8 +1407,8 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
             <div style="padding-top: 0.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.85rem;">
                 <div>
-                  <span class="dbs-micro">Estimated Investment</span>
-                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  <span class="dbs-kicker">Estimated Investment</span>
+                  <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.2rem;">
                     ${q.travelFee > 0 ? `Includes $${q.travelFee} travel` : 'Sterling studio / local rate'}
                   </div>
                 </div>
@@ -1338,11 +1425,11 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
               </div>
               <div class="dbs-calc-summary-row" style="border-bottom: 1px solid var(--border-subtle);">
                 <span>Hand-Rolled Cones</span>
-                <strong>${q.cones} fresh cones</strong>
+                <strong>${q.cones} fresh ${q.cones === 1 ? 'cone' : 'cones'}</strong>
               </div>
             </div>
 
-            <button type="button" class="dbs-cta-rect dbs-cta-rect--full" data-calc-reserve>Reserve a Date</button>
+            <button type="button" class="dbs-cta-rect dbs-cta-rect--full" data-calc-reserve>Continue to Date &amp; Dossier &darr;</button>
           </div>
         </div>
       </div>
@@ -1362,10 +1449,10 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
         state.mode = nextMode;
         if (nextMode === 'party') {
           const partyPkg = packages.find((p) => p.category === 'party' || p.category === 'events');
-          if (partyPkg) state.packageId = partyPkg.id;
+          if (partyPkg) selectPackage(partyPkg.id);
         } else {
           const indPkg = packages.find((p) => p.category === 'bridal' || p.category === 'private');
-          if (indPkg) state.packageId = indPkg.id;
+          if (indPkg) selectPackage(indPkg.id);
         }
         render();
       });
@@ -1413,22 +1500,57 @@ function mountEstimatorSection(mountEl, studioData, onPresetBook) {
     });
 
     mountEl.querySelector('[data-calc-reserve]')?.addEventListener('click', () => {
-      const quote = computeQuote();
-      const note =
-        state.mode === 'party'
-          ? `${state.partyHours} hours hourly guest artistry`
-          : `${state.sides === 'both' ? 'Both sides' : 'One side'}, ${state.hands === 'pair' ? 'pair of hands' : 'single hand'}`;
-      onPresetBook?.({
-        packageId: quote.pkg.id,
-        formulaId: state.formulaId,
-        travelZoneId: state.travelZoneId,
-        estimatedTotal: quote.total,
-        durationMins: quote.durationMins,
-        customSketch: quote.pkg.id === 'custom-sketch-session',
-        notes: note
+      publishEstimate(computeQuote());
+      const bookingMount = document.getElementById('booking-concierge-mount') || document.getElementById('book');
+      bookingMount?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start'
       });
     });
   }
+
+  document.addEventListener('sadia:preset-request', (ev) => {
+    const preset = ev?.detail || {};
+    let changed = false;
+
+    if (preset.packageId) {
+      selectPackage(preset.packageId);
+      changed = true;
+    } else if (preset.mode === 'party') {
+      const partyPkg = packages.find((p) => p.category === 'party');
+      if (partyPkg) {
+        selectPackage(partyPkg.id);
+        changed = true;
+      }
+    }
+
+    if (preset.formulaId) {
+      const fMatch = formulas.find((f) => f.id === preset.formulaId);
+      if (fMatch) {
+        state.formulaId = fMatch.id;
+        changed = true;
+      }
+    } else if (preset.medium) {
+      const lower = String(preset.medium).toLowerCase();
+      const fMatch = formulas.find((f) => lower.includes(f.id));
+      if (fMatch) {
+        state.formulaId = fMatch.id;
+        changed = true;
+      }
+    }
+
+    if (preset.travelZoneId) {
+      const zMatch = zones.find((z) => z.id === preset.travelZoneId);
+      if (zMatch) {
+        state.travelZoneId = zMatch.id;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      render();
+    }
+  });
 
   render();
 }
@@ -1443,5 +1565,5 @@ export function initInteractiveTools({
   injectInteractiveStyles();
   mountSketchStainSection(mountSketchStain, studioData.SKETCH_TO_STAIN, onPresetBook);
   mountStainLabSection(mountStainLab, studioData.CONE_FORMULAS, onPresetBook);
-  mountEstimatorSection(mountEstimator, studioData, onPresetBook);
+  mountEstimatorSection(mountEstimator, studioData);
 }

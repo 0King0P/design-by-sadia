@@ -1,4 +1,4 @@
-/* Design by Sadia (v2): Velvet Espresso Noir & Brushed Champagne Atelier Tokens */
+/* Design by Sadia (v3): Velvet Espresso Noir & Brushed Champagne Atelier Tokens */
 :root {
   color-scheme: dark;
 
@@ -50,6 +50,7 @@
   --text-h3: clamp(1.38rem, 1.9vw, 1.75rem);
   --text-body: clamp(0.97rem, 1.05vw, 1.05rem);
   --text-small: 0.875rem;
+  --text-meta: 0.84rem;
   --text-micro: 0.6875rem;
 
   /* Layout & Editorial Proportions */

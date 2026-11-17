@@ -1,4 +1,4 @@
-// Architectural editorial interactive modules for Design by Sadia (v3).
+// Architectural editorial interactive modules for Design by Sadia (v4).
 
 const STYLES_ID = 'dbs-interactive-module-styles';
 
@@ -13,10 +13,10 @@ const DEFAULT_SKETCH_STAIN = {
 };
 
 const STAIN_PHOTO_FALLBACK = {
-  organic: './assets/generated/stain-organic-macro.jpg',
-  jagua: './assets/generated/stain-jagua-macro.jpg',
-  red: './assets/generated/stain-crimson-macro.jpg',
-  black: './assets/generated/stain-obsidian-macro.jpg'
+  organic: './assets/portfolio/portfolio-04-scalloped-bridal-cuff.jpg',
+  jagua: './assets/portfolio/portfolio-13-twin-dorsal-sprigs.jpg',
+  red: './assets/portfolio/portfolio-03-rose-vine-initials.jpg',
+  black: './assets/portfolio/portfolio-10-medallion-pearl-drape.jpg'
 };
 
 const FORMULA_TAB_LABELS = {
@@ -33,7 +33,7 @@ const DEFAULT_FORMULAS = [
     badge: 'Signature Plant Blend',
     tagline:
       'Triple-sifted Rajasthani lawsone leaf mixed fresh with eucalyptus and lavender oils for a deep mahogany stain.',
-    stainPhotoSrc: './assets/generated/stain-organic-macro.jpg',
+    stainPhotoSrc: './assets/portfolio/portfolio-04-scalloped-bridal-cuff.jpg',
     stainHexStages: ['#4A3B23', '#B95D29', '#9F3B1B', '#732312', '#4B130B'],
     longevityDays: '10-14 Days',
     maturityHours: '48 Hours',
@@ -51,7 +51,7 @@ const DEFAULT_FORMULAS = [
     badge: 'Blue-Black Tattoo Tone',
     tagline:
       'Amazonian Genipa americana fruit extract blended into crisp fine-line gel that oxidizes into deep slate indigo.',
-    stainPhotoSrc: './assets/generated/stain-jagua-macro.jpg',
+    stainPhotoSrc: './assets/portfolio/portfolio-13-twin-dorsal-sprigs.jpg',
     stainHexStages: ['#1D2330', '#69778A', '#374963', '#1F2E47', '#111B2E'],
     longevityDays: '10-14 Days',
     maturityHours: '36-48 Hours',
@@ -69,7 +69,7 @@ const DEFAULT_FORMULAS = [
     badge: 'Same-Day Crimson',
     tagline:
       'Fast-setting ceremonial cone formulated for vibrant crimson-red payoff right after paste removal.',
-    stainPhotoSrc: './assets/generated/stain-crimson-macro.jpg',
+    stainPhotoSrc: './assets/portfolio/portfolio-03-rose-vine-initials.jpg',
     stainHexStages: ['#691D1A', '#B9362C', '#A42521', '#8C1A19', '#6F1415'],
     longevityDays: '4-6 Days',
     maturityHours: 'Instant (30 Mins)',
@@ -87,7 +87,7 @@ const DEFAULT_FORMULAS = [
     badge: 'Same-Day Charcoal',
     tagline:
       'High-contrast charcoal-black instant paste designed for crisp same-day photoshoots and bold statement vines.',
-    stainPhotoSrc: './assets/generated/stain-obsidian-macro.jpg',
+    stainPhotoSrc: './assets/portfolio/portfolio-10-medallion-pearl-drape.jpg',
     stainHexStages: ['#242322', '#3A3837', '#2B2928', '#1F1D1C', '#141313'],
     longevityDays: '4-6 Days',
     maturityHours: 'Instant (30 Mins)',
@@ -408,6 +408,48 @@ function injectInteractiveStyles() {
     .dbs-underline-tab[aria-selected="true"] {
       color: var(--text-primary, #f4ece0);
       border-bottom-color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-inline-action-tab {
+      margin-left: auto;
+      padding: 0.45rem 0.75rem;
+      margin-bottom: 0.25rem;
+      background: transparent;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+      border-radius: 2px;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--accent-henna, #c9a96e);
+      cursor: pointer;
+      transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+    }
+    .dbs-inline-action-tab:hover {
+      border-color: var(--accent-henna, #c9a96e);
+      background: var(--accent-henna-soft, rgba(201, 169, 110, 0.12));
+      color: var(--text-primary, #f4ece0);
+    }
+    .dbs-timelapse-btn {
+      padding: 0.34rem 0.72rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-accent, rgba(201, 169, 110, 0.45));
+      background: color-mix(in oklch, var(--accent-henna, #c9a96e) 10%, transparent);
+      color: var(--accent-henna, #c9a96e);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .dbs-timelapse-btn:hover,
+    .dbs-timelapse-btn[aria-pressed="true"] {
+      background: var(--accent-henna, #c9a96e);
+      border-color: var(--accent-henna, #c9a96e);
+      color: var(--accent-ink, #14100d);
     }
 
     /* Hairline Spec Ledger */
@@ -787,6 +829,10 @@ function injectInteractiveStyles() {
   document.head.appendChild(style);
 }
 
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
 function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
   if (!mountEl) return;
 
@@ -801,6 +847,8 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
 
   let splitPct = 50;
   let dragging = false;
+  let sweepRafId = 0;
+  let hasAutoSwept = false;
 
   mountEl.innerHTML = `
     <div class="dbs-spread dbs-spread--centered">
@@ -830,10 +878,11 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
           </button>
         </div>
 
-        <div class="dbs-underline-tabs" role="group" aria-label="Blueprint comparison view" style="margin-top: 0.9rem;">
+        <div class="dbs-underline-tabs" role="group" aria-label="Blueprint comparison view" style="margin-top: 0.9rem; align-items: center;">
           <button type="button" class="dbs-underline-tab" data-split-preset="100" aria-pressed="false">Digital Blueprint</button>
           <button type="button" class="dbs-underline-tab" data-split-preset="50" aria-pressed="true">50-50 Split</button>
           <button type="button" class="dbs-underline-tab" data-split-preset="0" aria-pressed="false">Finished Hand Stain</button>
+          <button type="button" class="dbs-inline-action-tab" data-split-replay>Replay Sweep</button>
         </div>
       </div>
 
@@ -885,6 +934,54 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
     });
   }
 
+  function cancelSweep() {
+    if (sweepRafId) {
+      cancelAnimationFrame(sweepRafId);
+      sweepRafId = 0;
+    }
+  }
+
+  function runSweep() {
+    cancelSweep();
+    const duration = 2200;
+    const startTs = performance.now();
+
+    const tick = (nowTs) => {
+      const t = Math.min(1, (nowTs - startTs) / duration);
+      let pct = 50;
+      if (t <= 0.30) {
+        pct = 50 - 32 * easeInOutCubic(t / 0.30);
+      } else if (t <= 0.70) {
+        pct = 18 + 64 * easeInOutCubic((t - 0.30) / 0.40);
+      } else {
+        pct = 82 - 32 * easeInOutCubic((t - 0.70) / 0.30);
+      }
+      applySplit(pct);
+      if (t < 1) {
+        sweepRafId = requestAnimationFrame(tick);
+      } else {
+        sweepRafId = 0;
+        applySplit(50);
+      }
+    };
+
+    sweepRafId = requestAnimationFrame(tick);
+  }
+
+  if (typeof IntersectionObserver === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting) && !hasAutoSwept) {
+          hasAutoSwept = true;
+          observer.disconnect();
+          runSweep();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(frame || mountEl);
+  }
+
   function updateFromClientX(clientX) {
     if (!frame) return;
     const rect = frame.getBoundingClientRect();
@@ -894,6 +991,7 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
   }
 
   frame?.addEventListener('pointerdown', (ev) => {
+    cancelSweep();
     dragging = true;
     frame.setPointerCapture?.(ev.pointerId);
     updateFromClientX(ev.clientX);
@@ -914,26 +1012,37 @@ function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
     const step = ev.shiftKey ? 10 : 4;
     if (ev.key === 'ArrowLeft') {
       ev.preventDefault();
+      cancelSweep();
       applySplit(splitPct - step);
     } else if (ev.key === 'ArrowRight') {
       ev.preventDefault();
+      cancelSweep();
       applySplit(splitPct + step);
     } else if (ev.key === 'Home') {
       ev.preventDefault();
+      cancelSweep();
       applySplit(0);
     } else if (ev.key === 'End') {
       ev.preventDefault();
+      cancelSweep();
       applySplit(100);
     }
   });
 
   presetBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
+      cancelSweep();
       applySplit(Number(btn.getAttribute('data-split-preset')));
     });
   });
 
+  mountEl.querySelector('[data-split-replay]')?.addEventListener('click', () => {
+    hasAutoSwept = true;
+    runSweep();
+  });
+
   mountEl.querySelector('[data-sketch-reserve]')?.addEventListener('click', () => {
+    cancelSweep();
     onPresetBook?.({
       packageId: 'custom-sketch-session',
       formulaId: 'organic',
@@ -948,12 +1057,29 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
   const formulas = Array.isArray(rawFormulas) && rawFormulas.length ? rawFormulas : DEFAULT_FORMULAS;
   let activeFormulaId = formulas[0].id;
   let activeStageIdx = 4;
+  let isPlaying = false;
+  let timelapseRafId = 0;
+  let timelapseProgress = 4;
 
   function getActiveFormula() {
     return formulas.find((f) => f.id === activeFormulaId) || formulas[0];
   }
 
+  function stopTimelapse() {
+    if (timelapseRafId) {
+      cancelAnimationFrame(timelapseRafId);
+      timelapseRafId = 0;
+    }
+    isPlaying = false;
+    const playBtn = mountEl.querySelector('[data-lab-timelapse]');
+    if (playBtn) {
+      playBtn.setAttribute('aria-pressed', 'false');
+      playBtn.textContent = 'Play 48h Time-Lapse';
+    }
+  }
+
   function render() {
+    stopTimelapse();
     const formula = getActiveFormula();
     const stages = Array.isArray(formula.stainHexStages) && formula.stainHexStages.length >= 5
       ? formula.stainHexStages
@@ -975,7 +1101,7 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
               class="dbs-lab-photo__img"
               data-lab-photo
               src="${escapeHtml(photoSrc)}"
-              alt="${escapeHtml(formula.name)} macro studio stain study at ${escapeHtml(stageMeta.hour)}"
+              alt="${escapeHtml(formula.name)} real freehand client stain study at ${escapeHtml(stageMeta.hour)}"
               width="960"
               height="1200"
               loading="lazy"
@@ -991,6 +1117,9 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
           <div class="dbs-lab-caption">
             <span class="dbs-kicker" data-lab-photo-stage>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)}</span>
             <span style="font-size: 0.82rem; color: var(--text-secondary); font-variant-numeric: tabular-nums lining-nums;" data-lab-photo-hex>${escapeHtml(activeHex)}</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+            Real client work with simulated 48h oxidation tone preview.
           </div>
         </div>
 
@@ -1024,7 +1153,10 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
           <div class="dbs-lab-scrubber-box" data-lab-scrubber>
             <div class="dbs-lab-scrubber-top">
               <label for="dbs-oxidation-range" class="dbs-field-label" style="margin: 0;">Oxidation timeline (0h to 48h)</label>
-              <span class="dbs-kicker" data-lab-stage-label>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)} (${escapeHtml(activeHex)})</span>
+              <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end;">
+                <span class="dbs-kicker" data-lab-stage-label>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)} (${escapeHtml(activeHex)})</span>
+                <button type="button" class="dbs-timelapse-btn" data-lab-timelapse aria-pressed="false">Play 48h Time-Lapse</button>
+              </div>
             </div>
 
             <input
@@ -1096,12 +1228,13 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
       btn.addEventListener('click', () => {
         const nextId = btn.getAttribute('data-formula-tab');
         if (!nextId || nextId === activeFormulaId) return;
+        stopTimelapse();
         activeFormulaId = nextId;
         render();
       });
     });
 
-    const syncStage = (idx) => {
+    const syncStage = (idx, continuousProgress = null) => {
       activeStageIdx = Math.max(0, Math.min(4, Number(idx) || 0));
       const meta = STAGE_META[activeStageIdx];
       const currentFormula = getActiveFormula();
@@ -1115,10 +1248,18 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
       const photoHex = mountEl.querySelector('[data-lab-photo-hex]');
       const range = mountEl.querySelector('#dbs-oxidation-range');
 
+      let veilOpacity = meta.veilOpacity;
+      if (typeof continuousProgress === 'number') {
+        const low = Math.floor(continuousProgress);
+        const high = Math.min(4, low + 1);
+        const frac = continuousProgress - low;
+        veilOpacity = STAGE_META[low].veilOpacity * (1 - frac) + STAGE_META[high].veilOpacity * frac;
+      }
+
       if (img) img.style.filter = meta.filter;
       if (veil) {
         veil.style.backgroundColor = hex;
-        veil.style.opacity = String(meta.veilOpacity);
+        veil.style.opacity = String(Number(veilOpacity.toFixed(3)));
       }
       if (capLabel) capLabel.textContent = `${meta.hour} \u00b7 ${meta.label} (${hex})`;
       if (photoStage) photoStage.textContent = `${meta.hour} \u00b7 ${meta.label}`;
@@ -1131,17 +1272,66 @@ function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
       });
     };
 
+    const startTimelapse = () => {
+      if (isPlaying) {
+        stopTimelapse();
+        return;
+      }
+      if (activeStageIdx >= 4) {
+        timelapseProgress = 0;
+        syncStage(0, 0);
+      } else {
+        timelapseProgress = activeStageIdx;
+      }
+      isPlaying = true;
+      const playBtn = mountEl.querySelector('[data-lab-timelapse]');
+      if (playBtn) {
+        playBtn.setAttribute('aria-pressed', 'true');
+        playBtn.textContent = 'Pause';
+      }
+
+      const durationMs = 4200;
+      const startProgress = timelapseProgress;
+      const remainingStages = Math.max(0.5, 4 - startProgress);
+      const runDuration = durationMs * (remainingStages / 4);
+      const startTs = performance.now();
+
+      const step = (nowTs) => {
+        if (!isPlaying) return;
+        const frac = Math.min(1, (nowTs - startTs) / runDuration);
+        timelapseProgress = startProgress + (4 - startProgress) * frac;
+        const stageIdx = Math.min(4, Math.round(timelapseProgress));
+        syncStage(stageIdx, timelapseProgress);
+        if (frac < 1) {
+          timelapseRafId = requestAnimationFrame(step);
+        } else {
+          syncStage(4, 4);
+          stopTimelapse();
+        }
+      };
+
+      timelapseRafId = requestAnimationFrame(step);
+    };
+
+    mountEl.querySelector('[data-lab-timelapse]')?.addEventListener('click', startTimelapse);
+
     mountEl.querySelector('#dbs-oxidation-range')?.addEventListener('input', (ev) => {
+      stopTimelapse();
+      timelapseProgress = Number(ev.target.value) || 0;
       syncStage(ev.target.value);
     });
 
     mountEl.querySelectorAll('[data-stain-stage]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        syncStage(btn.getAttribute('data-stain-stage'));
+        stopTimelapse();
+        const target = Number(btn.getAttribute('data-stain-stage')) || 0;
+        timelapseProgress = target;
+        syncStage(target);
       });
     });
 
     mountEl.querySelector('[data-lab-reserve]')?.addEventListener('click', () => {
+      stopTimelapse();
       onPresetBook?.({ formulaId: formula.id });
     });
   }

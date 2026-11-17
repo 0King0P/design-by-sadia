@@ -1,6 +1,6 @@
 ---
-version: "3.0"
-name: Design by Sadia - Velvet Espresso & Champagne Atelier (v3)
+version: "4.0"
+name: Design by Sadia - Velvet Espresso & Champagne Atelier (v4)
 description: Vogue Bridal x Aesop x Sabyasachi architectural couture design system for Design by Sadia (@design.by.sadia), a bespoke freehand henna and body art studio in Sterling, VA.
 colors:
   primary: "#f3eee6"
@@ -94,7 +94,7 @@ components:
 
 ## Overview
 
-Design by Sadia (`@design.by.sadia`) v3 refines the Velvet Espresso Noir and Brushed Champagne Gold architectural couture aesthetic crafted for Sadia Shoyeb's freehand henna atelier in Sterling, VA. Inspired by Vogue Bridal editorials, Aesop tactile apothecary ledgers, and Sabyasachi heritage craft, the interface pairs gallery-grade hand-focused photography (100% unique across all 27 image slots) with disciplined sentence-case typography and a unified single-flow commission configurator and Instagram DM reservation desk.
+Design by Sadia (`@design.by.sadia`) v4 embodies a 100% authentic Velvet Espresso Noir and Brushed Champagne Gold architectural couture aesthetic crafted for Sadia Shoyeb's freehand henna atelier in Sterling, VA. Every single photograph on the site is Sadia's real, unaltered client work or original iPad sketch (zero AI-generated photos), brought to life with five GPU-accelerated 60fps editorial animations (`Hero 4-Plate Cinema Reel + Pointer Parallax`, `Self-Drawing Botanical SVG Vine`, `Scroll Curtain-Reveal Archive`, `Sketch-to-Skin Auto-Sweep`, and `48h Oxidation Time-Lapse`) paired with a unified configurator and honest Instagram DM reservation desk.
 
 ## Colors
 
@@ -115,20 +115,20 @@ Design by Sadia (`@design.by.sadia`) v3 refines the Velvet Espresso Noir and Bru
 ## Layout & Architecture
 
 - **74px Centered Typographic Masthead:** Desktop 3-column grid (`Styles / Archive / Process / Rates & Inquiry` left in strict DOM scroll order, centered `DESIGN BY SADIA / STERLING, VIRGINIA` masthead, `Saved (0)` + Instagram + `Reserve a Date` right) collapsing cleanly to a single-row 2-column mobile bar below `1120px`.
-- **5 Distinct Architectural Chapters:**
-  1. **Editorial Split Cover:** Full-bleed couture bridal hands portrait (`hero-couture-bridal.jpg`), interactive atelier preview (`hero-atelier.jpg`), and single-line colophon.
-  2. **Signature Traditions & 15-Work Client Archive:** Centered editorial intro with 4 dedicated non-repeating lookbook plates (`style-rajasthani-couture.jpg`, `style-khaleeji-plate.jpg`, `style-jagua-contemporary.jpg`, `style-heirloom-monogram.jpg`) paired with an inline-baseline 15-plate hand-cropped archive, lightbox inspection, and `localStorage.sadia_moodboard_v1` pinning.
-  3. **Process & Four-Formula Oxidation Study:** Interactive iPad Blueprint-to-Stain comparator plus 4-formula macro studio photography switcher (`stain-organic-macro.jpg`, `stain-jagua-macro.jpg`, `stain-crimson-macro.jpg`, `stain-obsidian-macro.jpg`) with an above-fold `0h` to `48h` oxidation scrubber.
+- **5 Distinct Architectural Chapters & 5 Crafted 60fps Animations:**
+  1. **Editorial Split Cover + Live 4-Plate Cinema Reel:** Cycles smoothly every `4.6s` across Sadia's 4 flagship real bridal/floral photos (`portfolio-02`, `portfolio-01`, `portfolio-03`, `portfolio-04`) with `850ms` crossfade, subtle Ken Burns drift, `01..04` champagne hairline progress controls, `requestAnimationFrame` pointer parallax, and `#hero-float-preview` displaying Sadia's real `sketch-floral-vine.jpg`.
+  2. **Animated Botanical Line-Draw & 4-Tradition Index + 15-Work Archive:** Self-drawing SVG botanical vine (`stroke-dashoffset` via `IntersectionObserver`) above an interactive 4-tradition folio index that cross-filters the 15-plate hand-cropped archive (`clip-path` scroll curtain-reveal + hover specular sweep, lightbox inspection, and `localStorage.sadia_moodboard_v1` pinning).
+  3. **Process, Sketch-to-Skin Auto-Sweep & 48h Oxidation Time-Lapse:** Scroll-triggered `requestAnimationFrame` sweep (`Replay Sweep`) across `sketch-floral-vine.jpg` and `stain-floral-vine.jpg`, plus a 4-formula oxidation study over real client henna (`portfolio-04`, `portfolio-13`, `portfolio-03`, `portfolio-10`) with a live `Play 48h Time-Lapse` toggle and `0h..48h` scrubber.
   4. **Unified Studio Rates & Date Inquiry:** Roman-numeral (`I..VI`) commission menu + coverage configurator synced live via `sadia:estimate-sync` / `sadia:preset-request` to the Private Reservation Desk (zero duplicated dropdowns) with monthly calendar, time window, hidden bridal initials, pinned archive strip, `DBS-` dossier auto-copy, `.ics` download, and direct `@design.by.sadia` Instagram DM (`https://ig.me/m/design.by.sadia`) handoff.
   5. **Client Notes, Care FAQ & Studio Terms:** Full-width 2x2 client testimonial spread above a balanced `1.15fr / 0.85fr` FAQ & Studio Terms split.
 
 ## Shapes & Motion
 
 - **Architectural Print Geometry:** Strictly `0px` (`--radius-sm`) and `2px` (`--radius-md`, `--radius-lg`) corners across every button, photograph frame, calendar cell, and drawer. Zero `18px` or `9999px` pill containers.
-- **Tactile Restraint & Mobile Cellular Discipline:** `150ms` press feedback (`scale(0.98)`), `scroll-margin-top: 92px` across all anchored chapters, `loading="eager" fetchpriority="high"` on cover imagery only, and `loading="lazy"` with explicit dimensions across below-fold photography (`< 1.8 MB` initial mobile transfer).
+- **Tactile Restraint & Mobile Cellular Discipline:** GPU-composited animations (`transform`, `opacity`, `clip-path`, `stroke-dashoffset`) honoring `prefers-reduced-motion: reduce`, `scroll-margin-top: 92px`, `loading="eager" fetchpriority="high"` on cover imagery only, and `loading="lazy"` on below-fold photography (`< 1.8 MB` initial mobile transfer).
 
 ## Do's and Don'ts
 
-- **Do:** Keep all asset, manifest, and module URLs relative (`./assets/...`) with cache-busted `?v=3` suffixes for GitHub Pages subpath hosting (`/design-by-sadia/`), alongside OpenGraph `og-share-card.jpg` (`1200x630`), `favicon.svg`, and `BeautySalon` JSON-LD.
+- **Do:** Keep all asset, manifest, and module URLs relative (`./assets/...`) with cache-busted `?v=4` suffixes for GitHub Pages subpath hosting (`/design-by-sadia/`), alongside real-photo OpenGraph `og-share-card.jpg` (`1200x630`), `favicon.svg`, and `BeautySalon` JSON-LD.
 - **Do:** Keep the client staging drawer gated strictly behind `?review=1` so the public URL displays zero floating review badges.
-- **Don't:** Introduce `JetBrains Mono`, cartoon `<svg>` hands, `18px`/`9999px` pill borders, `border-left` accent rails, duplicate photographs, bouncing email addresses, or em-dashes (`—`).
+- **Don't:** Introduce AI-generated/synthetic photos, `JetBrains Mono`, cartoon `<svg>` hands, `18px`/`9999px` pill borders, `border-left` accent rails, bouncing email addresses, or em-dashes (`—`).

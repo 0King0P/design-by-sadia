@@ -1,7 +1,7 @@
-import * as studioData from "../data/studio-data.js?v=3";
-import { initInteractiveTools } from "./interactive-tools.js?v=3";
-import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js?v=3";
-import { initClientReviewMode } from "./client-review-mode.js?v=3";
+import * as studioData from "../data/studio-data.js?v=4";
+import { initInteractiveTools } from "./interactive-tools.js?v=4";
+import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js?v=4";
+import { initClientReviewMode } from "./client-review-mode.js?v=4";
 
 const MOODBOARD_KEY = "sadia_moodboard_v1";
 
@@ -11,49 +11,112 @@ const faqItems = Array.isArray(studioData.FAQ_ITEMS) ? studioData.FAQ_ITEMS : []
 const brandProfile = studioData.BRAND_PROFILE || {};
 const generatedArtifacts = studioData.GENERATED_ARTIFACTS || {};
 
-const FALLBACK_SIGNATURE_STYLES = [
+const FALLBACK_HERO_REEL = [
   {
-    id: "royal-rajasthani",
-    roman: "I",
-    title: "Royal Rajasthani & Mughlai Bridal",
-    notes: "Micro-jali latticework, negative-space lotus medallions, scalloped forearm cuffs, and partner initials woven cleanly into the palm.",
-    src: "./assets/generated/style-rajasthani-couture.jpg",
-    packageId: "royal-bridal",
-    formulaId: "organic",
+    id: "royal-bridal-palms",
+    plateNumber: "01",
+    src: "./assets/portfolio/portfolio-02-royal-bridal-palms.jpg",
+    width: 1200,
+    height: 1600,
+    title: "Royal Mandala Palms & Forearm Cuffs",
+    caption: "Royal Mandala Palms & Forearm Cuffs · Organic Henna",
+    alt: "Royal mandala palms and botanical forearm cuffs in freehand organic henna by Sadia",
   },
   {
-    id: "khaleeji-gulf",
-    roman: "II",
-    title: "Khaleeji Shaded Rose & Gulf Vine",
-    notes: "Sweeping diagonal rose clusters, high-contrast petal shading, and elongated index trails balanced by open skin breathing room.",
-    src: "./assets/generated/style-khaleeji-plate.jpg",
-    packageId: "custom-sketch-session",
-    formulaId: "organic",
+    id: "botanical-vine",
+    plateNumber: "02",
+    src: "./assets/portfolio/portfolio-01-botanical-vine.jpg",
+    width: 900,
+    height: 1200,
+    title: "Shaded Lotus & Scalloped Arch Vine",
+    caption: "Custom Proportion Study · Hand & Forearm Botanical Vine",
+    alt: "Shaded lotus and scalloped arch vine freehand henna translated from digital study",
   },
   {
-    id: "botanical-jagua",
-    roman: "III",
-    title: "Contemporary Botanical Jagua",
-    notes: "Amazonian Genipa americana fine-line botanical cuffs and architectural florals oxidizing into deep slate blue-black over 48 hours.",
-    src: "./assets/generated/style-jagua-contemporary.jpg",
-    packageId: "intimate-nikah",
-    formulaId: "jagua",
+    id: "rose-vine-initials",
+    plateNumber: "03",
+    src: "./assets/portfolio/portfolio-03-rose-vine-initials.jpg",
+    width: 1199,
+    height: 1600,
+    title: "Twin Rose-Vine Hands with Hidden Initials",
+    caption: "Nikah Heirloom · Asymmetrical Rose Garlands & Monogram",
+    alt: "Twin rose-vine hands with hidden couple initials in freehand organic henna",
   },
   {
-    id: "heirloom-initials",
-    roman: "IV",
-    title: "Bespoke Heirloom & Hidden Initials",
-    notes: "Custom couple monograms, wedding dates, and delicate pearl-chain haathphool motifs composed freehand to match ring and bangle proportions.",
-    src: "./assets/generated/style-heirloom-monogram.jpg",
-    packageId: "royal-bridal",
-    formulaId: "organic",
+    id: "scalloped-bridal-cuff",
+    plateNumber: "04",
+    src: "./assets/portfolio/portfolio-04-scalloped-bridal-cuff.jpg",
+    width: 1200,
+    height: 1600,
+    title: "Scalloped Heritage Cuff & Finger Jaali",
+    caption: "Bridal Dorsal Study · Layered Lotus Cuff & Finger Lattice",
+    alt: "Scalloped heritage wrist cuff and fine diamond finger jaali in freehand henna",
   },
 ];
+
+const FALLBACK_SIGNATURE_STYLES = [
+  {
+    id: "rajasthani-mughlai-bridal",
+    numeral: "I",
+    title: "Bridal & Forearm Couture",
+    tradition: "Heritage Bridal Couture",
+    categoryFilter: "bridal",
+    description:
+      "Dense micro-jali latticework, negative-space lotus medallions, scalloped forearm cuffs, and partner initials woven discreetly into fine architectural borders.",
+    recommendedPackageId: "royal-bridal",
+    formulaId: "organic",
+  },
+  {
+    id: "khaleeji-gulf-vine",
+    numeral: "II",
+    title: "Floral Vines & Hidden Initials",
+    tradition: "Gulf Floral & Moroccan Jali",
+    categoryFilter: "vines",
+    description:
+      "Sculptural negative-space rose blossoms, gradient petal shading, geometric wrist bands, and elongated diagonal trails sweeping gracefully to the fingertips.",
+    recommendedPackageId: "custom-sketch-session",
+    formulaId: "organic",
+  },
+  {
+    id: "contemporary-botanical-jagua",
+    numeral: "III",
+    title: "Mehndi Celebrations",
+    tradition: "Festive Eid & Sangeet Works",
+    categoryFilter: "festive",
+    description:
+      "Express starburst medallions, dotted pearl-chain hand harnesses, and symmetrical festive cuffs composed gracefully for sangeet nights and Eid.",
+    recommendedPackageId: "party-hourly",
+    formulaId: "organic",
+  },
+  {
+    id: "bespoke-heirloom-initials",
+    numeral: "IV",
+    title: "Minimalist Botanicals",
+    tradition: "Modern Negative-Space Artistry",
+    categoryFilter: "minimalist",
+    description:
+      "Whisper-fine botanical stems, airy negative-space palm sprigs, and crisp finger cuffs tailored around statement rings for understated editorial elegance.",
+    recommendedPackageId: "festive-duo-hands",
+    formulaId: "jagua",
+  },
+];
+
+const CATEGORY_LABELS = {
+  bridal: "Bridal",
+  vines: "Vines",
+  festive: "Celebration",
+  minimalist: "Minimalist",
+};
 
 let activeCategory = "all";
 let lightboxIndex = -1;
 let lastFocusedBeforeModal = null;
 let audioCtx = null;
+let archiveObserver = null;
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -65,7 +128,7 @@ function escapeHtml(value) {
 }
 
 function playTactileTick() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (prefersReducedMotion()) return;
   try {
     const Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return;
@@ -121,7 +184,7 @@ function scrollToBooking(preset = {}) {
   openBookingWithPreset(preset);
   const target = document.getElementById("book");
   if (target) {
-    target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }
 }
 
@@ -145,6 +208,231 @@ function formatPlateIndex(idx) {
   return String(idx + 1).padStart(2, "0");
 }
 
+function initHeroReel() {
+  const stage = document.getElementById("hero-stage");
+  const frame = document.getElementById("hero-frame");
+  const parallaxLayer = document.getElementById("hero-parallax-layer");
+  const controlsEl = document.getElementById("hero-reel-controls");
+  const captionIdxEl = document.getElementById("hero-caption-index");
+  const captionTextEl = document.getElementById("hero-caption-text");
+
+  const slides = Array.isArray(studioData.HERO_REEL_PLATES) && studioData.HERO_REEL_PLATES.length
+    ? studioData.HERO_REEL_PLATES
+    : FALLBACK_HERO_REEL;
+
+  if (parallaxLayer && slides.length) {
+    const firstImg = document.getElementById("hero-editorial-img");
+    if (firstImg) {
+      firstImg.src = slides[0].src;
+      firstImg.alt = slides[0].alt || slides[0].title;
+      firstImg.width = slides[0].width || 1200;
+      firstImg.height = slides[0].height || 1600;
+    }
+
+    const extraMarkup = slides
+      .slice(1)
+      .map(
+        (slide, offset) => `
+          <img
+            class="cover-reel__img"
+            src="${escapeHtml(slide.src)}"
+            alt="${escapeHtml(slide.alt || slide.title)}"
+            width="${escapeHtml(slide.width || 1200)}"
+            height="${escapeHtml(slide.height || 1600)}"
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+            data-reel-slide="${offset + 1}"
+          >
+        `
+      )
+      .join("");
+    if (extraMarkup) parallaxLayer.insertAdjacentHTML("beforeend", extraMarkup);
+  }
+
+  if (controlsEl && slides.length) {
+    controlsEl.innerHTML = slides
+      .map(
+        (slide, idx) => `
+          <button
+            type="button"
+            class="cover-reel-btn"
+            data-reel-btn="${idx}"
+            aria-pressed="${idx === 0 ? "true" : "false"}"
+            aria-label="View Plate ${escapeHtml(slide.plateNumber || formatPlateIndex(idx))}: ${escapeHtml(slide.title)}"
+          >
+            <span class="cover-reel-btn__num">${escapeHtml(slide.plateNumber || formatPlateIndex(idx))}</span>
+            <span class="cover-reel-btn__track"><span class="cover-reel-btn__fill"></span></span>
+          </button>
+        `
+      )
+      .join("");
+  }
+
+  let activeSlide = 0;
+  let timerId = null;
+
+  const setActiveSlide = (nextIdx, userInitiated = false) => {
+    if (!slides.length) return;
+    activeSlide = ((nextIdx % slides.length) + slides.length) % slides.length;
+    const plate = slides[activeSlide];
+
+    parallaxLayer?.querySelectorAll("[data-reel-slide]").forEach((img) => {
+      const idx = Number(img.getAttribute("data-reel-slide"));
+      const active = idx === activeSlide;
+      img.classList.toggle("is-active", active);
+      img.setAttribute("aria-hidden", active ? "false" : "true");
+    });
+
+    controlsEl?.querySelectorAll("[data-reel-btn]").forEach((btn) => {
+      const idx = Number(btn.getAttribute("data-reel-btn"));
+      const active = idx === activeSlide;
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      if (active && userInitiated) {
+        const fill = btn.querySelector(".cover-reel-btn__fill");
+        if (fill) {
+          fill.style.animation = "none";
+          void fill.offsetWidth;
+          fill.style.animation = "";
+        }
+      }
+    });
+
+    if (captionIdxEl) {
+      captionIdxEl.textContent = `Plate ${plate.plateNumber || formatPlateIndex(activeSlide)}`;
+    }
+    if (captionTextEl) {
+      captionTextEl.textContent = plate.caption || `${plate.title} · ${plate.medium || "Organic Henna"}`;
+    }
+  };
+
+  const startTimer = () => {
+    if (timerId) clearInterval(timerId);
+    if (prefersReducedMotion() || slides.length < 2) return;
+    timerId = setInterval(() => {
+      if (document.hidden || stage?.classList.contains("is-paused")) return;
+      setActiveSlide(activeSlide + 1, false);
+    }, 4600);
+  };
+
+  controlsEl?.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-reel-btn]");
+    if (!btn) return;
+    const idx = Number(btn.getAttribute("data-reel-btn"));
+    if (Number.isNaN(idx)) return;
+    playTactileTick();
+    setActiveSlide(idx, true);
+    startTimer();
+  });
+
+  if (stage) {
+    stage.addEventListener("mouseenter", () => stage.classList.add("is-paused"));
+    stage.addEventListener("mouseleave", () => stage.classList.remove("is-paused"));
+    stage.addEventListener("focusin", () => stage.classList.add("is-paused"));
+    stage.addEventListener("focusout", () => stage.classList.remove("is-paused"));
+  }
+
+  if (frame && parallaxLayer && !prefersReducedMotion() && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let rafId = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    frame.addEventListener("mousemove", (e) => {
+      const rect = frame.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      targetX = Math.max(-1, Math.min(1, nx)) * -6;
+      targetY = Math.max(-1, Math.min(1, ny)) * -6;
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          parallaxLayer.style.transform = `translate3d(${targetX.toFixed(2)}px, ${targetY.toFixed(2)}px, 0)`;
+          rafId = 0;
+        });
+      }
+    });
+
+    frame.addEventListener("mouseleave", () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      parallaxLayer.style.transform = "translate3d(0, 0, 0)";
+    });
+  }
+
+  setActiveSlide(0, false);
+  startTimer();
+
+  const floatBtn = document.getElementById("hero-float-preview");
+  const floatImg = document.getElementById("hero-float-img");
+  const floatTitle = document.getElementById("hero-float-title");
+  const floatSub = document.getElementById("hero-float-sub");
+  const sketchSrc = generatedArtifacts.heroEditorial || "./assets/portfolio/sketch-floral-vine.jpg";
+
+  if (floatBtn) {
+    if (floatImg) {
+      floatImg.src = sketchSrc;
+      floatImg.alt = "Original iPad botanical floral vine sketch before application on skin";
+    }
+    if (floatTitle) floatTitle.textContent = "Botanical Proportion Study";
+    if (floatSub) floatSub.textContent = "Sketch-to-Skin ↓";
+    floatBtn.addEventListener("click", () => {
+      playTactileTick();
+      const target = document.getElementById("sketch-to-stain") || document.getElementById("process");
+      if (target) {
+        target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
+      }
+    });
+  }
+}
+
+function initBotanicalOrnament() {
+  const ornament = document.getElementById("traditions-ornament");
+  const svg = document.getElementById("traditions-vine-svg");
+  if (!ornament || !svg) return;
+
+  const paths = [...svg.querySelectorAll(".vine-path")];
+  paths.forEach((path, idx) => {
+    const len = Math.ceil(path.getTotalLength());
+    path.style.strokeDasharray = String(len);
+    if (prefersReducedMotion()) {
+      path.style.strokeDashoffset = "0";
+    } else {
+      path.style.strokeDashoffset = String(len);
+      path.style.transitionDelay = `${idx * 75}ms`;
+    }
+  });
+
+  if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    ornament.classList.add("is-drawn");
+    return;
+  }
+
+  const reveal = () => {
+    ornament.classList.add("is-drawn");
+    paths.forEach((path) => {
+      path.style.strokeDashoffset = "0";
+    });
+  };
+
+  const rect = ornament.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.95) {
+    reveal();
+    return;
+  }
+
+  const obs = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        reveal();
+        obs.disconnect();
+      }
+    },
+    { threshold: 0.25 }
+  );
+  obs.observe(ornament);
+}
+
 function renderSignatureStyles() {
   const container = document.getElementById("signature-styles-grid");
   if (!container) return;
@@ -154,47 +442,97 @@ function renderSignatureStyles() {
     : FALLBACK_SIGNATURE_STYLES;
 
   const romans = ["I", "II", "III", "IV"];
+  const defaultFilters = ["bridal", "vines", "festive", "minimalist"];
 
   container.innerHTML = source
     .slice(0, 4)
     .map((style, idx) => {
+      const fallback = FALLBACK_SIGNATURE_STYLES[idx] || {};
       const roman = style.numeral || style.roman || romans[idx] || String(idx + 1);
-      const rawTitle = String(style.title || "").replace(/^\s*0?\d\s*\/\s*/i, "");
-      const imgSrc = style.src || style.imageSrc || style.photoSrc || FALLBACK_SIGNATURE_STYLES[idx]?.src || "./assets/portfolio/portfolio-02-royal-bridal-palms.jpg";
-      const notes = style.notes || style.description || style.summary || "";
-      const pkgId = style.recommendedPackageId || style.packageId || (idx === 0 ? "royal-bridal" : "custom-sketch-session");
-      const formulaId = style.formulaId || (idx === 2 ? "jagua" : "organic");
+      const rawTitle = String(style.title || fallback.title || "").replace(/^\s*0?\d\s*\/\s*/i, "");
+      const sub = style.tradition || fallback.tradition || "";
+      const notes = style.notes || style.description || fallback.description || "";
+      const cat = style.categoryFilter || fallback.categoryFilter || defaultFilters[idx] || "all";
+      const catLabel = CATEGORY_LABELS[cat] || "Archive";
+      const pkgId = style.recommendedPackageId || style.packageId || fallback.recommendedPackageId || "royal-bridal";
+      const formulaId = style.formulaId || fallback.formulaId || (cat === "minimalist" ? "jagua" : "organic");
 
       return `
-        <article class="style-column">
-          <div class="style-column__media">
-            <img
-              src="${escapeHtml(imgSrc)}"
-              alt="${escapeHtml(rawTitle)} freehand henna study"
-              width="960"
-              height="1200"
-              loading="lazy"
-              decoding="async"
-              onerror="this.onerror=null;this.src='./assets/generated/hero-couture-bridal.jpg';"
-            >
+        <article class="tradition-column" data-tradition-idx="${idx}" data-tradition-cat="${escapeHtml(cat)}">
+          <div class="tradition-column__head">
+            <span class="tradition-column__numeral">${escapeHtml(roman)}</span>
+            <span class="tradition-column__sub">${escapeHtml(sub)}</span>
           </div>
-          <span class="style-column__numeral">${escapeHtml(roman)}</span>
-          <h3 class="style-column__title">${escapeHtml(rawTitle)}</h3>
-          <p class="style-column__notes">${escapeHtml(notes)}</p>
-          <div>
+          <h3 class="tradition-column__title">${escapeHtml(rawTitle)}</h3>
+          <p class="tradition-column__notes">${escapeHtml(notes)}</p>
+          <div class="tradition-column__actions">
             <button
               type="button"
               class="editorial-link"
+              data-tradition-filter="${escapeHtml(cat)}"
+            >
+              View ${escapeHtml(catLabel)} Works
+            </button>
+            <button
+              type="button"
+              class="tradition-inquire-link"
               data-style-inquire="${escapeHtml(pkgId)}"
               data-style-formula="${escapeHtml(formulaId)}"
             >
-              Inquire for This Style
+              Inquire
             </button>
           </div>
         </article>
       `;
     })
     .join("");
+}
+
+function observeArchiveReveals() {
+  if (archiveObserver) {
+    archiveObserver.disconnect();
+    archiveObserver = null;
+  }
+
+  const plates = [...document.querySelectorAll("#portfolio-grid .archive-plate")];
+  if (!plates.length) return;
+
+  if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    plates.forEach((plate) => plate.classList.add("is-revealed"));
+    return;
+  }
+
+  document.documentElement.classList.add("has-reveal-anim");
+  const viewportBottom = window.innerHeight * 0.96;
+  const pending = [];
+
+  plates.forEach((plate) => {
+    const rect = plate.getBoundingClientRect();
+    if (rect.top < viewportBottom) {
+      plate.classList.add("is-revealed");
+    } else {
+      pending.push(plate);
+    }
+  });
+
+  if (!pending.length) return;
+
+  archiveObserver = new IntersectionObserver(
+    (entries) => {
+      let revealBatch = 0;
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.style.transitionDelay = `${(revealBatch % 3) * 65}ms`;
+        revealBatch += 1;
+        el.classList.add("is-revealed");
+        archiveObserver?.unobserve(el);
+      });
+    },
+    { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
+  );
+
+  pending.forEach((plate) => archiveObserver.observe(plate));
 }
 
 function renderPortfolioGrid(animate = false) {
@@ -246,14 +584,14 @@ function renderPortfolioGrid(animate = false) {
         `;
       })
       .join("");
+    observeArchiveReveals();
   };
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const canTransition =
     animate &&
     typeof document.startViewTransition === "function" &&
     document.visibilityState === "visible" &&
-    !reduceMotion;
+    !prefersReducedMotion();
 
   if (canTransition) {
     try {
@@ -417,35 +755,6 @@ function setMoodboardDrawerOpen(open) {
   }
 }
 
-function renderHeroDetails() {
-  const heroImg = document.getElementById("hero-editorial-img");
-  if (heroImg && generatedArtifacts.heroCouture) {
-    heroImg.src = generatedArtifacts.heroCouture;
-  }
-
-  const floatBtn = document.getElementById("hero-float-preview");
-  const floatImg = document.getElementById("hero-float-img");
-  const floatTitle = document.getElementById("hero-float-title");
-  const floatSub = document.getElementById("hero-float-sub");
-  const atelierSrc = generatedArtifacts.heroEditorial || "./assets/generated/hero-atelier.jpg";
-
-  if (floatBtn) {
-    if (floatImg) {
-      floatImg.src = atelierSrc;
-      floatImg.alt = "Hand-rolled organic henna cones and paste preparation at the Sterling atelier";
-    }
-    if (floatTitle) floatTitle.textContent = "Atelier Preparation";
-    if (floatSub) floatSub.textContent = "Hand-Rolled Cones & Paste";
-    floatBtn.addEventListener("click", () => {
-      playTactileTick();
-      const target = document.getElementById("process");
-      if (target) {
-        target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      }
-    });
-  }
-}
-
 function renderTestimonialsAndFaq() {
   const testGrid = document.getElementById("testimonials-grid");
   if (testGrid) {
@@ -527,17 +836,60 @@ function syncFilterButtons() {
   });
 }
 
+function filterArchiveAndScroll(cat) {
+  if (!cat) return;
+  activeCategory = cat;
+  playTactileTick();
+  syncFilterButtons();
+  renderPortfolioGrid(true);
+  const archive = document.getElementById("portfolio");
+  if (archive) {
+    archive.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  }
+}
+
 function bindEvents() {
   const stylesGrid = document.getElementById("signature-styles-grid");
+  const ornament = document.getElementById("traditions-ornament");
+
   stylesGrid?.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-style-inquire]");
-    if (!btn) return;
-    playTactileTick();
-    scrollToBooking({
-      packageId: btn.getAttribute("data-style-inquire") || "royal-bridal",
-      formulaId: btn.getAttribute("data-style-formula") || "organic",
-    });
+    const inquireBtn = e.target.closest("[data-style-inquire]");
+    if (inquireBtn) {
+      e.stopPropagation();
+      playTactileTick();
+      scrollToBooking({
+        packageId: inquireBtn.getAttribute("data-style-inquire") || "royal-bridal",
+        formulaId: inquireBtn.getAttribute("data-style-formula") || "organic",
+      });
+      return;
+    }
+
+    const filterBtn = e.target.closest("[data-tradition-filter]");
+    if (filterBtn) {
+      filterArchiveAndScroll(filterBtn.getAttribute("data-tradition-filter"));
+      return;
+    }
+
+    const col = e.target.closest("[data-tradition-cat]");
+    if (col) {
+      filterArchiveAndScroll(col.getAttribute("data-tradition-cat"));
+    }
   });
+
+  if (stylesGrid && ornament) {
+    stylesGrid.addEventListener("mouseover", (e) => {
+      if (e.target.closest(".tradition-column")) ornament.classList.add("is-hovered");
+    });
+    stylesGrid.addEventListener("mouseleave", () => {
+      ornament.classList.remove("is-hovered");
+    });
+    stylesGrid.addEventListener("focusin", (e) => {
+      if (e.target.closest(".tradition-column")) ornament.classList.add("is-hovered");
+    });
+    stylesGrid.addEventListener("focusout", () => {
+      ornament.classList.remove("is-hovered");
+    });
+  }
 
   const filtersEl = document.getElementById("portfolio-filters");
   filtersEl?.addEventListener("click", (e) => {
@@ -675,9 +1027,10 @@ function bindEvents() {
 }
 
 function bootstrap() {
-  renderHeroDetails();
+  initHeroReel();
   renderSignatureStyles();
-  renderPortfolioGrid();
+  initBotanicalOrnament();
+  renderPortfolioGrid(false);
   renderTestimonialsAndFaq();
   renderFooterMetadata();
   syncMoodboardUi();

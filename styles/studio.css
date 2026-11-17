@@ -1,4 +1,4 @@
-/* Design by Sadia (v3): Vogue Bridal x Aesop x Sabyasachi Architectural Couture Stylesheet */
+/* Design by Sadia (v4): Vogue Bridal x Aesop x Sabyasachi Architectural Couture Stylesheet */
 
 *,
 *::before,
@@ -523,17 +523,116 @@ p {
   max-height: clamp(460px, 68dvh, 640px);
 }
 
-.cover-frame img {
+.cover-reel__parallax {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 280ms var(--ease-tactile);
+}
+
+.cover-reel__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 28%;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1);
+  transition: opacity 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cover-reel__img.is-active {
+  opacity: 1;
+  z-index: 1;
+  animation: heroKenBurns 5.2s var(--ease-tactile) forwards;
+}
+
+@keyframes heroKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.cover-reel-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.2rem;
+}
+
+.cover-reel-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.38rem;
+  padding: 0.25rem 0;
+  text-align: left;
+  color: var(--text-muted);
+  transition: color var(--dur-ui) var(--ease-tactile);
+}
+
+.cover-reel-btn:hover,
+.cover-reel-btn[aria-pressed="true"] {
+  color: var(--text-primary);
+}
+
+.cover-reel-btn__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.96rem;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: inherit;
+}
+
+.cover-reel-btn[aria-pressed="true"] .cover-reel-btn__num {
+  color: var(--accent-henna);
+}
+
+.cover-reel-btn__track {
+  position: relative;
+  width: 100%;
+  height: 1.5px;
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+
+.cover-reel-btn__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-henna);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.cover-reel-btn[aria-pressed="true"] .cover-reel-btn__fill {
+  animation: reelProgressFill 4.6s linear forwards;
+}
+
+.cover-stage.is-paused .cover-reel-btn[aria-pressed="true"] .cover-reel-btn__fill,
+.cover-stage.is-paused .cover-reel__img.is-active {
+  animation-play-state: paused;
+}
+
+@keyframes reelProgressFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .cover-secondary-print {
   position: absolute;
   left: -1.75rem;
-  bottom: 2.75rem;
+  bottom: 4.5rem;
   z-index: 3;
   display: flex;
   align-items: flex-end;
@@ -651,71 +750,130 @@ p {
   max-width: 56ch;
 }
 
-/* Chapter 1: 4-Column Signature Artistry Lookbook */
-.styles-lookbook {
+/* Chapter 1: Animated Botanical Ornament & Interactive 4-Tradition Index */
+.traditions-ornament {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 2.5rem;
+  color: var(--accent-henna);
+  opacity: 0.72;
+  transition: opacity 420ms var(--ease-tactile), transform 420ms var(--ease-tactile);
+}
+
+.traditions-ornament svg {
+  width: min(680px, 100%);
+  height: auto;
+  overflow: visible;
+}
+
+.traditions-ornament.is-hovered {
+  opacity: 1;
+  transform: scale(1.012);
+}
+
+.traditions-ornament .vine-path {
+  transition: stroke-dashoffset 1350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.traditions-ornament .vine-dot {
+  opacity: 0;
+  transition: opacity 450ms var(--ease-tactile) 950ms;
+}
+
+.traditions-ornament.is-drawn .vine-dot {
+  opacity: 1;
+}
+
+.traditions-index {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.style-column {
+.tradition-column {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
-  padding: 2rem 1.5rem;
+  gap: 1.05rem;
+  padding: 2.15rem 1.5rem;
+  cursor: pointer;
+  transition: background-color var(--dur-ui) var(--ease-tactile);
 }
 
-.style-column:first-child {
+.tradition-column:hover,
+.tradition-column:focus-within {
+  background: color-mix(in oklch, var(--accent-henna) 4%, transparent);
+}
+
+.tradition-column:first-child {
   padding-left: 0;
 }
 
-.style-column:last-child {
+.tradition-column:last-child {
   padding-right: 0;
 }
 
-.style-column:not(:first-child) {
+.tradition-column:not(:first-child) {
   border-left: 1px solid var(--border-subtle);
 }
 
-.style-column__media {
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-  background: var(--plane-2-card);
-  border: 1px solid var(--border-subtle);
+.tradition-column__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.style-column__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.65s var(--ease-tactile);
-}
-
-.style-column:hover .style-column__media img {
-  transform: scale(1.03);
-}
-
-.style-column__numeral {
+.tradition-column__numeral {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.35rem;
   color: var(--accent-henna);
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-.style-column__title {
-  font-size: 1.38rem;
-  line-height: 1.14;
+.tradition-column__sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.tradition-column__title {
+  font-size: 1.48rem;
+  line-height: 1.15;
   color: var(--text-primary);
 }
 
-.style-column__notes {
-  font-size: 0.88rem;
-  line-height: 1.62;
+.tradition-column__notes {
+  font-size: 0.9rem;
+  line-height: 1.65;
   color: var(--text-secondary);
   flex: 1;
+}
+
+.tradition-column__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding-top: 0.45rem;
+}
+
+.tradition-inquire-link {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.18rem;
+  transition: color var(--dur-ui) var(--ease-tactile), border-color var(--dur-ui) var(--ease-tactile);
+}
+
+.tradition-inquire-link:hover {
+  color: var(--accent-henna);
+  border-bottom-color: var(--accent-henna);
 }
 
 /* Chapter 2: Inline Baseline Archive Header & Asymmetric Client Archive */
@@ -791,6 +949,19 @@ p {
   gap: 0.85rem;
 }
 
+html.has-reveal-anim .archive-plate {
+  clip-path: inset(8% 0 0 0);
+  opacity: 0;
+  transition:
+    clip-path 680ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 540ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.has-reveal-anim .archive-plate.is-revealed {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
 .archive-plate--lead {
   grid-column: span 7;
 }
@@ -813,6 +984,26 @@ p {
   aspect-ratio: 4 / 5;
 }
 
+.archive-plate__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(212, 182, 134, 0.14) 50%,
+    transparent 65%
+  );
+  transform: translateX(-115%);
+  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.archive-plate__media:hover::before {
+  transform: translateX(115%);
+}
+
 .archive-plate__media::after {
   content: "";
   position: absolute;
@@ -833,11 +1024,16 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1);
   transition: transform 0.65s var(--ease-tactile), filter 0.45s var(--ease-tactile);
 }
 
+html.has-reveal-anim .archive-plate:not(.is-revealed) .archive-plate__media img {
+  transform: scale(1.04);
+}
+
 .archive-plate__media:hover img {
-  transform: scale(1.025);
+  transform: scale(1.03);
 }
 
 .archive-plate__caption {
@@ -1360,24 +1556,24 @@ p {
     display: inline-flex;
   }
 
-  .styles-lookbook {
+  .traditions-index {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .style-column {
+  .tradition-column {
     padding: 1.75rem 1.25rem;
   }
 
-  .style-column:nth-child(odd) {
+  .tradition-column:nth-child(odd) {
     padding-left: 0;
     border-left: none;
   }
 
-  .style-column:nth-child(even) {
+  .tradition-column:nth-child(even) {
     padding-right: 0;
   }
 
-  .style-column:nth-child(n + 3) {
+  .tradition-column:nth-child(n + 3) {
     border-top: 1px solid var(--border-subtle);
   }
 }
@@ -1397,7 +1593,7 @@ p {
 
   .cover-secondary-print {
     left: 1rem;
-    bottom: 1rem;
+    bottom: 4.5rem;
   }
 
   .archive-plate,
@@ -1418,20 +1614,20 @@ p {
     position: static;
     max-width: none;
     width: 100%;
-    margin-top: 0.5rem;
+    margin-top: 0.35rem;
   }
 
-  .styles-lookbook {
+  .traditions-index {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .style-column {
+  .tradition-column {
     padding: 1.65rem 0;
     border-left: none !important;
     border-top: 1px solid var(--border-subtle);
   }
 
-  .style-column:first-child {
+  .tradition-column:first-child {
     border-top: none;
   }
 
@@ -1449,6 +1645,27 @@ p {
   .archive-plate--lead .archive-plate__media,
   .archive-plate--wide .archive-plate__media {
     aspect-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-reel__img,
+  .cover-reel__img.is-active,
+  .cover-reel-btn[aria-pressed="true"] .cover-reel-btn__fill,
+  .traditions-ornament .vine-path,
+  .traditions-ornament .vine-dot,
+  html.has-reveal-anim .archive-plate,
+  .archive-plate__media::before,
+  .archive-plate__media img {
+    animation: none !important;
+    transition: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cover-reel__img:not(.is-active) {
+    opacity: 0 !important;
   }
 }
 

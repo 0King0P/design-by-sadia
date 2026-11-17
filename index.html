@@ -63,8 +63,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/tokens.css?v=3">
-  <link rel="stylesheet" href="./styles/studio.css?v=3">
+  <link rel="stylesheet" href="./styles/tokens.css?v=4">
+  <link rel="stylesheet" href="./styles/studio.css?v=4">
   <style>
     :root { --plane-0-void: oklch(0.11 0.008 48); --plane-1-surface: oklch(0.145 0.010 48); --accent-henna: oklch(0.80 0.075 78); }
     html, body { background-color: var(--plane-0-void); color: oklch(0.95 0.010 80); }
@@ -152,7 +152,7 @@
   </div>
 
   <main id="main-content">
-    <!-- Cover: Editorial Split -->
+    <!-- Cover: Editorial Split with Live 4-Plate Cinema Reel -->
     <section class="cover-section" id="top">
       <div class="container cover-grid">
         <div class="cover-copy">
@@ -169,26 +169,29 @@
           <p class="cover-colophon">Sterling, VA &amp; DMV &nbsp;&middot;&nbsp; Organic, Jagua, Crimson &amp; Jet &nbsp;&middot;&nbsp; 100% Freehand</p>
         </div>
 
-        <div class="cover-stage">
-          <div class="cover-frame">
-            <img
-              id="hero-editorial-img"
-              src="./assets/generated/hero-couture-bridal.jpg"
-              alt="Intricate Rajasthani and Mughlai freehand bridal mehndi stained in deep espresso mahogany on hands and forearms"
-              width="960"
-              height="1200"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              onerror="this.onerror=null;this.src='./assets/portfolio/portfolio-02-royal-bridal-palms.jpg';"
-            >
+        <div class="cover-stage" id="hero-stage">
+          <div class="cover-frame" id="hero-frame">
+            <div class="cover-reel__parallax" id="hero-parallax-layer">
+              <img
+                id="hero-editorial-img"
+                class="cover-reel__img is-active"
+                src="./assets/portfolio/portfolio-02-royal-bridal-palms.jpg"
+                alt="Freehand royal bridal mandala palms and botanical forearm cuffs in deep espresso mahogany stain"
+                width="1200"
+                height="1600"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                data-reel-slide="0"
+              >
+            </div>
           </div>
 
-          <button type="button" class="cover-secondary-print" id="hero-float-preview" aria-label="Scroll to atelier preparation and stain alchemy">
+          <button type="button" class="cover-secondary-print" id="hero-float-preview" aria-label="Scroll to original iPad sketch to living stain comparison">
             <img
               id="hero-float-img"
-              src="./assets/generated/hero-atelier.jpg"
-              alt="Hand-rolled organic henna cones and paste preparation at the Sterling atelier"
+              src="./assets/portfolio/sketch-floral-vine.jpg"
+              alt="Original iPad botanical floral vine sketch before application on skin"
               width="144"
               height="184"
               loading="eager"
@@ -196,21 +199,23 @@
               decoding="async"
             >
             <span class="cover-secondary-print__meta">
-              <span class="meta-label">Studio Craft</span>
-              <span class="cover-secondary-print__title" id="hero-float-title">Atelier Preparation</span>
-              <span class="cover-secondary-print__sub" id="hero-float-sub">Hand-Rolled Cones &amp; Paste</span>
+              <span class="meta-label">Original iPad Study</span>
+              <span class="cover-secondary-print__title" id="hero-float-title">Botanical Proportion Study</span>
+              <span class="cover-secondary-print__sub" id="hero-float-sub">Sketch-to-Skin &darr;</span>
             </span>
           </button>
 
+          <div class="cover-reel-controls" id="hero-reel-controls" role="group" aria-label="Featured client plates"></div>
+
           <div class="cover-caption">
-            <span class="cover-caption__index">Plate 01</span>
-            <span>Freehand Royal Bridal Mehndi &middot; Organic Lawsone &amp; Hidden Initials</span>
+            <span class="cover-caption__index" id="hero-caption-index">Plate 01</span>
+            <span id="hero-caption-text">Royal Mandala Palms &amp; Botanical Forearm Cuffs &middot; Organic Henna</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Chapter 1: Four Traditions -->
+    <!-- Chapter 1: Four Traditions + Animated Botanical Line-Draw -->
     <section class="atelier-section atelier-section--surface" id="styles">
       <div class="container">
         <div class="chapter-intro chapter-intro--centered">
@@ -218,7 +223,26 @@
           <p class="chapter-intro__deck">Every appointment is drawn freehand without stencils, calibrating density, negative space, and cuff symmetry to your proportions.</p>
         </div>
 
-        <div class="styles-lookbook" id="signature-styles-grid"></div>
+        <div class="traditions-ornament" id="traditions-ornament" aria-hidden="true">
+          <svg id="traditions-vine-svg" viewBox="0 0 880 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="vine-path" d="M440 62 C440 44, 424 30, 440 12 C456 30, 440 44, 440 62 Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M440 54 C422 46, 412 34, 418 22 C428 24, 434 36, 440 54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M440 54 C458 46, 468 34, 462 22 C452 24, 446 36, 440 54" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M412 48 C345 48, 305 24, 240 34 C180 44, 130 22, 42 38" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            <path class="vine-path" d="M468 48 C535 48, 575 24, 640 34 C700 44, 750 22, 838 38" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            <path class="vine-path" d="M326 32 C314 16, 294 14, 286 24 C298 30, 312 30, 326 32" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M554 32 C566 16, 586 14, 594 24 C582 30, 568 30, 554 32" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M210 38 C198 54, 178 56, 168 46 C182 40, 196 38, 210 38" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M670 38 C682 54, 702 56, 712 46 C698 40, 684 38, 670 38" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M108 32 C94 18, 76 18, 68 28 C82 32, 94 32, 108 32" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="vine-path" d="M772 32 C786 18, 804 18, 812 28 C798 32, 786 32, 772 32" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="vine-dot" cx="440" cy="6" r="2" fill="currentColor"/>
+            <circle class="vine-dot" cx="28" cy="39" r="1.8" fill="currentColor"/>
+            <circle class="vine-dot" cx="852" cy="39" r="1.8" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="traditions-index" id="signature-styles-grid"></div>
       </div>
     </section>
 
@@ -343,7 +367,7 @@
       </button>
 
       <div class="lightbox-media">
-        <img id="lightbox-img" src="./assets/portfolio/portfolio-01-botanical-vine.jpg" alt="" width="1200" height="1600">
+        <img id="lightbox-img" src="./assets/portfolio/portfolio-01-botanical-vine.jpg" alt="" width="900" height="1200">
         <button type="button" class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Previous archive piece">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 18 9 12 15 6"/>
@@ -408,6 +432,6 @@
 
   <div id="client-review-mount"></div>
 
-  <script type="module" src="./js/app.js?v=3"></script>
+  <script type="module" src="./js/app.js?v=4"></script>
 </body>
 </html>

@@ -1,0 +1,76 @@
+/* Design by Sadia: Dark Botanical Atelier Design Tokens */
+:root {
+  color-scheme: dark;
+
+  /* 5-Plane Monotonic OKLCH Surface Stack */
+  --plane-0-void: oklch(0.12 0.015 160);
+  --plane-1-surface: oklch(0.16 0.018 160);
+  --plane-2-card: oklch(0.20 0.020 160);
+  --plane-3-elevated: oklch(0.25 0.022 160);
+  --plane-4-overlay: oklch(0.29 0.024 160);
+
+  /* Specular & Structural Borders */
+  --border-specular: color-mix(in oklch, oklch(0.95 0.012 85) 12%, transparent);
+  --border-subtle: color-mix(in oklch, oklch(0.95 0.012 85) 7%, transparent);
+  --border-strong: color-mix(in oklch, oklch(0.95 0.012 85) 22%, transparent);
+  --border-accent: color-mix(in oklch, oklch(0.74 0.145 62) 45%, transparent);
+
+  /* Perceptual Typography Scale (APCA Lc >= 92 primary, Lc >= 66 secondary) */
+  --text-primary: oklch(0.95 0.012 85);
+  --text-secondary: oklch(0.77 0.016 155);
+  --text-muted: oklch(0.68 0.015 155);
+
+  /* Single Locked Burnished Henna-Amber Accent */
+  --accent-henna: oklch(0.74 0.145 62);
+  --accent-henna-hover: oklch(0.79 0.150 62);
+  --accent-henna-soft: color-mix(in oklch, oklch(0.74 0.145 62) 14%, transparent);
+  --accent-ink: oklch(0.13 0.020 60);
+
+  /* Semantic Intent Tokens (XIAS lint_intent) */
+  --color-primary: var(--accent-henna);
+  --color-accent: var(--accent-henna);
+  --color-surface: var(--plane-1-surface);
+  --color-destructive: oklch(0.64 0.19 25);
+  --color-destructive-soft: color-mix(in oklch, oklch(0.64 0.19 25) 14%, transparent);
+  --color-success: oklch(0.74 0.14 152);
+  --color-success-soft: color-mix(in oklch, oklch(0.74 0.14 152) 14%, transparent);
+
+  /* 1px Top-Edge Inner Specular Highlight & Ambient Elevation */
+  --specular-highlight: inset 0 1px 0 0 color-mix(in oklch, oklch(0.95 0.012 85) 14%, transparent);
+  --shadow-card: var(--specular-highlight), 0 18px 40px -18px oklch(0.05 0.01 160 / 0.72);
+  --shadow-elevated: var(--specular-highlight), 0 28px 64px -20px oklch(0.04 0.01 160 / 0.85);
+
+  /* Typography Families */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Fluid Type Scale */
+  --text-hero: clamp(2.55rem, 4.9vw, 4.45rem);
+  --text-h2: clamp(1.95rem, 3.2vw, 3.0rem);
+  --text-h3: clamp(1.32rem, 1.8vw, 1.65rem);
+  --text-body: clamp(0.97rem, 1.05vw, 1.06rem);
+  --text-small: 0.875rem;
+  --text-micro: 0.75rem;
+
+  /* Layout & Spacing */
+  --nav-height: 68px;
+  --container-max: 1280px;
+  --gutter: clamp(1.15rem, 3.5vw, 2.75rem);
+  --section-pad: clamp(4.25rem, 8vw, 6.75rem);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Tactile Motion & W3C Springs */
+  --ease-tactile: cubic-bezier(0.23, 1, 0.32, 1);
+  --spring-snappy: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 17.5%, 1.017 20.4%, 1.051 23.6%, 1.055 26.8%, 1.007 39.8%, 0.997 49.4%, 1);
+  --dur-press: 150ms;
+  --dur-ui: 240ms;
+  --dur-reveal: 420ms;
+}
+

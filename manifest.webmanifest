@@ -1,0 +1,24 @@
+{
+  "name": "Design by Sadia | Bespoke Henna & Body Art Studio",
+  "short_name": "Design by Sadia",
+  "description": "Freehand botanical henna, jagua, red, and black henna artistry by Sadia Shoyeb in Sterling, VA and Northern Virginia.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090d0b",
+  "theme_color": "#d98a3c",
+  "icons": [
+    {
+      "src": "./assets/generated/hero-atelier.jpg",
+      "sizes": "1200x900",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/generated/bridal-editorial.jpg",
+      "sizes": "960x1200",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,16 +1,54 @@
-import * as studioData from "../data/studio-data.js";
-import { initInteractiveTools } from "./interactive-tools.js";
-import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js";
-import { initClientReviewMode } from "./client-review-mode.js";
+import * as studioData from "../data/studio-data.js?v=2";
+import { initInteractiveTools } from "./interactive-tools.js?v=2";
+import { initBookingEngine, openBookingWithPreset } from "./booking-engine.js?v=2";
+import { initClientReviewMode } from "./client-review-mode.js?v=2";
 
 const MOODBOARD_KEY = "sadia_moodboard_v1";
 
 const portfolioItems = Array.isArray(studioData.PORTFOLIO_ITEMS) ? studioData.PORTFOLIO_ITEMS : [];
-const servicePackages = Array.isArray(studioData.SERVICE_PACKAGES) ? studioData.SERVICE_PACKAGES : [];
 const testimonials = Array.isArray(studioData.TESTIMONIALS) ? studioData.TESTIMONIALS : [];
 const faqItems = Array.isArray(studioData.FAQ_ITEMS) ? studioData.FAQ_ITEMS : [];
 const brandProfile = studioData.BRAND_PROFILE || {};
 const generatedArtifacts = studioData.GENERATED_ARTIFACTS || {};
+
+const FALLBACK_SIGNATURE_STYLES = [
+  {
+    id: "royal-rajasthani",
+    roman: "I",
+    title: "Royal Rajasthani & Mughlai Bridal",
+    notes: "Micro-jali latticework, negative-space lotus medallions, scalloped forearm cuffs, and partner initials woven cleanly into the palm.",
+    src: generatedArtifacts.heroCouture || "./assets/portfolio/portfolio-02-royal-bridal-palms.jpg",
+    packageId: "royal-bridal",
+    formulaId: "organic",
+  },
+  {
+    id: "khaleeji-gulf",
+    roman: "II",
+    title: "Khaleeji Shaded Rose & Gulf Vine",
+    notes: "Sweeping diagonal rose clusters, high-contrast petal shading, and elongated index trails balanced by open skin breathing room.",
+    src: generatedArtifacts.styleKhaleeji || "./assets/portfolio/portfolio-05-velvet-cuff-paisley.jpg",
+    packageId: "custom-sketch-session",
+    formulaId: "organic",
+  },
+  {
+    id: "botanical-jagua",
+    roman: "III",
+    title: "Contemporary Botanical Jagua",
+    notes: "Amazonian Genipa americana fine-line botanical cuffs and architectural florals oxidizing into deep slate blue-black over 48 hours.",
+    src: generatedArtifacts.stainJagua || "./assets/portfolio/portfolio-14-minimalist-palm-sprigs.jpg",
+    packageId: "intimate-nikah",
+    formulaId: "jagua",
+  },
+  {
+    id: "heirloom-initials",
+    roman: "IV",
+    title: "Bespoke Heirloom & Hidden Initials",
+    notes: "Custom couple monograms, wedding dates, and delicate pearl-chain haathphool motifs composed freehand to match ring and bangle proportions.",
+    src: "./assets/portfolio/portfolio-03-rose-vine-initials.jpg",
+    packageId: "royal-bridal",
+    formulaId: "organic",
+  },
+];
 
 let activeCategory = "all";
 let lightboxIndex = -1;
@@ -38,14 +76,14 @@ function playTactileTick() {
     const gain = audioCtx.createGain();
     osc.type = "sine";
     osc.frequency.setValueAtTime(1800, now);
-    gain.gain.setValueAtTime(0.025, now);
+    gain.gain.setValueAtTime(0.02, now);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.008);
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.start(now);
     osc.stop(now + 0.009);
   } catch {
-    // Ignore audio context restrictions before gesture or unsupported environments.
+    // AudioContext blocked prior to user gesture or unavailable.
   }
 }
 
@@ -64,7 +102,7 @@ function saveMoodboardIds(ids) {
   try {
     localStorage.setItem(MOODBOARD_KEY, JSON.stringify(unique));
   } catch {
-    // Storage unavailable in strict private mode; continue with event broadcast.
+    // Storage unavailable; dispatch event for active components.
   }
   document.dispatchEvent(new CustomEvent("sadia:moodboard-change", { detail: { ids: unique } }));
   syncMoodboardUi(unique);
@@ -92,12 +130,71 @@ function getVisiblePortfolioItems() {
   return portfolioItems.filter((item) => item.category === activeCategory);
 }
 
-function getCardLayoutClass(item, idx) {
+function getArchiveLayoutClass(item, idx) {
+  if (activeCategory === "all") {
+    if (idx === 0) return "archive-plate--lead";
+    if (idx === 1) return "archive-plate--companion";
+  }
   const w = Number(item.width) || 0;
   const h = Number(item.height) || 0;
-  if (w > h * 1.15) return "portfolio-card--wide";
-  if (idx === 0 || idx === 5) return "portfolio-card--tall";
+  if (w > h * 1.15) return "archive-plate--wide";
   return "";
+}
+
+function formatPlateIndex(idx) {
+  return String(idx + 1).padStart(2, "0");
+}
+
+function renderSignatureStyles() {
+  const container = document.getElementById("signature-styles-grid");
+  if (!container) return;
+
+  const source = Array.isArray(studioData.SIGNATURE_STYLES) && studioData.SIGNATURE_STYLES.length
+    ? studioData.SIGNATURE_STYLES
+    : FALLBACK_SIGNATURE_STYLES;
+
+  const romans = ["I", "II", "III", "IV"];
+
+  container.innerHTML = source
+    .slice(0, 4)
+    .map((style, idx) => {
+      const roman = style.numeral || style.roman || romans[idx] || String(idx + 1);
+      const rawTitle = String(style.title || "").replace(/^\s*0?\d\s*\/\s*/i, "");
+      const imgSrc = style.src || style.imageSrc || style.photoSrc || FALLBACK_SIGNATURE_STYLES[idx]?.src || "./assets/portfolio/portfolio-02-royal-bridal-palms.jpg";
+      const notes = style.notes || style.description || style.summary || "";
+      const pkgId = style.recommendedPackageId || style.packageId || (idx === 0 ? "royal-bridal" : "custom-sketch-session");
+      const formulaId = style.formulaId || (idx === 2 ? "jagua" : "organic");
+
+      return `
+        <article class="style-column">
+          <div class="style-column__media">
+            <img
+              src="${escapeHtml(imgSrc)}"
+              alt="${escapeHtml(rawTitle)} freehand henna study"
+              width="960"
+              height="1200"
+              loading="eager"
+              decoding="async"
+              onerror="this.onerror=null;this.src='./assets/portfolio/portfolio-02-royal-bridal-palms.jpg';"
+            >
+          </div>
+          <span class="style-column__numeral">${escapeHtml(roman)}</span>
+          <h3 class="style-column__title">${escapeHtml(rawTitle)}</h3>
+          <p class="style-column__notes">${escapeHtml(notes)}</p>
+          <div>
+            <button
+              type="button"
+              class="editorial-link"
+              data-style-inquire="${escapeHtml(pkgId)}"
+              data-style-formula="${escapeHtml(formulaId)}"
+            >
+              Inquire for This Style
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function renderPortfolioGrid() {
@@ -116,39 +213,35 @@ function renderPortfolioGrid() {
     grid.innerHTML = visible
       .map((item, idx) => {
         const pinned = saved.has(item.id);
-        const layoutClass = getCardLayoutClass(item, idx);
+        const layoutClass = getArchiveLayoutClass(item, idx);
         const w = item.width || 1200;
         const h = item.height || 1600;
-        const loading = idx < 4 ? "eager" : "lazy";
+        const num = formatPlateIndex(idx);
+
         return `
-          <article class="portfolio-card ${layoutClass}" data-portfolio-id="${escapeHtml(item.id)}">
-            <div class="portfolio-card__media" role="button" tabindex="0" data-lightbox-id="${escapeHtml(item.id)}" aria-label="Inspect ${escapeHtml(item.title)} in lightbox">
+          <article class="archive-plate ${layoutClass}" data-portfolio-id="${escapeHtml(item.id)}">
+            <div class="archive-plate__media" role="button" tabindex="0" data-lightbox-id="${escapeHtml(item.id)}" aria-label="Inspect ${escapeHtml(item.title)} in lightbox">
               <img
                 src="${escapeHtml(item.src)}"
-                alt="${escapeHtml(item.title)} - ${escapeHtml(item.medium)} by Design by Sadia"
+                alt="${escapeHtml(item.title)} · ${escapeHtml(item.medium || "Organic Henna")} by Design by Sadia"
                 width="${escapeHtml(w)}"
                 height="${escapeHtml(h)}"
-                loading="${loading}"
+                loading="eager"
                 decoding="async"
               >
-              <div class="portfolio-card__scrim" aria-hidden="true"></div>
-              <div class="portfolio-card__badges">
-                <span class="card-chip card-chip--accent">${escapeHtml(item.medium || "Organic Henna")}</span>
-                <span class="card-chip">${escapeHtml(item.occasion || "Bespoke")}</span>
-              </div>
             </div>
-            <div class="portfolio-card__body">
+            <div class="archive-plate__caption">
               <div>
-                <h3 class="portfolio-card__title">${escapeHtml(item.title)}</h3>
-                <div class="portfolio-card__meta">${escapeHtml(item.coverage || "Custom Freehand")}</div>
+                <h3 class="archive-plate__title"><span class="archive-plate__index">${escapeHtml(num)} &middot;</span>${escapeHtml(item.title)}</h3>
+                <div class="archive-plate__meta">${escapeHtml(item.medium || "Organic Henna")} &middot; ${escapeHtml(item.coverage || "Custom Freehand")}</div>
               </div>
               <button
                 type="button"
-                class="pin-btn"
+                class="save-bookmark-btn"
                 data-pin-id="${escapeHtml(item.id)}"
                 aria-pressed="${pinned ? "true" : "false"}"
               >
-                ${pinned ? "Saved" : "Pin to Moodboard"}
+                ${pinned ? "Saved" : "Save"}
               </button>
             </div>
           </article>
@@ -168,7 +261,7 @@ function renderPortfolioGrid() {
 function syncMoodboardUi(ids = getMoodboardIds()) {
   const countEl = document.getElementById("nav-moodboard-count");
   const pillBtn = document.getElementById("nav-moodboard-btn");
-  if (countEl) countEl.textContent = `${ids.length} Saved`;
+  if (countEl) countEl.textContent = `Saved (${ids.length})`;
   if (pillBtn) pillBtn.classList.toggle("has-items", ids.length > 0);
 
   const savedSet = new Set(ids);
@@ -176,7 +269,7 @@ function syncMoodboardUi(ids = getMoodboardIds()) {
     const id = btn.getAttribute("data-pin-id");
     const isPinned = savedSet.has(id);
     btn.setAttribute("aria-pressed", isPinned ? "true" : "false");
-    btn.textContent = isPinned ? "Saved" : "Pin to Moodboard";
+    btn.textContent = isPinned ? "Saved" : "Save";
   });
 
   if (lightboxIndex >= 0) {
@@ -186,7 +279,7 @@ function syncMoodboardUi(ids = getMoodboardIds()) {
     if (item && lbPinBtn) {
       const isPinned = savedSet.has(item.id);
       lbPinBtn.setAttribute("aria-pressed", isPinned ? "true" : "false");
-      lbPinBtn.textContent = isPinned ? "Pinned to Moodboard" : "Pin to Moodboard";
+      lbPinBtn.textContent = isPinned ? "Saved in Archive" : "Save to Archive";
     }
   }
 
@@ -205,8 +298,8 @@ function renderMoodboardDrawer(ids = getMoodboardIds()) {
 
   if (subEl) {
     subEl.textContent = savedItems.length
-      ? `${savedItems.length} pinned inspiration piece${savedItems.length === 1 ? "" : "s"} attached to your booking brief.`
-      : "Pin designs from the portfolio to share inspiration with Sadia.";
+      ? `${savedItems.length} saved archive plate${savedItems.length === 1 ? "" : "s"} attached to your reservation dossier.`
+      : "Save designs from the client archive to share inspiration with Sadia.";
   }
 
   if (clearBtn) {
@@ -215,7 +308,7 @@ function renderMoodboardDrawer(ids = getMoodboardIds()) {
   }
 
   if (!savedItems.length) {
-    listEl.innerHTML = `<p class="prose-body">No designs pinned yet. Browse the portfolio gallery and select "Pin to Moodboard" on any look you love.</p>`;
+    listEl.innerHTML = `<p style="font-size: 0.92rem; color: var(--text-secondary); padding-top: 0.5rem;">No plates saved yet. Browse the client archive and select "Save" on any work you would like to reference.</p>`;
     return;
   }
 
@@ -223,12 +316,12 @@ function renderMoodboardDrawer(ids = getMoodboardIds()) {
     .map(
       (item) => `
         <div class="moodboard-saved-item">
-          <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" width="64" height="76" loading="lazy">
+          <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.title)}" width="64" height="80" loading="lazy">
           <div>
-            <div style="font-family: var(--font-display); font-size: 1.12rem; color: var(--text-primary);">${escapeHtml(item.title)}</div>
-            <div style="font-size: 0.78rem; color: var(--text-secondary);">${escapeHtml(item.medium)} &middot; ${escapeHtml(item.coverage)}</div>
+            <div style="font-family: var(--font-display); font-size: 1.12rem; color: var(--text-primary); line-height: 1.2;">${escapeHtml(item.title)}</div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">${escapeHtml(item.medium || "Organic Henna")} &middot; ${escapeHtml(item.coverage || "")}</div>
           </div>
-          <button type="button" class="btn btn--destructive btn--sm" data-remove-moodboard="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.title)} from moodboard">Remove</button>
+          <button type="button" class="btn btn--destructive btn--sm" data-remove-moodboard="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.title)} from saved archive">Remove</button>
         </div>
       `
     )
@@ -265,7 +358,7 @@ function renderLightboxItem() {
 
   if (img) {
     img.src = item.src;
-    img.alt = `${item.title} - ${item.medium} by Design by Sadia`;
+    img.alt = `${item.title} · ${item.medium || "Organic Henna"} by Design by Sadia`;
     img.width = item.width || 1200;
     img.height = item.height || 1600;
   }
@@ -278,7 +371,7 @@ function renderLightboxItem() {
   const isPinned = getMoodboardIds().includes(item.id);
   if (pinBtn) {
     pinBtn.setAttribute("aria-pressed", isPinned ? "true" : "false");
-    pinBtn.textContent = isPinned ? "Pinned to Moodboard" : "Pin to Moodboard";
+    pinBtn.textContent = isPinned ? "Saved in Archive" : "Save to Archive";
   }
 }
 
@@ -316,91 +409,33 @@ function setMoodboardDrawerOpen(open) {
 
 function renderHeroDetails() {
   const heroImg = document.getElementById("hero-editorial-img");
-  if (heroImg && generatedArtifacts.heroEditorial) {
-    heroImg.src = generatedArtifacts.heroEditorial;
+  if (heroImg && generatedArtifacts.heroCouture) {
+    heroImg.src = generatedArtifacts.heroCouture;
   }
 
-  const featured = portfolioItems.find((item) => item.featured) || portfolioItems[0];
+  const secondary =
+    portfolioItems.find((item) => item.id === "rose-vine-initials") ||
+    portfolioItems[1] ||
+    portfolioItems[0];
   const floatBtn = document.getElementById("hero-float-preview");
   const floatImg = document.getElementById("hero-float-img");
   const floatTitle = document.getElementById("hero-float-title");
   const floatSub = document.getElementById("hero-float-sub");
 
-  if (featured && floatBtn) {
+  if (secondary && floatBtn) {
     if (floatImg) {
-      floatImg.src = featured.src;
-      floatImg.alt = `${featured.title} preview`;
+      floatImg.src = secondary.src;
+      floatImg.alt = `${secondary.title} archival print`;
     }
-    if (floatTitle) floatTitle.textContent = featured.title;
-    if (floatSub) floatSub.textContent = `${featured.medium} · Inspect Work`;
+    if (floatTitle) floatTitle.textContent = "Rose-Vine & Initials";
+    if (floatSub) floatSub.textContent = `${secondary.medium || "Organic Henna"} · Inspect Plate`;
     floatBtn.addEventListener("click", () => {
       activeCategory = "all";
       syncFilterButtons();
       renderPortfolioGrid();
-      openLightboxById(featured.id);
+      openLightboxById(secondary.id);
     });
   }
-}
-
-function renderPackagesBento() {
-  const container = document.getElementById("packages-bento");
-  if (!container) return;
-
-  const bridalMoodSrc = generatedArtifacts.bridalMood || "./assets/generated/bridal-editorial.jpg";
-  const editorialCard = `
-    <article class="package-editorial-card">
-      <img
-        class="package-editorial-card__bg"
-        src="${escapeHtml(bridalMoodSrc)}"
-        alt="Luxury South Asian bridal mehndi stain on emerald silk"
-        width="896"
-        height="1200"
-        loading="lazy"
-        decoding="async"
-      >
-      <div class="package-editorial-card__scrim" aria-hidden="true"></div>
-      <div class="package-editorial-card__content">
-        <span class="card-chip card-chip--accent" style="align-self: flex-start;">Bridal Couture Atelier</span>
-        <h3>Bespoke Mehndi &amp; Hidden Partner Initials</h3>
-        <p>Every bridal session includes custom hand-mapped proportions, fresh essential-oil organic cones, lemon-sugar sealant care, and optional hidden partner initials woven seamlessly into your vine work.</p>
-        <div>
-          <button type="button" class="btn btn--primary" data-package-book="${escapeHtml(servicePackages[0]?.id || "bridal-royal")}">Book Consultation</button>
-        </div>
-      </div>
-    </article>
-  `;
-
-  const packageCards = servicePackages
-    .map(
-      (pkg) => `
-        <article class="package-card ${pkg.featured ? "package-card--featured" : ""}">
-          <div class="package-card__head">
-            <div>
-              <div class="package-card__cat">${escapeHtml(pkg.category || "Session")}</div>
-              <h3 style="margin-top: 0.25rem;">${escapeHtml(pkg.name)}</h3>
-              <p style="font-size: 0.85rem; margin-top: 0.2rem;">${escapeHtml(pkg.subtitle || "")}</p>
-            </div>
-            ${pkg.featured ? `<span class="card-chip card-chip--accent">Most Requested</span>` : ""}
-          </div>
-
-          <div class="package-card__price-row">
-            <span class="package-card__price">$${escapeHtml(pkg.startingPrice)}</span>
-            <span class="package-card__unit">${escapeHtml(pkg.priceUnit || "starting")}</span>
-          </div>
-
-          <ul class="package-card__list">
-            ${(Array.isArray(pkg.includes) ? pkg.includes : []).map((line) => `<li>${escapeHtml(line)}</li>`).join("")}
-          </ul>
-
-          <div>
-            <button type="button" class="btn ${pkg.featured ? "btn--primary" : "btn--secondary"}" style="width: 100%;" data-package-book="${escapeHtml(pkg.id)}">Book Consultation</button>
-          </div>
-        </article>
-      `
-    )
-    .join("");
-
-  container.innerHTML = editorialCard + packageCards;
 }
 
 function renderTestimonialsAndFaq() {
@@ -409,11 +444,11 @@ function renderTestimonialsAndFaq() {
     testGrid.innerHTML = testimonials
       .map(
         (t) => `
-          <blockquote class="testimonial-card" style="margin: 0;">
-            <p class="testimonial-card__quote">${escapeHtml(t.quote)}</p>
-            <footer class="testimonial-card__footer">
-              <span class="testimonial-card__author">${escapeHtml(t.author)} &middot; ${escapeHtml(t.role || "Client")}</span>
-              <span class="testimonial-card__meta">${escapeHtml(t.location)} &middot; ${escapeHtml(t.service)}</span>
+          <blockquote class="client-note">
+            <p class="client-note__quote">"${escapeHtml(t.quote)}"</p>
+            <footer class="client-note__meta">
+              <span class="client-note__author">${escapeHtml(t.author)} &middot; ${escapeHtml(t.role || "Client")}</span>
+              <span>${escapeHtml(t.location)} &middot; ${escapeHtml(t.service)}</span>
             </footer>
           </blockquote>
         `
@@ -469,19 +504,33 @@ function renderFooterMetadata() {
   const areasEl = document.getElementById("footer-service-areas");
   if (areasEl && Array.isArray(brandProfile.serviceAreas)) {
     areasEl.innerHTML = brandProfile.serviceAreas
-      .map((area) => `<span class="footer-area-tag">${escapeHtml(area)}</span>`)
+      .map((area, idx) => {
+        const sep = idx < brandProfile.serviceAreas.length - 1 ? " &middot;" : "";
+        return `<span class="footer-area-tag">${escapeHtml(area)}${sep}</span>`;
+      })
       .join("");
   }
 }
 
 function syncFilterButtons() {
-  document.querySelectorAll("#portfolio-filters .filter-pill").forEach((btn) => {
+  document.querySelectorAll("#portfolio-filters .filter-tab").forEach((btn) => {
     const cat = btn.getAttribute("data-category");
     btn.setAttribute("aria-pressed", cat === activeCategory ? "true" : "false");
   });
 }
 
 function bindEvents() {
+  const stylesGrid = document.getElementById("signature-styles-grid");
+  stylesGrid?.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-style-inquire]");
+    if (!btn) return;
+    playTactileTick();
+    scrollToBooking({
+      packageId: btn.getAttribute("data-style-inquire") || "royal-bridal",
+      formulaId: btn.getAttribute("data-style-formula") || "organic",
+    });
+  });
+
   const filtersEl = document.getElementById("portfolio-filters");
   filtersEl?.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-category]");
@@ -572,13 +621,6 @@ function bindEvents() {
     scrollToBooking({ moodboardIds: getMoodboardIds() });
   });
 
-  document.getElementById("packages-bento")?.addEventListener("click", (e) => {
-    const pkgBtn = e.target.closest("[data-package-book]");
-    if (!pkgBtn) return;
-    playTactileTick();
-    scrollToBooking({ packageId: pkgBtn.getAttribute("data-package-book") });
-  });
-
   document.querySelectorAll("[data-book-trigger]").forEach((el) => {
     el.addEventListener("click", () => {
       playTactileTick();
@@ -626,8 +668,8 @@ function bindEvents() {
 
 function bootstrap() {
   renderHeroDetails();
+  renderSignatureStyles();
   renderPortfolioGrid();
-  renderPackagesBento();
   renderTestimonialsAndFaq();
   renderFooterMetadata();
   syncMoodboardUi();

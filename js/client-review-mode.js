@@ -1,15 +1,15 @@
-// Floating Client Staging Review drawer for Sadia's pre-production sign-off.
+// Client Staging Sign-Off Drawer for Design by Sadia (v2), mounted strictly when ?review=1 is present.
 
 const REVIEW_STYLES_ID = 'dbs-review-module-styles';
 const STORAGE_REVIEW_KEY = 'sadia_client_review_v1';
 
 const REVIEW_SECTIONS = [
-  { id: 'hero-voice', label: 'Hero & Brand Voice' },
-  { id: 'portfolio-15', label: '15 Real Portfolio Photos' },
-  { id: 'sketch-stain', label: 'Sketch-to-Stain Slider' },
-  { id: 'stain-lab', label: '4-Formula Stain Lab' },
-  { id: 'nova-pricing', label: 'NoVA Pricing & Travel Zones' },
-  { id: 'booking-ig', label: 'Booking & IG DM Flow' }
+  { id: 'hero-voice', label: 'Hero Editorial & Brand Voice' },
+  { id: 'portfolio-15', label: 'Curated Client Archive (15 Works)' },
+  { id: 'sketch-stain', label: 'iPad Blueprint to Living Stain' },
+  { id: 'stain-lab', label: 'Four Paste Formulas & 48h Oxidation' },
+  { id: 'nova-pricing', label: 'Studio Rate Menu & Session Calculator' },
+  { id: 'booking-ig', label: 'Private Reservation Desk & IG Dossier' }
 ];
 
 function escapeHtml(value) {
@@ -26,45 +26,47 @@ function injectReviewStyles() {
   const style = document.createElement('style');
   style.id = REVIEW_STYLES_ID;
   style.textContent = `
-    .dbs-review-pill {
+    .dbs-review-trigger {
       position: fixed;
       bottom: 1.25rem;
       left: 1.25rem;
       z-index: 60;
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      padding: 0.65rem 1rem;
-      border-radius: 999px;
-      background: var(--plane-2-card, #16201c);
-      color: var(--text-primary, #f4f0e8);
-      border: 1px solid rgba(217, 138, 60, 0.48);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-      font-size: 0.82rem;
-      font-weight: 600;
+      gap: 0.65rem;
+      padding: 0.68rem 1.05rem;
+      border-radius: 2px;
+      background: var(--plane-1-surface, #191512);
+      color: var(--text-primary, #f4ece0);
+      border: 1px solid var(--accent-henna, #c9a96e);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.52);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums lining-nums;
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), border-color 180ms ease;
+      transition: border-color 160ms ease, background-color 160ms ease;
     }
-    .dbs-review-pill:active {
-      transform: scale(0.97);
+    .dbs-review-trigger:hover {
+      background: var(--plane-2-card, #211c17);
     }
-    .dbs-review-pill:hover {
-      border-color: var(--accent-henna, #d98a3c);
+    .dbs-review-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--accent-henna, #c9a96e);
+      flex-shrink: 0;
     }
-    @media (max-width: 639px) {
-      .dbs-review-pill {
-        bottom: 0.75rem;
-        left: 0.75rem;
-        padding: 0.48rem 0.78rem;
-        font-size: 0.74rem;
-      }
+    .dbs-review-dot--approved {
+      background: var(--color-success, #7aa885);
     }
     .dbs-review-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 70;
-      background: rgba(9, 13, 11, 0.72);
+      z-index: 80;
+      background: rgba(10, 8, 7, 0.78);
       backdrop-filter: blur(6px);
       display: flex;
       justify-content: flex-start;
@@ -73,79 +75,101 @@ function injectReviewStyles() {
       width: min(440px, 100vw);
       height: 100dvh;
       overflow-y: auto;
-      background: var(--plane-2-card, #16201c);
-      color: var(--text-primary, #f4f0e8);
-      border-right: 1px solid var(--border-specular, rgba(244, 240, 232, 0.14));
-      padding: 1.5rem;
+      background: var(--plane-1-surface, #191512);
+      color: var(--text-primary, #f4ece0);
+      border-right: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+      padding: 1.75rem;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
-      box-shadow: 20px 0 60px rgba(0, 0, 0, 0.55);
+      gap: 1.25rem;
+      box-shadow: 24px 0 64px rgba(0, 0, 0, 0.65);
+    }
+    .dbs-review-micro {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-review-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.8rem;
+      font-weight: 500;
+      font-variant-numeric: lining-nums proportional-nums;
+      line-height: 1.1;
+      margin: 0.25rem 0 0;
+      color: var(--text-primary, #f4ece0);
     }
     .dbs-review-check {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 0.9rem;
-      border-radius: 12px;
-      background: var(--plane-1-surface, #101714);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
+      gap: 0.85rem;
+      padding: 0.82rem 0.9rem;
+      border-radius: 2px;
+      background: var(--plane-0-void, #120f0d);
+      border: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: border-color 160ms ease, background-color 160ms ease;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.88rem;
+      color: var(--text-secondary, #b8ab9a);
+      transition: border-color 160ms ease, color 160ms ease;
     }
     .dbs-review-check[data-checked="true"] {
-      border-color: rgba(217, 138, 60, 0.55);
-      background: var(--plane-3-elevated, #1e2b26);
+      border-color: var(--accent-henna, #c9a96e);
+      color: var(--text-primary, #f4ece0);
     }
     .dbs-review-textarea {
       width: 100%;
       box-sizing: border-box;
-      padding: 0.82rem 0.95rem;
-      border-radius: 12px;
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-primary, #f4f0e8);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.14));
-      font-family: inherit;
-      font-size: 0.9rem;
-      line-height: 1.5;
+      padding: 0.85rem 0.95rem;
+      border-radius: 2px;
+      background: var(--plane-0-void, #120f0d);
+      color: var(--text-primary, #f4ece0);
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.88rem;
+      line-height: 1.55;
       resize: vertical;
     }
     .dbs-review-textarea:focus {
       outline: none;
-      border-color: var(--accent-henna, #d98a3c);
-      box-shadow: 0 0 0 3px rgba(217, 138, 60, 0.18);
+      border-color: var(--accent-henna, #c9a96e);
     }
     .dbs-review-btn-primary {
       width: 100%;
-      padding: 0.85rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: var(--accent-henna, #d98a3c);
-      color: var(--accent-ink, #140d06);
-      font-weight: 700;
-      font-size: 0.9rem;
+      min-height: 44px;
+      padding: 0.82rem 1.25rem;
+      border-radius: 2px;
+      border: 1px solid var(--accent-henna, #c9a96e);
+      background: var(--accent-henna, #c9a96e);
+      color: var(--accent-ink, #14100d);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), filter 150ms ease;
-    }
-    .dbs-review-btn-primary:active {
-      transform: scale(0.97);
     }
     .dbs-review-btn-ghost {
       width: 100%;
-      padding: 0.78rem 1.15rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.16));
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-primary, #f4f0e8);
-      font-weight: 600;
-      font-size: 0.86rem;
+      min-height: 42px;
+      padding: 0.75rem 1.15rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.18));
+      background: transparent;
+      color: var(--text-primary, #f4ece0);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), border-color 150ms ease;
     }
-    .dbs-review-btn-ghost:active {
-      transform: scale(0.97);
+    .dbs-review-btn-ghost:hover {
+      border-color: var(--accent-henna, #c9a96e);
     }
   `;
   document.head.appendChild(style);
@@ -168,7 +192,7 @@ function loadReviewState() {
       approvedForProduction: Boolean(parsed?.approvedForProduction),
       updatedAt: typeof parsed?.updatedAt === 'string' ? parsed.updatedAt : ''
     };
-  } catch (_) {
+  } catch {
     return base;
   }
 }
@@ -184,8 +208,8 @@ function persistReviewState(state) {
         updatedAt: new Date().toISOString()
       })
     );
-  } catch (_) {
-    // Ignore storage quota errors cleanly.
+  } catch {
+    // Ignore storage quota errors.
   }
 }
 
@@ -194,7 +218,7 @@ async function copyClipboardSafe(text) {
     try {
       await navigator.clipboard.writeText(text);
       return true;
-    } catch (_) {
+    } catch {
       // Fallback below.
     }
   }
@@ -209,7 +233,7 @@ async function copyClipboardSafe(text) {
     const ok = document.execCommand('copy');
     document.body.removeChild(ta);
     return ok;
-  } catch (_) {
+  } catch {
     return false;
   }
 }
@@ -236,14 +260,15 @@ function buildSignOffMarkdown(reviewState, artistName, studioUrl) {
 }
 
 export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('review') !== '1') return;
   if (!mountReview) return;
+
   injectReviewStyles();
 
   const artistName = studioData?.BRAND_PROFILE?.artistName || 'Sadia Shoyeb';
   const reviewState = loadReviewState();
-
-  const params = new URLSearchParams(window.location.search || '');
-  let isOpen = params.get('review') === '1';
+  let isOpen = true;
   let statusBanner = '';
 
   function handleEscape(ev) {
@@ -263,14 +288,14 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
     mountReview.innerHTML = `
       <button
         type="button"
-        class="dbs-review-pill"
+        class="dbs-review-trigger"
         data-review-trigger
         aria-expanded="${isOpen ? 'true' : 'false'}"
         aria-controls="dbs-review-drawer"
       >
-        <span style="width:9px;height:9px;border-radius:999px;background:${reviewState.approvedForProduction ? '#4ade80' : 'var(--accent-henna, #d98a3c)'};"></span>
-        <span>Client Staging Review</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;font-size:0.74rem;color:var(--accent-henna);">${completedCount}/${REVIEW_SECTIONS.length}</span>
+        <span class="dbs-review-dot ${reviewState.approvedForProduction ? 'dbs-review-dot--approved' : ''}"></span>
+        <span>Staging Sign-Off</span>
+        <span style="color: var(--accent-henna, #c9a96e);">${completedCount}/${REVIEW_SECTIONS.length}</span>
       </button>
 
       ${
@@ -282,43 +307,37 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
             class="dbs-review-drawer"
             role="dialog"
             aria-modal="true"
-            aria-label="Client Staging Review for ${escapeHtml(artistName)}"
+            aria-label="Staging Sign-Off for ${escapeHtml(artistName)}"
           >
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.10));">
               <div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;color:var(--accent-henna);">
-                  PRE-PRODUCTION SIGN-OFF
-                </div>
-                <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;line-height:1.12;margin:0.2rem 0 0;">
-                  Client Staging Review
-                </h2>
+                <div class="dbs-review-micro">Pre-Production Sign-Off</div>
+                <h2 class="dbs-review-title">Atelier Staging Review</h2>
               </div>
               <button
                 type="button"
                 class="dbs-review-btn-ghost"
-                style="width:auto;padding:0.45rem 0.85rem;font-size:0.8rem;"
+                style="width: auto; min-height: 36px; padding: 0.4rem 0.85rem;"
                 data-review-close
                 aria-label="Close staging review drawer"
-              >
-                Close
-              </button>
+              >Close</button>
             </div>
 
-            <p style="margin:0;font-size:0.88rem;color:var(--text-secondary);line-height:1.5;">
-              Review each section on staging, jot any price or text adjustments below, then copy your sign-off packet for Wali.
+            <p style="margin: 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Review each section on staging, add any copy or rate notes below, and copy your sign-off dossier for Wali.
             </p>
 
             <div>
-              <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:0.35rem;">
-                <span style="color:var(--text-secondary);">Sign-off progress</span>
-                <span style="font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;color:var(--accent-henna);">${completedCount} / ${REVIEW_SECTIONS.length} (${pct}%)</span>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                <span class="dbs-review-micro" style="color: var(--text-muted);">Sign-Off Progress</span>
+                <span class="dbs-review-micro">${completedCount} / ${REVIEW_SECTIONS.length} (${pct}%)</span>
               </div>
-              <div style="height:6px;border-radius:999px;background:var(--plane-1-surface);overflow:hidden;">
-                <div style="height:100%;width:${pct}%;background:var(--accent-henna);transition:width 200ms ease;"></div>
+              <div style="height: 3px; background: var(--plane-0-void, #120f0d); overflow: hidden;">
+                <div style="height: 100%; width: ${pct}%; background: var(--accent-henna, #c9a96e); transition: width 200ms ease;"></div>
               </div>
             </div>
 
-            <div style="display:grid;gap:0.55rem;" role="group" aria-label="Section sign-off checklist">
+            <div style="display: grid; gap: 0.5rem;" role="group" aria-label="Section sign-off checklist">
               ${REVIEW_SECTIONS.map((sec) => {
                 const isChecked = Boolean(reviewState.checked[sec.id]);
                 return `
@@ -327,38 +346,36 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
                       type="checkbox"
                       data-review-item="${escapeHtml(sec.id)}"
                       ${isChecked ? 'checked' : ''}
-                      style="width:18px;height:18px;accent-color:var(--accent-henna);cursor:pointer;flex-shrink:0;"
-                    />
+                      style="width: 16px; height: 16px; accent-color: var(--accent-henna, #c9a96e); cursor: pointer; flex-shrink: 0;"
+                    >
                     <span>${escapeHtml(sec.label)}</span>
                   </label>
                 `;
               }).join('')}
             </div>
 
-            <div style="display:grid;gap:0.4rem;">
-              <label for="dbs-review-notes" style="font-size:0.85rem;font-weight:600;color:var(--text-primary);">
-                Revision or Price Adjustment Notes
-              </label>
+            <div style="display: grid; gap: 0.45rem;">
+              <label for="dbs-review-notes" class="dbs-review-micro">Revision &amp; Rate Notes</label>
               <textarea
                 id="dbs-review-notes"
                 class="dbs-review-textarea"
                 rows="4"
-                placeholder="Example: Update bridal starting price to $300, swap photo #4 caption, or approve as shown."
+                placeholder="Example: Adjust bridal starting rate to $300, update Sterling travel note, or approve as shown."
               >${escapeHtml(reviewState.notes)}</textarea>
-              <div style="font-size:0.76rem;color:var(--text-secondary);">
-                Saved automatically in this browser while you preview.
+              <div style="font-size: 0.76rem; color: var(--text-muted);">
+                Saved automatically in this browser while previewing.
               </div>
             </div>
 
             ${
               statusBanner
-                ? `<div role="status" style="padding:0.75rem 0.95rem;border-radius:12px;background:rgba(217,138,60,0.16);border:1px solid var(--accent-henna);font-size:0.84rem;color:var(--text-primary);">
+                ? `<div role="status" style="padding: 0.8rem 0.95rem; border-radius: 2px; background: var(--accent-henna-soft, rgba(201, 169, 110, 0.12)); border: 1px solid var(--accent-henna, #c9a96e); font-size: 0.84rem; color: var(--text-primary);">
                     ${escapeHtml(statusBanner)}
                   </div>`
                 : ''
             }
 
-            <div style="display:grid;gap:0.65rem;margin-top:auto;padding-top:0.5rem;">
+            <div style="display: grid; gap: 0.65rem; margin-top: auto; padding-top: 0.5rem;">
               <button type="button" class="dbs-review-btn-primary" data-review-approve>
                 Approve Site for Production
               </button>
@@ -419,8 +436,8 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
       const md = buildSignOffMarkdown(reviewState, artistName, window.location.href);
       const copied = await copyClipboardSafe(md);
       statusBanner = copied
-        ? 'Site marked Approved for Production and sign-off packet copied to clipboard!'
-        : 'Site marked Approved for Production and saved locally.';
+        ? 'Approved for production. Sign-off packet copied to clipboard.'
+        : 'Approved for production and saved locally.';
       render();
     });
 
@@ -429,8 +446,8 @@ export function initClientReviewMode({ mountReview, studioData = {} } = {}) {
       const md = buildSignOffMarkdown(reviewState, artistName, window.location.href);
       const copied = await copyClipboardSafe(md);
       statusBanner = copied
-        ? 'Review notes copied to clipboard! Paste into WhatsApp or iMessage for Wali.'
-        : 'Review notes saved locally (clipboard access was blocked by browser).';
+        ? 'Review notes copied to clipboard for Wali.'
+        : 'Review notes saved locally (clipboard blocked by browser).';
       render();
     });
   }

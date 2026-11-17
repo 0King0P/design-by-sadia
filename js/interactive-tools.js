@@ -1,4 +1,4 @@
-// Interactive showcase and quote tools for Design by Sadia.
+// Architectural editorial interactive modules for Design by Sadia (v2).
 
 const STYLES_ID = 'dbs-interactive-module-styles';
 
@@ -7,119 +7,204 @@ const DEFAULT_SKETCH_STAIN = {
   stainSrc: './assets/portfolio/stain-floral-vine.jpg',
   title: 'Bespoke Concept to Living Stain',
   description:
-    'Every custom commission begins with a hand-drawn digital iPad blueprint tailored to your hand proportions before a single drop of organic paste touches skin.',
+    'Every custom bridal and private commission begins with an anatomical proportion study drawn on iPad over your hand silhouette, ensuring every petal, arch, and lattice balances naturally before a single cone is unsealed.',
   completionMinutes: 45,
   formulaUsed: '100% Organic Hand-Rolled Henna'
+};
+
+const STAIN_PHOTO_FALLBACK = {
+  organic: './assets/generated/stain-organic-macro.jpg',
+  jagua: './assets/generated/stain-jagua-macro.jpg',
+  red: './assets/generated/stain-crimson-macro.jpg',
+  black: './assets/generated/stain-obsidian-macro.jpg'
+};
+
+const FORMULA_TAB_LABELS = {
+  organic: 'Organic Henna',
+  jagua: 'Botanical Jagua',
+  red: 'Ceremonial Crimson',
+  black: 'Midnight Black'
 };
 
 const DEFAULT_FORMULAS = [
   {
     id: 'organic',
-    name: 'Organic Henna',
-    badge: '100% Botanical',
-    tagline: 'Freshly sifted Rajasthani lawsone blended with pure eucalyptus and lavender oils.',
-    stainHexStages: ['#3e4728', '#8c5a2b', '#c66524', '#8f3414', '#4d180a'],
-    longevityDays: '10 to 14 days',
-    maturityHours: '48 hours',
-    ingredients: 'Organic Rajasthani henna powder, distilled water, pure lavender & eucalyptus essential oils, cane sugar.',
-    bestFor: 'Bridal couture, Eid & Diwali celebrations, pregnancy-safe natural body art.',
-    aftercareTip: 'Keep paste sealed for 6 to 8 hours with lemon-sugar mist, scrape off dry with oil, and avoid water for the first 12 hours.',
-    safetyNote: 'Zero PPD, zero synthetic dyes, safe for sensitive skin.'
+    name: '100% Organic Hand-Rolled Henna',
+    badge: 'Signature Plant Blend',
+    tagline:
+      'Triple-sifted Rajasthani lawsone leaf mixed fresh with eucalyptus and lavender oils for a deep mahogany stain.',
+    stainPhotoSrc: './assets/generated/stain-organic-macro.jpg',
+    stainHexStages: ['#4A3B23', '#B95D29', '#9F3B1B', '#732312', '#4B130B'],
+    longevityDays: '10-14 Days',
+    maturityHours: '48 Hours',
+    ingredients:
+      'Triple-sifted Rajasthani henna powder, pure eucalyptus and lavender essential oils, organic cane sugar, filtered lemon water.',
+    bestFor: 'Bridal mehndi, nikah, engagement shoots, sangeet nights, sensitive skin',
+    aftercareTip:
+      'Leave dried paste on 6 to 8 hours, seal with lemon-sugar dab, scrape gently with oil, and avoid water for the first 12 hours.',
+    safetyNote:
+      '100% plant-derived and preservative-free. Safe for brides, kids, and expectant mothers.'
   },
   {
     id: 'jagua',
-    name: 'Botanical Jagua',
-    badge: 'Blue-Black Ink',
-    tagline: 'Amazonian Genipa americana fruit gel developing into a realistic deep navy-black tattoo stain.',
-    stainHexStages: ['#687285', '#4c5770', '#313d59', '#1c2540', '#0e1529'],
-    longevityDays: '10 to 16 days',
-    maturityHours: '36 to 48 hours',
-    ingredients: 'Pure Amazonian jagua juice extract, xanthan gum, lavender essential oil, distilled water.',
-    bestFor: 'Modern editorial looks, festival sleeves, minimalist jewelry-inspired cuffs.',
-    aftercareTip: 'Wash gently with cool water once dry after 3 to 4 hours. Color starts nearly invisible and oxidizes dramatically over 36 hours.',
-    safetyNote: 'Fruit-derived natural stain; avoid if allergic to tropical stone fruits or berries.'
+    name: 'Pure Botanical Jagua Gel',
+    badge: 'Blue-Black Tattoo Tone',
+    tagline:
+      'Amazonian Genipa americana fruit extract blended into crisp fine-line gel that oxidizes into deep slate indigo.',
+    stainPhotoSrc: './assets/generated/stain-jagua-macro.jpg',
+    stainHexStages: ['#1D2330', '#69778A', '#374963', '#1F2E47', '#111B2E'],
+    longevityDays: '10-14 Days',
+    maturityHours: '36-48 Hours',
+    ingredients:
+      'Pure Genipa americana fruit juice, lavender essential oil, food-grade xanthan gum.',
+    bestFor: 'Khaleeji minimalism, modern editorial looks, temporary body-art trials, Eid',
+    aftercareTip:
+      'Keep dry paste on 2.5 to 4 hours, rinse gently with cool water without scrubbing, and let the blue-black tint oxidize overnight.',
+    safetyNote:
+      'Fruit-derived botanical stain. Skip if you have known citrus, berry, or tropical fruit allergies.'
   },
   {
     id: 'red',
-    name: 'Festival Red',
-    badge: 'Instant Crimson',
-    tagline: 'Vibrant ruby-toned paste crafted for immediate photo-ready color at engagements and parties.',
-    stainHexStages: ['#a82424', '#9c1e22', '#8f1b20', '#7a161b', '#661116'],
-    longevityDays: '5 to 7 days',
-    maturityHours: '1 to 2 hours',
-    ingredients: 'Refined herbal henna base, cosmetic-grade botanical crimson pigment, clove & tea tree oil.',
-    bestFor: 'Last-minute events, sangeet nights, dance performances, and festive shoots.',
-    aftercareTip: 'Let dry for 30 to 45 minutes until paste flakes cleanly; rinse lightly with cool water and pat dry.',
-    safetyNote: 'Patch test recommended on inner wrist 24 hours ahead for sensitive skin.'
+    name: 'Ceremonial Crimson Henna',
+    badge: 'Same-Day Crimson',
+    tagline:
+      'Fast-setting ceremonial cone formulated for vibrant crimson-red payoff right after paste removal.',
+    stainPhotoSrc: './assets/generated/stain-crimson-macro.jpg',
+    stainHexStages: ['#691D1A', '#B9362C', '#A42521', '#8C1A19', '#6F1415'],
+    longevityDays: '4-6 Days',
+    maturityHours: 'Instant (30 Mins)',
+    ingredients:
+      'Henna base blended with cosmetic-grade red pigment and quick-dry aromatic botanicals.',
+    bestFor: 'Last-minute Eid parties, bridesmaids, cultural stage dances, same-day events',
+    aftercareTip:
+      'Wear paste 30 to 45 minutes until completely dry, peel off gently, and apply light almond oil for crisp edges.',
+    safetyNote:
+      'Contains synthetic cosmetic colorants for instant payoff and may cause mild skin irritation on reactive skin. Patch test advised.'
   },
   {
     id: 'black',
-    name: 'Midnight Black',
-    badge: 'High-Contrast Matte',
-    tagline: 'Bold jet-black body art paste engineered for sharp geometric contrast and crisp evening events.',
-    stainHexStages: ['#262626', '#212121', '#1c1c1c', '#181818', '#121212'],
-    longevityDays: '5 to 7 days',
-    maturityHours: '1 hour',
-    ingredients: 'Herbal cosmetic ink paste, gentle botanical thickeners, eucalyptus essence.',
-    bestFor: 'Editorial shoots, masquerades, evening galas, and graphic statement cuffs.',
-    aftercareTip: 'Allow 30 minutes to set completely without smudging, peel gently, and avoid exfoliating cleansers.',
-    safetyNote: 'Cosmetic topical formula; patch test advised prior to full application.'
+    name: 'Midnight Black Henna',
+    badge: 'Same-Day Charcoal',
+    tagline:
+      'High-contrast charcoal-black instant paste designed for crisp same-day photoshoots and bold statement vines.',
+    stainPhotoSrc: './assets/generated/stain-obsidian-macro.jpg',
+    stainHexStages: ['#242322', '#3A3837', '#2B2928', '#1F1D1C', '#141313'],
+    longevityDays: '4-6 Days',
+    maturityHours: 'Instant (30 Mins)',
+    ingredients:
+      'Synthetic black body-ink paste formulated for rapid dark surface staining.',
+    bestFor: 'Same-day photoshoots, costume events, editorial accents, festival booths',
+    aftercareTip:
+      'Remove gently once dry after 30 minutes and keep clean and dry for 2 hours to preserve sharp line work.',
+    safetyNote:
+      'Synthetic ink formula that may cause skin irritation on sensitive skin. Request Organic or Jagua for natural long-wear staining.'
+  }
+];
+
+const DEFAULT_PACKAGES = [
+  {
+    id: 'royal-bridal',
+    category: 'bridal',
+    name: 'Royal Bridal Palms & Forearms',
+    subtitle: 'Signature Couture Mehndi',
+    startingPrice: 280,
+    priceUnit: 'starting',
+    durationMins: 240,
+    coverageLevel: 'Both hands (palms + backs) to mid-forearm',
+    includes: [
+      'Custom pre-session concept consultation and motif planning',
+      'Hidden partner initials or wedding date woven into the design'
+    ]
+  },
+  {
+    id: 'intimate-nikah',
+    category: 'bridal',
+    name: 'Intimate Nikah & Engagement',
+    subtitle: 'Modern Minimalist Bridal',
+    startingPrice: 165,
+    priceUnit: 'starting',
+    durationMins: 135,
+    coverageLevel: 'Both hands (palms or backs) past the wrist',
+    includes: [
+      'Fine-line floral vines, scalloped cuffs, or twin-hand symmetry',
+      'Optional hidden couple initials on index finger or wrist band'
+    ]
+  },
+  {
+    id: 'custom-sketch-session',
+    category: 'private',
+    name: 'Bespoke Concept-to-Stain Private Session',
+    subtitle: 'iPad Sketch + Freehand Application',
+    startingPrice: 120,
+    priceUnit: 'starting',
+    durationMins: 90,
+    coverageLevel: 'Full hand + wrist cuff from custom digital proof',
+    includes: [
+      'Custom digital iPad hand sketch approved before your session',
+      'Precision freehand transfer onto hand and forearm'
+    ]
+  },
+  {
+    id: 'festive-duo-hands',
+    category: 'private',
+    name: 'Festive Eid & Sangeet Guest',
+    subtitle: 'Private Single or Dual-Hand Appointment',
+    startingPrice: 65,
+    priceUnit: 'starting',
+    durationMins: 50,
+    coverageLevel: 'Half-hand to wrist floral garland or mandala',
+    includes: [
+      'Choice of botanical vines, lotus mandalas, or geometric finger lattice',
+      'Available in Organic, Jagua, Red, or Black formula'
+    ]
+  },
+  {
+    id: 'party-hourly',
+    category: 'party',
+    name: 'Mehndi Night & Birthday Party Artist',
+    subtitle: 'Hourly Guest Speed-Artistry (2 Hr Minimum)',
+    startingPrice: 115,
+    priceUnit: 'per hour',
+    durationMins: 120,
+    coverageLevel: '12 to 15 guests per hour (delicate strip & mandala motifs)',
+    includes: [
+      'Dedicated on-location artist setup across Northern Virginia',
+      'Curated guest motif lookbook so lines move quickly'
+    ]
+  },
+  {
+    id: 'corporate-cultural-events',
+    category: 'events',
+    name: 'Corporate, University & Pop-Up Events',
+    subtitle: 'DMV Cultural Showcase & Campus Programming',
+    startingPrice: 320,
+    priceUnit: '3-hour block',
+    durationMins: 180,
+    coverageLevel: '35 to 45 guests across 3 hours',
+    includes: [
+      'High-throughput floral, paisley, and modern minimalist menu board',
+      'All-natural plant cones plus printed stain & ingredient cards'
+    ]
   }
 ];
 
 const DEFAULT_TRAVEL_ZONES = [
-  { id: 'sterling-local', label: 'Sterling / Ashburn / Herndon', areas: 'Loudoun County Studio & Local', fee: 0, minBooking: 65 },
-  { id: 'fairfax-reston', label: 'Reston / Leesburg / Fairfax / Tysons', areas: 'Western & Central Fairfax', fee: 25, minBooking: 120 },
-  { id: 'arlington-dc', label: 'Arlington / Alexandria / Washington DC', areas: 'Inside the Beltway & DC', fee: 45, minBooking: 180 },
-  { id: 'maryland-metro', label: 'Bethesda / Rockville / Silver Spring MD', areas: 'Maryland Metro', fee: 60, minBooking: 220 }
+  { id: 'loudoun-local', label: 'Sterling / Ashburn / Herndon', areas: 'Sterling, Ashburn, Herndon, Dulles', fee: 0, minBooking: 65 },
+  { id: 'reston-leesburg', label: 'Reston / Leesburg / Chantilly', areas: 'Reston, Leesburg, Lansdowne, Chantilly', fee: 20, minBooking: 95 },
+  { id: 'fairfax-tysons', label: 'Tysons / Fairfax / Vienna', areas: 'Tysons, Vienna, Fairfax, McLean', fee: 35, minBooking: 120 },
+  { id: 'arlington-dc', label: 'Arlington / Alexandria / DC', areas: 'Arlington, Alexandria, Georgetown, NW DC', fee: 50, minBooking: 165 },
+  { id: 'maryland-metro', label: 'Maryland Metro (Bethesda / Silver Spring)', areas: 'Bethesda, Potomac, Rockville, Silver Spring', fee: 65, minBooking: 220 }
 ];
 
-const STAGE_LABELS = [
-  { hour: '0h', name: 'Fresh Paste' },
-  { hour: '6h', name: 'Lemon-Sugar Seal' },
-  { hour: '12h', name: 'Bright Reveal' },
-  { hour: '24h', name: 'Deepening' },
-  { hour: '48h', name: 'Peak Maturity' }
+const STAGE_META = [
+  { hour: '0h', label: 'Fresh Paste', filter: 'brightness(1.03) saturate(0.86) contrast(0.97)', veilOpacity: 0.14 },
+  { hour: '6h', label: 'Sugar-Lemon Seal', filter: 'brightness(1.01) saturate(0.95) contrast(1.00)', veilOpacity: 0.10 },
+  { hour: '12h', label: 'Warm Reveal', filter: 'brightness(1.05) saturate(1.06) contrast(1.02)', veilOpacity: 0.08 },
+  { hour: '24h', label: 'Deepening', filter: 'brightness(0.97) saturate(1.08) contrast(1.05)', veilOpacity: 0.05 },
+  { hour: '48h', label: 'Peak Stain', filter: 'brightness(0.94) saturate(1.10) contrast(1.08)', veilOpacity: 0.0 }
 ];
 
-const COVERAGE_TIERS = [
-  {
-    id: 'minimalist',
-    label: 'Minimalist Finger & Wrist',
-    priceLabel: '$35+',
-    basePrice: 35,
-    baseMins: 25,
-    baseCones: 1,
-    description: 'Delicate vine rings, botanical sprigs, and fine wrist accents.'
-  },
-  {
-    id: 'festive',
-    label: 'Festive Half-Hand',
-    priceLabel: '$65+',
-    basePrice: 65,
-    baseMins: 45,
-    baseCones: 1.5,
-    description: 'Intricate palm or dorsal mandala extending cleanly past the wrist.'
-  },
-  {
-    id: 'full',
-    label: 'Intricate Full-Hand',
-    priceLabel: '$120+',
-    basePrice: 120,
-    baseMins: 75,
-    baseCones: 2.5,
-    description: 'Dense floral lattice, paisley detailing, and custom motifs up to mid-forearm.'
-  },
-  {
-    id: 'bridal',
-    label: 'Royal Bridal Palms + Forearms',
-    priceLabel: '$280+',
-    basePrice: 280,
-    baseMins: 180,
-    baseCones: 5,
-    description: 'Heirloom bridal palms and matching forearm cuffs with optional hidden partner initials.'
-  }
-];
+const ROMAN_NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -130,1101 +215,1218 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function formatDuration(totalMins) {
-  const mins = Math.max(15, Math.round(totalMins));
-  const hrs = Math.floor(mins / 60);
-  const rem = mins % 60;
-  if (hrs === 0) return `${rem} min`;
-  if (rem === 0) return `${hrs} ${hrs === 1 ? 'hr' : 'hrs'}`;
-  return `${hrs} ${hrs === 1 ? 'hr' : 'hrs'} ${rem} min`;
+function formatDuration(mins) {
+  const safe = Math.max(20, Math.round(Number(mins) || 45));
+  const hrs = Math.floor(safe / 60);
+  const rem = safe % 60;
+  if (hrs === 0) return `${rem} mins`;
+  if (rem === 0) return `${hrs} hr${hrs > 1 ? 's' : ''}`;
+  return `${hrs} hr${hrs > 1 ? 's' : ''} ${rem} mins`;
 }
 
-function injectModuleStyles() {
+function formatPackageRate(pkg) {
+  if (pkg.priceUnit === 'per hour') return `$${pkg.startingPrice} / hr`;
+  if (pkg.priceUnit === '3-hour block') return `$${pkg.startingPrice} / 3 hrs`;
+  return `from $${pkg.startingPrice}`;
+}
+
+function injectInteractiveStyles() {
   if (document.getElementById(STYLES_ID)) return;
   const style = document.createElement('style');
   style.id = STYLES_ID;
   style.textContent = `
-    .dbs-tactile-btn {
-      transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 180ms ease, border-color 180ms ease, color 180ms ease;
-    }
-    .dbs-tactile-btn:active {
-      transform: scale(0.97);
-    }
-    .dbs-panel {
-      background: var(--plane-2-card, #16201c);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
-      border-radius: 18px;
-      color: var(--text-primary, #f4f0e8);
-    }
-    .dbs-surface-box {
-      background: var(--plane-1-surface, #101714);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
-      border-radius: 14px;
-    }
-    .dbs-elevated-box {
-      background: var(--plane-3-elevated, #1e2b26);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.14));
-      border-radius: 14px;
-    }
-    .dbs-mono-meta {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.08em;
-    }
-    .dbs-btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.85rem 1.4rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: var(--accent-henna, #d98a3c);
-      color: var(--accent-ink, #140d06);
-      font-weight: 600;
-      font-size: 0.94rem;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .dbs-btn-primary:hover {
-      filter: brightness(1.06);
-    }
-    .dbs-btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      padding: 0.65rem 1.05rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.14));
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-primary, #f4f0e8);
-      font-size: 0.86rem;
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .dbs-btn-ghost[aria-pressed="true"] {
-      background: var(--accent-henna, #d98a3c);
-      color: var(--accent-ink, #140d06);
-      border-color: var(--accent-henna, #d98a3c);
-      font-weight: 600;
-    }
-    .dbs-btn-ghost:hover:not([aria-pressed="true"]) {
-      border-color: rgba(217, 138, 60, 0.55);
-    }
-    .dbs-sketch-grid {
+    .dbs-spread {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 2.25rem;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: clamp(1.75rem, 4vw, 3.75rem);
+      align-items: start;
+    }
+    .dbs-spread--centered {
       align-items: center;
     }
-    .dbs-compare-frame {
+    .dbs-col-5 { grid-column: span 5; min-width: 0; }
+    .dbs-col-6 { grid-column: span 6; min-width: 0; }
+    .dbs-col-7 { grid-column: span 7; min-width: 0; }
+    @media (max-width: 960px) {
+      .dbs-spread {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+      }
+      .dbs-col-5,
+      .dbs-col-6,
+      .dbs-col-7 {
+        grid-column: span 1;
+      }
+    }
+
+    .dbs-micro {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-display-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-weight: 500;
+      font-variant-numeric: lining-nums proportional-nums;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--text-primary, #f4ece0);
+      margin: 0;
+    }
+    .dbs-prose {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-secondary, #b8ab9a);
+      margin: 0;
+    }
+
+    /* Architectural Primary CTA */
+    .dbs-cta-rect {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 46px;
+      padding: 0.82rem 1.75rem;
+      border-radius: 2px;
+      border: 1px solid var(--accent-henna, #c9a96e);
+      background: var(--accent-henna, #c9a96e);
+      color: var(--accent-ink, #14100d);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 180ms ease, transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .dbs-cta-rect:hover {
+      background: var(--accent-henna-hover, #d8ba82);
+    }
+    .dbs-cta-rect:active {
+      transform: scale(0.985);
+    }
+    .dbs-cta-rect--full {
+      width: 100%;
+    }
+
+    /* Section A: Sketch-to-Stain Split Comparator */
+    .dbs-split-frame {
       position: relative;
       width: 100%;
       aspect-ratio: 3 / 4;
-      max-height: 620px;
-      border-radius: 18px;
+      border-radius: 2px;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.15));
+      background: var(--plane-1-surface, #191512);
       overflow: hidden;
-      background: var(--plane-1-surface, #101714);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.14));
       user-select: none;
       touch-action: none;
-      --split: 50%;
+      cursor: ew-resize;
     }
-    .dbs-compare-img {
+    .dbs-split-frame img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
       pointer-events: none;
     }
-    .dbs-compare-top {
-      clip-path: inset(0 calc(100% - var(--split)) 0 0);
-      will-change: clip-path;
+    .dbs-split-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
     }
-    .dbs-compare-divider {
+    .dbs-split-rule {
       position: absolute;
       top: 0;
       bottom: 0;
-      left: var(--split);
-      width: 2px;
-      background: var(--accent-henna, #d98a3c);
+      width: 1px;
+      background: var(--accent-henna, #c9a96e);
       transform: translateX(-50%);
-      pointer-events: none;
-      box-shadow: 0 0 14px rgba(0, 0, 0, 0.65);
-    }
-    .dbs-compare-handle {
-      position: absolute;
-      top: 50%;
-      left: var(--split);
-      transform: translate(-50%, -50%);
-      width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      background: var(--plane-1-surface, #101714);
-      border: 2px solid var(--accent-henna, #d98a3c);
-      color: var(--accent-henna, #d98a3c);
-      display: grid;
-      place-items: center;
-      cursor: ew-resize;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
-      z-index: 4;
-    }
-    .dbs-compare-handle:focus-visible {
-      outline: 2px solid var(--accent-henna, #d98a3c);
-      outline-offset: 4px;
-    }
-    .dbs-compare-tag {
-      position: absolute;
-      bottom: 0.9rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      background: rgba(9, 13, 11, 0.84);
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.16));
-      color: var(--text-primary, #f4f0e8);
-      font-size: 0.74rem;
-      backdrop-filter: blur(8px);
       pointer-events: none;
       z-index: 3;
     }
-    .dbs-stain-grid {
+    .dbs-split-handle {
+      position: absolute;
+      top: 50%;
+      width: 38px;
+      height: 38px;
+      border-radius: 2px;
+      border: 1px solid var(--accent-henna, #c9a96e);
+      background: var(--plane-0-void, #120f0d);
+      color: var(--accent-henna, #c9a96e);
+      transform: translate(-50%, -50%);
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 1.75rem;
-      align-items: stretch;
+      place-items: center;
+      cursor: ew-resize;
+      z-index: 4;
+      transition: background-color 160ms ease, color 160ms ease;
     }
-    .dbs-formula-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.65rem;
+    .dbs-split-handle:hover,
+    .dbs-split-handle:focus-visible {
+      background: var(--accent-henna, #c9a96e);
+      color: var(--accent-ink, #14100d);
+      outline: none;
     }
-    .dbs-formula-tab {
-      text-align: left;
-      padding: 0.85rem 0.95rem;
-      border-radius: 14px;
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-primary, #f4f0e8);
-      cursor: pointer;
+    .dbs-underline-tabs {
       display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
     }
-    .dbs-formula-tab[aria-pressed="true"] {
-      background: var(--plane-3-elevated, #1e2b26);
-      border-color: var(--accent-henna, #d98a3c);
-      box-shadow: inset 0 0 0 1px rgba(217, 138, 60, 0.35);
-    }
-    .dbs-stage-steps {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.45rem;
-      margin-top: 0.75rem;
-    }
-    .dbs-stage-pill {
-      padding: 0.5rem 0.35rem;
-      border-radius: 10px;
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-secondary, #b8c2bc);
-      font-size: 0.72rem;
-      text-align: center;
+    .dbs-underline-tab {
+      position: relative;
+      padding: 0.7rem 0;
+      margin-bottom: -1px;
+      background: transparent;
+      border: 0;
+      border-bottom: 1.5px solid transparent;
+      border-radius: 0;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted, #8e8171);
       cursor: pointer;
+      transition: color 160ms ease, border-color 160ms ease;
     }
-    .dbs-stage-pill[aria-pressed="true"] {
-      background: var(--accent-henna, #d98a3c);
-      color: var(--accent-ink, #140d06);
-      border-color: var(--accent-henna, #d98a3c);
-      font-weight: 600;
+    .dbs-underline-tab:hover {
+      color: var(--text-primary, #f4ece0);
     }
-    .dbs-range {
-      width: 100%;
-      accent-color: var(--accent-henna, #d98a3c);
-      cursor: pointer;
-      height: 6px;
+    .dbs-underline-tab[aria-pressed="true"],
+    .dbs-underline-tab[aria-selected="true"] {
+      color: var(--text-primary, #f4ece0);
+      border-bottom-color: var(--accent-henna, #c9a96e);
     }
-    .dbs-est-grid {
+
+    /* Hairline Spec Ledger */
+    .dbs-ledger {
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+    }
+    .dbs-ledger-row {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 1.75rem;
-      align-items: start;
-    }
-    .dbs-choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.65rem;
-    }
-    .dbs-choice-card {
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-specular, rgba(244, 240, 232, 0.12));
-      background: var(--plane-1-surface, #101714);
-      color: var(--text-primary, #f4f0e8);
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .dbs-choice-card[aria-pressed="true"] {
-      background: var(--plane-3-elevated, #1e2b26);
-      border-color: var(--accent-henna, #d98a3c);
-    }
-    @media (max-width: 900px) {
-      .dbs-sketch-grid,
-      .dbs-stain-grid,
-      .dbs-est-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .dbs-formula-tabs {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      grid-template-columns: minmax(140px, 34%) minmax(0, 1fr);
+      gap: 1rem;
+      padding: 0.95rem 0;
+      border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+      align-items: baseline;
     }
     @media (max-width: 560px) {
-      .dbs-choice-grid,
-      .dbs-stage-steps {
+      .dbs-ledger-row {
         grid-template-columns: minmax(0, 1fr);
+        gap: 0.3rem;
       }
+    }
+    .dbs-ledger-key {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted, #8e8171);
+    }
+    .dbs-ledger-val {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.93rem;
+      line-height: 1.55;
+      color: var(--text-primary, #f4ece0);
+    }
+
+    /* Section B: 48-Hour Oxidation Lab */
+    .dbs-lab-photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 2px;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.15));
+      background: var(--plane-1-surface, #191512);
+      overflow: hidden;
+    }
+    .dbs-lab-photo__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 260ms ease;
+    }
+    .dbs-lab-photo__veil {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      transition: opacity 260ms ease, background-color 260ms ease;
+    }
+    .dbs-lab-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+    }
+    .dbs-lab-range-wrap {
+      padding: 0.95rem 0 0.65rem;
+    }
+    .dbs-lab-range {
+      width: 100%;
+      height: 2px;
+      margin: 0;
+      appearance: none;
+      background: var(--border-strong, rgba(244, 236, 224, 0.22));
+      border-radius: 0;
+      cursor: pointer;
+    }
+    .dbs-lab-range::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      background: var(--accent-henna, #c9a96e);
+      border: 1px solid var(--plane-0-void, #120f0d);
+      cursor: pointer;
+    }
+    .dbs-lab-range::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      background: var(--accent-henna, #c9a96e);
+      border: 1px solid var(--plane-0-void, #120f0d);
+      cursor: pointer;
+    }
+    .dbs-swatch-bar {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.45rem;
+    }
+    .dbs-swatch-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      padding: 0 0 0.5rem;
+      background: transparent;
+      border: 0;
+      border-bottom: 1.5px solid transparent;
+      border-radius: 0;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 160ms ease;
+    }
+    .dbs-swatch-btn[aria-pressed="true"] {
+      border-bottom-color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-swatch-chip {
+      width: 100%;
+      height: 22px;
+      border-radius: 2px;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+    }
+    .dbs-swatch-hour {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--text-muted, #8e8171);
+    }
+    .dbs-swatch-btn[aria-pressed="true"] .dbs-swatch-hour {
+      color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-swatch-hex {
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--text-secondary, #b8ab9a);
+    }
+
+    /* Section C: Rate Menu & Atelier Calculator */
+    .dbs-rate-menu {
+      border-bottom: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+    }
+    .dbs-rate-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+      gap: 0.65rem 1.15rem;
+      align-items: baseline;
+      padding: 1.3rem 0.75rem;
+      background: transparent;
+      border: 0;
+      border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+      border-radius: 0;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .dbs-rate-row:hover {
+      background: color-mix(in oklch, var(--accent-henna, #c9a96e) 4%, transparent);
+    }
+    .dbs-rate-row[aria-pressed="true"] {
+      background: color-mix(in oklch, var(--accent-henna, #c9a96e) 7%, transparent);
+      border-top-color: var(--accent-henna, #c9a96e);
+      box-shadow: inset 0 -1px 0 0 var(--accent-henna, #c9a96e);
+    }
+    .dbs-rate-roman {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-variant-numeric: lining-nums;
+      color: var(--text-muted, #8e8171);
+      transition: color 160ms ease;
+    }
+    .dbs-rate-row[aria-pressed="true"] .dbs-rate-roman,
+    .dbs-rate-row[aria-pressed="true"] .dbs-rate-price {
+      color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-rate-title {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.48rem;
+      font-weight: 500;
+      font-variant-numeric: lining-nums proportional-nums;
+      line-height: 1.15;
+      color: var(--text-primary, #f4ece0);
+    }
+    .dbs-rate-sub {
+      margin-top: 0.2rem;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.71rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted, #8e8171);
+    }
+    .dbs-rate-summary {
+      grid-column: 2 / -1;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.87rem;
+      line-height: 1.5;
+      color: var(--text-secondary, #b8ab9a);
+      margin-top: 0.15rem;
+    }
+    .dbs-rate-price {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--text-primary, #f4ece0);
+      white-space: nowrap;
+    }
+    @media (max-width: 560px) {
+      .dbs-rate-row {
+        grid-template-columns: 1.6rem minmax(0, 1fr);
+        padding: 1.1rem 0.65rem;
+      }
+      .dbs-rate-price {
+        grid-column: 2 / -1;
+        font-size: 1.45rem;
+      }
+    }
+
+    .dbs-calc-panel {
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+      border-radius: 2px;
+      padding: 2.25rem;
+      background: var(--plane-1-surface, #191512);
+      display: grid;
+      gap: 1.35rem;
+    }
+    @media (max-width: 560px) {
+      .dbs-calc-panel {
+        padding: 1.4rem;
+      }
+    }
+    .dbs-seg-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.14));
+      border-radius: 2px;
+    }
+    .dbs-seg-btn {
+      padding: 0.68rem 0.75rem;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary, #b8ab9a);
+      cursor: pointer;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+    .dbs-seg-btn + .dbs-seg-btn {
+      border-left: 1px solid var(--border-specular, rgba(244, 236, 224, 0.14));
+    }
+    .dbs-seg-btn[aria-pressed="true"] {
+      background: var(--accent-henna-soft, rgba(201, 169, 110, 0.14));
+      color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-chip-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .dbs-opt-btn {
+      padding: 0.62rem 0.75rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.11));
+      background: transparent;
+      color: var(--text-secondary, #b8ab9a);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.8rem;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+    }
+    .dbs-opt-btn[aria-pressed="true"] {
+      border-color: var(--accent-henna, #c9a96e);
+      background: var(--accent-henna-soft, rgba(201, 169, 110, 0.12));
+      color: var(--text-primary, #f4ece0);
+    }
+    .dbs-field-label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.69rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted, #8e8171);
+    }
+    .dbs-select-arch {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.65rem 0.85rem;
+      border-radius: 2px;
+      border: 1px solid var(--border-specular, rgba(244, 236, 224, 0.16));
+      background: var(--plane-0-void, #120f0d);
+      color: var(--text-primary, #f4ece0);
+      font-family: var(--font-sans, "DM Sans", sans-serif);
+      font-size: 0.88rem;
+    }
+    .dbs-select-arch:focus {
+      outline: none;
+      border-color: var(--accent-henna, #c9a96e);
+    }
+    .dbs-calc-total {
+      font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+      font-size: 2.6rem;
+      font-weight: 500;
+      line-height: 1;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: var(--text-primary, #f4ece0);
+    }
+    .dbs-calc-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.65rem 0;
+      border-top: 1px solid var(--border-subtle, rgba(244, 236, 224, 0.09));
+      font-size: 0.85rem;
+      color: var(--text-secondary, #b8ab9a);
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+    .dbs-calc-summary-row strong {
+      font-weight: 500;
+      color: var(--text-primary, #f4ece0);
     }
   `;
   document.head.appendChild(style);
 }
 
-function buildSketchStainComponent(mount, studioData, onPresetBook) {
-  if (!mount) return;
-  const data = { ...DEFAULT_SKETCH_STAIN, ...(studioData?.SKETCH_TO_STAIN || {}) };
-  let splitPct = 50;
+function mountSketchStainSection(mountEl, sketchData, onPresetBook) {
+  if (!mountEl) return;
 
-  mount.innerHTML = `
-    <div class="dbs-sketch-grid">
-      <div class="dbs-compare-wrap">
-        <div class="dbs-compare-frame" data-compare-frame style="--split: 50%;">
-          <img
-            class="dbs-compare-img"
-            src="${escapeHtml(data.stainSrc)}"
-            alt="Real organic henna stain applied freehand on client hand by Design by Sadia"
-            width="900"
-            height="1200"
-            loading="lazy"
-          />
-          <img
-            class="dbs-compare-img dbs-compare-top"
-            src="${escapeHtml(data.sketchSrc)}"
-            alt="Sadia Shoyeb digital iPad concept sketch showing bespoke floral vine layout"
-            width="900"
-            height="1200"
-            loading="lazy"
-          />
-          <div class="dbs-compare-divider" aria-hidden="true"></div>
-          <div
-            class="dbs-compare-handle"
+  const data = {
+    sketchSrc: sketchData?.sketchSrc || DEFAULT_SKETCH_STAIN.sketchSrc,
+    stainSrc: sketchData?.stainSrc || DEFAULT_SKETCH_STAIN.stainSrc,
+    title: sketchData?.title || DEFAULT_SKETCH_STAIN.title,
+    description: sketchData?.description || DEFAULT_SKETCH_STAIN.description,
+    completionMinutes: sketchData?.completionMinutes || DEFAULT_SKETCH_STAIN.completionMinutes,
+    formulaUsed: sketchData?.formulaUsed || DEFAULT_SKETCH_STAIN.formulaUsed
+  };
+
+  let splitPct = 50;
+  let dragging = false;
+
+  mountEl.innerHTML = `
+    <div class="dbs-spread dbs-spread--centered">
+      <div class="dbs-col-6">
+        <div class="dbs-split-frame" data-split-frame>
+          <img src="${escapeHtml(data.stainSrc)}" alt="Finished freehand organic henna stain by Sadia" loading="eager">
+          <div class="dbs-split-layer" data-split-layer style="clip-path: inset(0 ${100 - splitPct}% 0 0);">
+            <img src="${escapeHtml(data.sketchSrc)}" alt="Digital iPad botanical blueprint drawn prior to session" loading="eager">
+          </div>
+          <div class="dbs-split-rule" data-split-rule style="left: ${splitPct}%;"></div>
+          <button
+            type="button"
+            class="dbs-split-handle"
+            data-split-handle
             role="slider"
             tabindex="0"
-            aria-label="Compare digital sketch and real henna stain"
+            aria-label="Compare digital blueprint and finished hand stain"
             aria-valuemin="0"
             aria-valuemax="100"
-            aria-valuenow="50"
-            data-compare-handle
+            aria-valuenow="${splitPct}"
+            style="left: ${splitPct}%;"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6"></polyline>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true">
+              <polyline points="9 18 3 12 9 6"></polyline>
+              <polyline points="15 6 21 12 15 18"></polyline>
             </svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left:-10px;">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </div>
-          <span class="dbs-compare-tag" style="left:0.9rem;">Digital Concept</span>
-          <span class="dbs-compare-tag" style="right:0.9rem;">Real Hand Stain</span>
+          </button>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.9rem;justify-content:center;" role="group" aria-label="Split comparison presets">
-          <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-split-preset="100" aria-pressed="false">Digital Concept</button>
-          <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-split-preset="50" aria-pressed="true">50/50 Split</button>
-          <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-split-preset="0" aria-pressed="false">Real Hand Stain</button>
+
+        <div class="dbs-underline-tabs" role="group" aria-label="Blueprint comparison view" style="margin-top: 0.9rem;">
+          <button type="button" class="dbs-underline-tab" data-split-preset="100" aria-pressed="false">Digital Blueprint</button>
+          <button type="button" class="dbs-underline-tab" data-split-preset="50" aria-pressed="true">50-50 Split</button>
+          <button type="button" class="dbs-underline-tab" data-split-preset="0" aria-pressed="false">Finished Hand Stain</button>
         </div>
       </div>
 
-      <div class="dbs-panel" style="padding:2rem;">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.4vw,2.75rem);line-height:1.12;letter-spacing:-0.025em;margin:0 0 1rem;text-wrap:balance;">
-          ${escapeHtml(data.title)}
-        </h2>
-        <p style="color:var(--text-secondary);line-height:1.65;margin:0 0 1.5rem;max-width:58ch;text-wrap:pretty;">
-          ${escapeHtml(data.description)}
-        </p>
+      <div class="dbs-col-6" style="display: grid; gap: 1.5rem;">
+        <div style="display: grid; gap: 0.85rem;">
+          <span class="dbs-micro">iPad Proportion Mapping</span>
+          <h3 class="dbs-display-title" style="font-size: clamp(1.85rem, 2.7vw, 2.45rem);">${escapeHtml(data.title)}</h3>
+          <p class="dbs-prose">${escapeHtml(data.description)}</p>
+        </div>
 
-        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;margin-bottom:1.65rem;">
-          <div class="dbs-surface-box" style="padding:1rem 1.1rem;">
-            <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.3rem;">Session Time</div>
-            <div class="dbs-mono-meta" style="font-size:1.1rem;font-weight:600;color:var(--text-primary);">${escapeHtml(data.completionMinutes)} min freehand</div>
+        <div class="dbs-ledger">
+          <div class="dbs-ledger-row">
+            <span class="dbs-ledger-key">Freehand Application Time</span>
+            <span class="dbs-ledger-val" style="font-variant-numeric: tabular-nums lining-nums;">${escapeHtml(data.completionMinutes)} Minutes</span>
           </div>
-          <div class="dbs-surface-box" style="padding:1rem 1.1rem;">
-            <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.3rem;">Cone Formula</div>
-            <div style="font-size:0.95rem;font-weight:600;color:var(--accent-henna);">${escapeHtml(data.formulaUsed)}</div>
+          <div class="dbs-ledger-row">
+            <span class="dbs-ledger-key">Paste Formula</span>
+            <span class="dbs-ledger-val">${escapeHtml(data.formulaUsed)}</span>
           </div>
         </div>
 
-        <ul style="list-style:none;padding:0;margin:0 0 1.75rem;display:grid;gap:0.65rem;color:var(--text-secondary);font-size:0.94rem;">
-          <li style="display:flex;gap:0.65rem;align-items:flex-start;">
-            <span style="color:var(--accent-henna);font-weight:700;">01</span>
-            <span>Drag the slider to verify how closely the digital botanical vine maps onto live skin.</span>
-          </li>
-          <li style="display:flex;gap:0.65rem;align-items:flex-start;">
-            <span style="color:var(--accent-henna);font-weight:700;">02</span>
-            <span>Ideal for brides wanting bespoke motifs, cultural florals, or hidden partner initials previewed ahead of mehndi night.</span>
-          </li>
-        </ul>
-
-        <div style="display:flex;flex-wrap:wrap;gap:0.85rem;align-items:center;">
-          <button type="button" class="dbs-btn-primary dbs-tactile-btn" data-request-sketch>
-            Request Custom Concept
-          </button>
-          <span class="dbs-mono-meta" style="font-size:0.76rem;color:var(--text-secondary);" data-split-readout>50% SPLIT VIEW</span>
+        <div>
+          <button type="button" class="dbs-cta-rect" data-sketch-reserve>Reserve a Date</button>
         </div>
       </div>
     </div>
   `;
 
-  const frame = mount.querySelector('[data-compare-frame]');
-  const handle = mount.querySelector('[data-compare-handle]');
-  const presetBtns = Array.from(mount.querySelectorAll('[data-split-preset]'));
-  const readout = mount.querySelector('[data-split-readout]');
-  const requestBtn = mount.querySelector('[data-request-sketch]');
+  const frame = mountEl.querySelector('[data-split-frame]');
+  const layer = mountEl.querySelector('[data-split-layer]');
+  const rule = mountEl.querySelector('[data-split-rule]');
+  const handle = mountEl.querySelector('[data-split-handle]');
+  const presetBtns = Array.from(mountEl.querySelectorAll('[data-split-preset]'));
 
-  function setSplit(nextValue) {
-    splitPct = Math.max(0, Math.min(100, Math.round(nextValue)));
-    frame.style.setProperty('--split', `${splitPct}%`);
-    handle.setAttribute('aria-valuenow', String(splitPct));
-    if (readout) {
-      if (splitPct >= 98) readout.textContent = '100% DIGITAL CONCEPT';
-      else if (splitPct <= 2) readout.textContent = '100% REAL HAND STAIN';
-      else readout.textContent = `${splitPct}% / ${100 - splitPct}% SPLIT VIEW`;
+  function applySplit(nextPct) {
+    splitPct = Math.max(0, Math.min(100, Math.round(nextPct)));
+    if (layer) layer.style.clipPath = `inset(0 ${100 - splitPct}% 0 0)`;
+    if (rule) rule.style.left = `${splitPct}%`;
+    if (handle) {
+      handle.style.left = `${splitPct}%`;
+      handle.setAttribute('aria-valuenow', String(splitPct));
     }
     presetBtns.forEach((btn) => {
       const target = Number(btn.getAttribute('data-split-preset'));
-      btn.setAttribute('aria-pressed', String(target === splitPct));
+      const active =
+        (target === 100 && splitPct >= 95) ||
+        (target === 0 && splitPct <= 5) ||
+        (target === 50 && splitPct > 5 && splitPct < 95);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
   }
 
   function updateFromClientX(clientX) {
+    if (!frame) return;
     const rect = frame.getBoundingClientRect();
     if (!rect.width) return;
     const pct = ((clientX - rect.left) / rect.width) * 100;
-    setSplit(pct);
+    applySplit(pct);
   }
 
-  let dragging = false;
-  frame.addEventListener('pointerdown', (ev) => {
-    if (ev.target.closest('button')) return;
+  frame?.addEventListener('pointerdown', (ev) => {
     dragging = true;
-    try {
-      frame.setPointerCapture(ev.pointerId);
-    } catch (_) {
-      // Ignore capture errors on synthetic events.
-    }
+    frame.setPointerCapture?.(ev.pointerId);
     updateFromClientX(ev.clientX);
   });
 
-  frame.addEventListener('pointermove', (ev) => {
+  frame?.addEventListener('pointermove', (ev) => {
     if (!dragging) return;
     updateFromClientX(ev.clientX);
   });
 
-  const endDrag = (ev) => {
-    if (!dragging) return;
+  const endDrag = () => {
     dragging = false;
-    try {
-      frame.releasePointerCapture(ev.pointerId);
-    } catch (_) {
-      // Ignore release errors.
-    }
   };
-  frame.addEventListener('pointerup', endDrag);
-  frame.addEventListener('pointercancel', endDrag);
+  frame?.addEventListener('pointerup', endDrag);
+  frame?.addEventListener('pointercancel', endDrag);
 
-  handle.addEventListener('keydown', (ev) => {
-    const step = ev.shiftKey ? 15 : 5;
+  handle?.addEventListener('keydown', (ev) => {
+    const step = ev.shiftKey ? 10 : 4;
     if (ev.key === 'ArrowLeft') {
       ev.preventDefault();
-      setSplit(splitPct - step);
+      applySplit(splitPct - step);
     } else if (ev.key === 'ArrowRight') {
       ev.preventDefault();
-      setSplit(splitPct + step);
+      applySplit(splitPct + step);
     } else if (ev.key === 'Home') {
       ev.preventDefault();
-      setSplit(0);
+      applySplit(0);
     } else if (ev.key === 'End') {
       ev.preventDefault();
-      setSplit(100);
+      applySplit(100);
     }
   });
 
   presetBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      setSplit(Number(btn.getAttribute('data-split-preset')));
+      applySplit(Number(btn.getAttribute('data-split-preset')));
     });
   });
 
-  requestBtn?.addEventListener('click', () => {
-    if (typeof onPresetBook === 'function') {
-      onPresetBook({
-        customSketch: true,
-        formulaId: 'organic',
-        notes: 'Requesting a bespoke digital concept sketch matched to my hand proportions.'
-      });
-    }
-    document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  mountEl.querySelector('[data-sketch-reserve]')?.addEventListener('click', () => {
+    onPresetBook?.({
+      packageId: 'custom-sketch-session',
+      formulaId: 'organic',
+      customSketch: true
+    });
   });
 }
 
-function buildStainLabComponent(mount, studioData) {
-  if (!mount) return;
-  const formulas =
-    Array.isArray(studioData?.CONE_FORMULAS) && studioData.CONE_FORMULAS.length > 0
-      ? studioData.CONE_FORMULAS
-      : DEFAULT_FORMULAS;
-  const coneMacro = studioData?.GENERATED_ARTIFACTS?.coneMacro || './assets/generated/cone-alchemy.jpg';
+function mountStainLabSection(mountEl, rawFormulas, onPresetBook) {
+  if (!mountEl) return;
 
-  let activeFormulaIdx = 0;
-  let stageIdx = 4; // Start at 48h Peak Maturity so visitors immediately see the richest stain.
+  const formulas = Array.isArray(rawFormulas) && rawFormulas.length ? rawFormulas : DEFAULT_FORMULAS;
+  let activeFormulaId = formulas[0].id;
+  let activeStageIdx = 4;
 
-  mount.innerHTML = `
-    <div style="display:grid;gap:1.5rem;">
-      <div class="dbs-formula-tabs" role="group" aria-label="Henna cone formula selector" data-formula-tabs>
-        ${formulas
-          .map(
-            (f, idx) => `
-          <button
-            type="button"
-            class="dbs-formula-tab dbs-tactile-btn"
-            data-formula-idx="${idx}"
-            aria-pressed="${idx === 0 ? 'true' : 'false'}"
-          >
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
-              <span style="font-weight:600;font-size:0.96rem;">${escapeHtml(f.name)}</span>
-              <span style="width:14px;height:14px;border-radius:999px;border:1px solid rgba(255,255,255,0.28);background:${escapeHtml((f.stainHexStages && f.stainHexStages[4]) || '#4d180a')};flex-shrink:0;"></span>
-            </div>
-            <span class="dbs-mono-meta" style="font-size:0.68rem;color:var(--accent-henna);">${escapeHtml(f.badge || 'Botanical')}</span>
-          </button>
-        `
-          )
-          .join('')}
-      </div>
+  function getActiveFormula() {
+    return formulas.find((f) => f.id === activeFormulaId) || formulas[0];
+  }
 
-      <div class="dbs-stain-grid">
-        <div class="dbs-panel" style="padding:1.65rem;display:flex;flex-direction:column;justify-content:space-between;gap:1.35rem;">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-            <div>
-              <div style="font-size:0.8rem;color:var(--text-secondary);">Live Oxidation Preview</div>
-              <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;line-height:1.15;margin:0.15rem 0 0;" data-lab-title></h3>
-            </div>
-            <div class="dbs-surface-box" style="padding:0.45rem 0.85rem;display:inline-flex;align-items:center;gap:0.55rem;">
-              <span data-stain-swatch style="width:16px;height:16px;border-radius:999px;border:1px solid rgba(255,255,255,0.3);"></span>
-              <span class="dbs-mono-meta" style="font-size:0.76rem;" data-stage-badge>48h Peak Maturity</span>
-            </div>
+  function render() {
+    const formula = getActiveFormula();
+    const stages = Array.isArray(formula.stainHexStages) && formula.stainHexStages.length >= 5
+      ? formula.stainHexStages
+      : DEFAULT_FORMULAS[0].stainHexStages;
+    const stageMeta = STAGE_META[activeStageIdx] || STAGE_META[4];
+    const activeHex = stages[activeStageIdx] || stages[4];
+    const photoSrc = formula.stainPhotoSrc || STAIN_PHOTO_FALLBACK[formula.id] || STAIN_PHOTO_FALLBACK.organic;
+
+    mountEl.innerHTML = `
+      <div class="dbs-spread">
+        <div class="dbs-col-5" style="display: grid; gap: 0.65rem;">
+          <div class="dbs-lab-photo">
+            <img
+              class="dbs-lab-photo__img"
+              data-lab-photo
+              src="${escapeHtml(photoSrc)}"
+              alt="${escapeHtml(formula.name)} macro studio stain study at ${escapeHtml(stageMeta.hour)}"
+              style="filter: ${stageMeta.filter};"
+              loading="eager"
+            >
+            <div
+              class="dbs-lab-photo__veil"
+              data-lab-veil
+              style="background-color: ${escapeHtml(activeHex)}; opacity: ${stageMeta.veilOpacity};"
+            ></div>
           </div>
 
-          <div class="dbs-surface-box" style="padding:1.25rem;display:grid;place-items:center;position:relative;overflow:hidden;">
-            <svg viewBox="0 0 260 310" width="240" height="286" aria-label="Botanical henna hand stain oxidation preview" role="img" style="max-width:100%;height:auto;">
-              <defs>
-                <radialGradient id="dbsPalmGlow" cx="50%" cy="56%" r="54%">
-                  <stop offset="0%" stop-color="#d2a17e" />
-                  <stop offset="100%" stop-color="#b88462" />
-                </radialGradient>
-              </defs>
-              <!-- Natural silhouette of open palm & wrist -->
-              <path
-                d="M94 298 L96 226 C80 218 68 202 58 182 L32 146 C26 138 33 128 42 132 L68 152 C74 156 80 151 78 140 L69 68 C68 58 81 56 85 66 L98 122 L106 36 C108 24 122 25 123 37 L124 114 L138 28 C140 16 154 18 154 30 L150 116 L167 46 C170 35 184 39 181 51 L166 130 C168 134 173 135 177 128 L194 92 C199 82 212 88 206 99 L182 162 C175 184 166 206 162 228 L164 298 Z"
-                fill="url(#dbsPalmGlow)"
-                stroke="#e2ba99"
-                stroke-width="1.5"
-                stroke-linejoin="round"
-              />
-              <!-- Dynamic stain artwork group -->
-              <g data-stain-art stroke="#4d180a" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke 260ms ease, fill 260ms ease;">
-                <!-- Central palm mandala -->
-                <circle cx="130" cy="186" r="24" stroke-width="2.1" />
-                <circle cx="130" cy="186" r="14" stroke-width="1.5" />
-                <circle cx="130" cy="186" r="5" fill="#4d180a" stroke="none" data-stain-fill />
-                <path d="M130 156 Q137 166 130 172 Q123 166 130 156 Z M130 216 Q137 206 130 200 Q123 206 130 216 Z M100 186 Q110 179 116 186 Q110 193 100 186 Z M160 186 Q150 179 144 186 Q150 193 160 186 Z" stroke-width="1.6" />
-                <path d="M109 165 Q119 168 120 176 Q112 175 109 165 Z M151 165 Q141 168 140 176 Q148 175 151 165 Z M109 207 Q119 204 120 196 Q112 197 109 207 Z M151 207 Q141 204 140 196 Q148 197 151 207 Z" stroke-width="1.4" />
-                <!-- Wrist lattice cuff -->
-                <path d="M98 240 Q130 254 160 240 M98 256 Q130 270 160 256 M97 272 Q130 286 161 272" stroke-width="1.7" />
-                <path d="M104 242 L116 258 L130 246 L144 258 L156 242 M104 258 L116 274 L130 262 L144 274 L156 258" stroke-width="1.3" />
-                <!-- Index finger floral vine -->
-                <path d="M103 142 C106 116 111 86 114 48" stroke-width="1.9" />
-                <path d="M108 112 Q100 105 106 96 M112 88 Q121 82 114 72 M114 46 L114 35" stroke-width="1.4" />
-                <!-- Middle finger vine -->
-                <path d="M133 140 C138 110 142 74 145 36" stroke-width="1.9" />
-                <path d="M137 110 Q129 102 138 92 M141 82 Q150 76 144 64" stroke-width="1.4" />
-                <!-- Ring finger filigree -->
-                <path d="M155 144 C162 114 169 86 174 52" stroke-width="1.8" />
-                <path d="M161 114 Q153 106 163 97 M168 86 Q177 80 172 70" stroke-width="1.3" />
-                <!-- Pinky & thumb botanical sprigs -->
-                <path d="M174 156 C183 136 192 116 199 98" stroke-width="1.6" />
-                <path d="M84 168 C69 160 52 150 40 138" stroke-width="1.6" />
-                <circle cx="114" cy="36" r="3" fill="#4d180a" stroke="none" data-stain-fill />
-                <circle cx="145" cy="29" r="3" fill="#4d180a" stroke="none" data-stain-fill />
-                <circle cx="174" cy="46" r="2.8" fill="#4d180a" stroke="none" data-stain-fill />
-              </g>
-            </svg>
+          <div class="dbs-lab-caption">
+            <span class="dbs-micro" data-lab-stage-label>${escapeHtml(stageMeta.hour)} &middot; ${escapeHtml(stageMeta.label)}</span>
+            <span class="dbs-micro" style="color: var(--text-secondary);" data-lab-stage-hex>${escapeHtml(activeHex)}</span>
           </div>
 
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;">
-              <label for="dbs-oxidation-slider" style="font-size:0.85rem;font-weight:600;color:var(--text-primary);">
-                48-Hour Oxidation Timeline
-              </label>
-              <span class="dbs-mono-meta" style="font-size:0.76rem;color:var(--accent-henna);" data-stage-label>48h Peak Maturity</span>
-            </div>
+          <div class="dbs-lab-range-wrap">
+            <label for="dbs-oxidation-range" class="dbs-field-label" style="margin-bottom: 0.55rem;">48-Hour Oxidation Scrub</label>
             <input
-              id="dbs-oxidation-slider"
-              class="dbs-range"
+              id="dbs-oxidation-range"
+              class="dbs-lab-range"
               type="range"
               min="0"
               max="4"
               step="1"
-              value="4"
-              aria-label="Stain oxidation stage from 0 hours to 48 hours"
-              data-stage-slider
-            />
-            <div class="dbs-stage-steps" role="group" aria-label="Oxidation stage shortcuts">
-              ${STAGE_LABELS.map(
-                (st, idx) => `
+              value="${activeStageIdx}"
+              aria-label="Scrub across 48-hour stain oxidation stages"
+            >
+          </div>
+
+          <div class="dbs-swatch-bar" role="group" aria-label="Oxidation pigment swatches">
+            ${STAGE_META.map((st, idx) => {
+              const hex = stages[idx] || activeHex;
+              const isPressed = idx === activeStageIdx;
+              return `
                 <button
                   type="button"
-                  class="dbs-stage-pill dbs-tactile-btn"
-                  data-stage-btn="${idx}"
-                  aria-pressed="${idx === 4 ? 'true' : 'false'}"
+                  class="dbs-swatch-btn"
+                  data-stain-stage="${idx}"
+                  aria-pressed="${isPressed ? 'true' : 'false'}"
                 >
-                  <div class="dbs-mono-meta" style="font-size:0.72rem;">${escapeHtml(st.hour)}</div>
-                  <div style="font-size:0.68rem;margin-top:0.1rem;">${escapeHtml(st.name)}</div>
+                  <span class="dbs-swatch-chip" style="background-color: ${escapeHtml(hex)};"></span>
+                  <span class="dbs-swatch-hour">${escapeHtml(st.hour)}</span>
+                  <span class="dbs-swatch-hex">${escapeHtml(hex)}</span>
                 </button>
-              `
-              ).join('')}
-            </div>
+              `;
+            }).join('')}
           </div>
         </div>
 
-        <div style="display:grid;gap:1.15rem;align-content:start;">
-          <div class="dbs-panel" style="overflow:hidden;">
-            <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--plane-1-surface);">
-              <img
-                src="${escapeHtml(coneMacro)}"
-                alt="Botanical apothecary flatlay of henna leaves, jagua fruit, essential oil droppers, and hand-rolled cones"
-                width="1200"
-                height="675"
-                loading="lazy"
-                style="width:100%;height:100%;object-fit:cover;display:block;"
-              />
+        <div class="dbs-col-7" style="display: grid; gap: 1.6rem;">
+          <div class="dbs-underline-tabs" role="tablist" aria-label="Paste formulas">
+            ${formulas
+              .map((f) => {
+                const tabLabel = FORMULA_TAB_LABELS[f.id] || f.name;
+                const selected = f.id === formula.id;
+                return `
+                  <button
+                    type="button"
+                    role="tab"
+                    class="dbs-underline-tab"
+                    data-formula-tab="${escapeHtml(f.id)}"
+                    aria-selected="${selected ? 'true' : 'false'}"
+                  >${escapeHtml(tabLabel)}</button>
+                `;
+              })
+              .join('')}
+          </div>
+
+          <div style="display: grid; gap: 0.75rem;">
+            <span class="dbs-micro">${escapeHtml(formula.badge || 'Apothecary Formula')}</span>
+            <h3 class="dbs-display-title" style="font-size: clamp(1.9rem, 2.8vw, 2.55rem);">${escapeHtml(formula.name)}</h3>
+            <p class="dbs-prose">${escapeHtml(formula.tagline)}</p>
+          </div>
+
+          <div class="dbs-ledger">
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Peak Maturation</span>
+              <span class="dbs-ledger-val" style="font-variant-numeric: tabular-nums lining-nums;">${escapeHtml(formula.maturityHours)}</span>
             </div>
-            <div style="padding:1.4rem 1.5rem;">
-              <p style="margin:0;color:var(--text-primary);font-size:1rem;line-height:1.55;" data-formula-tagline></p>
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Wear Longevity</span>
+              <span class="dbs-ledger-val" style="font-variant-numeric: tabular-nums lining-nums;">${escapeHtml(formula.longevityDays)}</span>
+            </div>
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Botanical Composition</span>
+              <span class="dbs-ledger-val">${escapeHtml(formula.ingredients)}</span>
+            </div>
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Recommended Occasions</span>
+              <span class="dbs-ledger-val">${escapeHtml(formula.bestFor)}</span>
+            </div>
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Aftercare Seal Ritual</span>
+              <span class="dbs-ledger-val">${escapeHtml(formula.aftercareTip)}</span>
+            </div>
+            <div class="dbs-ledger-row">
+              <span class="dbs-ledger-key">Skin Guidance</span>
+              <span class="dbs-ledger-val">${escapeHtml(formula.safetyNote)}</span>
             </div>
           </div>
 
-          <div class="dbs-panel" style="padding:1.5rem;display:grid;gap:1rem;">
-            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.85rem;">
-              <div class="dbs-surface-box" style="padding:0.9rem 1rem;">
-                <div style="font-size:0.74rem;color:var(--text-secondary);">Longevity</div>
-                <div class="dbs-mono-meta" style="font-size:1rem;font-weight:600;margin-top:0.2rem;" data-meta-longevity></div>
-              </div>
-              <div class="dbs-surface-box" style="padding:0.9rem 1rem;">
-                <div style="font-size:0.74rem;color:var(--text-secondary);">Peak Maturity</div>
-                <div class="dbs-mono-meta" style="font-size:1rem;font-weight:600;margin-top:0.2rem;" data-meta-maturity></div>
-              </div>
-            </div>
-
-            <div class="dbs-surface-box" style="padding:1rem 1.1rem;display:grid;gap:0.7rem;">
-              <div>
-                <div style="font-size:0.76rem;color:var(--accent-henna);font-weight:600;">Ingredients</div>
-                <div style="font-size:0.9rem;color:var(--text-secondary);line-height:1.5;margin-top:0.15rem;" data-meta-ingredients></div>
-              </div>
-              <div>
-                <div style="font-size:0.76rem;color:var(--accent-henna);font-weight:600;">Best Occasion</div>
-                <div style="font-size:0.9rem;color:var(--text-secondary);line-height:1.5;margin-top:0.15rem;" data-meta-bestfor></div>
-              </div>
-            </div>
-
-            <div class="dbs-elevated-box" style="padding:1rem 1.1rem;">
-              <div style="font-size:0.78rem;font-weight:600;color:var(--text-primary);margin-bottom:0.25rem;">
-                Sadia's Aftercare Seal Guide
-              </div>
-              <p style="margin:0 0 0.5rem;font-size:0.88rem;color:var(--text-secondary);line-height:1.55;" data-meta-aftercare></p>
-              <div style="font-size:0.78rem;color:var(--text-secondary);opacity:0.9;" data-meta-safety></div>
-            </div>
+          <div>
+            <button type="button" class="dbs-cta-rect" data-lab-reserve="${escapeHtml(formula.id)}">Reserve a Date</button>
           </div>
         </div>
       </div>
-    </div>
-  `;
+    `;
 
-  const tabBtns = Array.from(mount.querySelectorAll('[data-formula-idx]'));
-  const stageSlider = mount.querySelector('[data-stage-slider]');
-  const stageBtns = Array.from(mount.querySelectorAll('[data-stage-btn]'));
-  const stainGroup = mount.querySelector('[data-stain-art]');
-  const stainFills = Array.from(mount.querySelectorAll('[data-stain-fill]'));
-  const swatchEl = mount.querySelector('[data-stain-swatch]');
-  const stageBadge = mount.querySelector('[data-stage-badge]');
-  const stageLabel = mount.querySelector('[data-stage-label]');
-  const labTitle = mount.querySelector('[data-lab-title]');
-  const taglineEl = mount.querySelector('[data-formula-tagline]');
-  const longevityEl = mount.querySelector('[data-meta-longevity]');
-  const maturityEl = mount.querySelector('[data-meta-maturity]');
-  const ingredientsEl = mount.querySelector('[data-meta-ingredients]');
-  const bestForEl = mount.querySelector('[data-meta-bestfor]');
-  const aftercareEl = mount.querySelector('[data-meta-aftercare]');
-  const safetyEl = mount.querySelector('[data-meta-safety]');
+    mountEl.querySelectorAll('[data-formula-tab]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const nextId = btn.getAttribute('data-formula-tab');
+        if (!nextId || nextId === activeFormulaId) return;
+        activeFormulaId = nextId;
+        render();
+      });
+    });
 
-  function renderLab() {
-    const f = formulas[activeFormulaIdx] || formulas[0];
-    const stages = Array.isArray(f.stainHexStages) && f.stainHexStages.length >= 5
-      ? f.stainHexStages
-      : DEFAULT_FORMULAS[0].stainHexStages;
-    const hex = stages[stageIdx] || stages[stages.length - 1];
-    const stageMeta = STAGE_LABELS[stageIdx] || STAGE_LABELS[4];
+    const syncStage = (idx) => {
+      activeStageIdx = Math.max(0, Math.min(4, Number(idx) || 0));
+      const meta = STAGE_META[activeStageIdx];
+      const currentFormula = getActiveFormula();
+      const hexList = Array.isArray(currentFormula.stainHexStages) ? currentFormula.stainHexStages : stages;
+      const hex = hexList[activeStageIdx] || hexList[0];
 
-    tabBtns.forEach((btn, i) => btn.setAttribute('aria-pressed', String(i === activeFormulaIdx)));
-    stageBtns.forEach((btn, i) => btn.setAttribute('aria-pressed', String(i === stageIdx)));
-    if (stageSlider) stageSlider.value = String(stageIdx);
+      const img = mountEl.querySelector('[data-lab-photo]');
+      const veil = mountEl.querySelector('[data-lab-veil]');
+      const capLabel = mountEl.querySelector('[data-lab-stage-label]');
+      const capHex = mountEl.querySelector('[data-lab-stage-hex]');
+      const range = mountEl.querySelector('#dbs-oxidation-range');
 
-    if (stainGroup) stainGroup.setAttribute('stroke', hex);
-    stainFills.forEach((el) => el.setAttribute('fill', hex));
-    if (swatchEl) swatchEl.style.background = hex;
-    if (stageBadge) stageBadge.textContent = `${stageMeta.hour} ${stageMeta.name}`;
-    if (stageLabel) stageLabel.textContent = `${stageMeta.hour} ${stageMeta.name}`;
-    if (labTitle) labTitle.textContent = f.name;
-    if (taglineEl) taglineEl.textContent = f.tagline || '';
-    if (longevityEl) longevityEl.textContent = f.longevityDays || '10 to 14 days';
-    if (maturityEl) maturityEl.textContent = f.maturityHours || '48 hours';
-    if (ingredientsEl) ingredientsEl.textContent = f.ingredients || '';
-    if (bestForEl) bestForEl.textContent = f.bestFor || '';
-    if (aftercareEl) aftercareEl.textContent = f.aftercareTip || '';
-    if (safetyEl) safetyEl.textContent = f.safetyNote ? `Skin Guidance: ${f.safetyNote}` : '';
+      if (img) img.style.filter = meta.filter;
+      if (veil) {
+        veil.style.backgroundColor = hex;
+        veil.style.opacity = String(meta.veilOpacity);
+      }
+      if (capLabel) capLabel.textContent = `${meta.hour} \u00b7 ${meta.label}`;
+      if (capHex) capHex.textContent = hex;
+      if (range && Number(range.value) !== activeStageIdx) range.value = String(activeStageIdx);
+
+      mountEl.querySelectorAll('[data-stain-stage]').forEach((sw) => {
+        const swIdx = Number(sw.getAttribute('data-stain-stage'));
+        sw.setAttribute('aria-pressed', swIdx === activeStageIdx ? 'true' : 'false');
+      });
+    };
+
+    mountEl.querySelector('#dbs-oxidation-range')?.addEventListener('input', (ev) => {
+      syncStage(ev.target.value);
+    });
+
+    mountEl.querySelectorAll('[data-stain-stage]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        syncStage(btn.getAttribute('data-stain-stage'));
+      });
+    });
+
+    mountEl.querySelector('[data-lab-reserve]')?.addEventListener('click', () => {
+      onPresetBook?.({ formulaId: formula.id });
+    });
   }
 
-  tabBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      activeFormulaIdx = Number(btn.getAttribute('data-formula-idx')) || 0;
-      renderLab();
-    });
-  });
-
-  stageSlider?.addEventListener('input', (ev) => {
-    stageIdx = Math.max(0, Math.min(4, Number(ev.target.value)));
-    renderLab();
-  });
-
-  stageBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      stageIdx = Math.max(0, Math.min(4, Number(btn.getAttribute('data-stage-btn'))));
-      renderLab();
-    });
-  });
-
-  renderLab();
+  render();
 }
 
-function buildEstimatorComponent(mount, studioData, onPresetBook) {
-  if (!mount) return;
-  const formulas =
-    Array.isArray(studioData?.CONE_FORMULAS) && studioData.CONE_FORMULAS.length > 0
-      ? studioData.CONE_FORMULAS
-      : DEFAULT_FORMULAS;
-  const travelZones =
-    Array.isArray(studioData?.TRAVEL_ZONES) && studioData.TRAVEL_ZONES.length > 0
-      ? studioData.TRAVEL_ZONES
-      : DEFAULT_TRAVEL_ZONES;
+function mountEstimatorSection(mountEl, studioData, onPresetBook) {
+  if (!mountEl) return;
+
+  const packages = Array.isArray(studioData?.SERVICE_PACKAGES) && studioData.SERVICE_PACKAGES.length
+    ? studioData.SERVICE_PACKAGES
+    : DEFAULT_PACKAGES;
+  const formulas = Array.isArray(studioData?.CONE_FORMULAS) && studioData.CONE_FORMULAS.length
+    ? studioData.CONE_FORMULAS
+    : DEFAULT_FORMULAS;
+  const zones = Array.isArray(studioData?.TRAVEL_ZONES) && studioData.TRAVEL_ZONES.length
+    ? studioData.TRAVEL_ZONES
+    : DEFAULT_TRAVEL_ZONES;
 
   const state = {
-    mode: 'individual', // 'individual' | 'party'
-    tierId: 'festive',
-    sides: 'single', // 'single' | 'both_sides'
-    hands: 'both_hands', // 'one_hand' | 'both_hands'
-    partyHours: 3,
-    guestCount: 35,
-    formulaId: formulas[0]?.id || 'organic',
-    travelZoneId: travelZones[0]?.id || 'sterling-local'
+    packageId: packages[0].id,
+    mode: 'individual',
+    sides: 'both',
+    hands: 'pair',
+    partyHours: 2,
+    formulaId: formulas[0].id,
+    travelZoneId: zones[0].id
   };
 
+  function getSelectedPackage() {
+    return packages.find((p) => p.id === state.packageId) || packages[0];
+  }
+
+  function selectPackage(pkgId) {
+    const pkg = packages.find((p) => p.id === pkgId);
+    if (!pkg) return;
+    state.packageId = pkg.id;
+    if (pkg.category === 'party' || pkg.category === 'events' || pkg.priceUnit === 'per hour' || pkg.priceUnit === '3-hour block') {
+      state.mode = 'party';
+      state.partyHours = pkg.id === 'corporate-cultural-events' ? 3 : 2;
+    } else {
+      state.mode = 'individual';
+      if (pkg.category === 'bridal') {
+        state.sides = 'both';
+        state.hands = 'pair';
+      } else if (pkg.id === 'custom-sketch-session') {
+        state.sides = 'one';
+        state.hands = 'single';
+      } else {
+        state.sides = 'one';
+        state.hands = 'pair';
+      }
+    }
+  }
+
   function computeQuote() {
-    const zone = travelZones.find((z) => z.id === state.travelZoneId) || travelZones[0];
-    const formula = formulas.find((f) => f.id === state.formulaId) || formulas[0];
-    const lines = [];
-    let subtotal = 0;
-    let totalMins = 0;
-    let totalCones = 0;
+    const pkg = getSelectedPackage();
+    const zone = zones.find((z) => z.id === state.travelZoneId) || zones[0];
+    const formulaFee = state.formulaId === 'jagua' ? 15 : 0;
+
+    let baseInvestment = Number(pkg.startingPrice) || 120;
+    let durationMins = Number(pkg.durationMins) || 60;
+    let cones = 2;
 
     if (state.mode === 'party') {
-      const ratePerHour = 115;
-      const partyCost = state.partyHours * ratePerHour;
-      subtotal += partyCost;
-      totalMins = state.partyHours * 60;
-      totalCones = Math.max(3, Math.ceil(state.guestCount / 6));
-      lines.push({
-        label: `Party Artist (${state.partyHours} hrs @ $${ratePerHour}/hr, ~${state.partyHours * 12} to ${state.partyHours * 15} guests)`,
-        amount: partyCost
-      });
-      if (state.formulaId === 'jagua') {
-        const jaguaAdd = 35;
-        subtotal += jaguaAdd;
-        lines.push({ label: 'Botanical Jagua Gel Event Upgrade', amount: jaguaAdd });
+      const hours = Math.max(2, Number(state.partyHours) || 2);
+      if (pkg.id === 'corporate-cultural-events') {
+        const extraHrs = Math.max(0, hours - 3);
+        baseInvestment = (Number(pkg.startingPrice) || 320) + extraHrs * 105;
       } else {
-        lines.push({ label: `${formula.name} Cones Included`, amount: 0 });
+        const hourlyRate = pkg.priceUnit === 'per hour' ? Number(pkg.startingPrice) || 115 : 115;
+        baseInvestment = hourlyRate * hours;
       }
+      durationMins = hours * 60;
+      cones = Math.max(4, Math.round(hours * 2.5));
     } else {
-      const tier = COVERAGE_TIERS.find((t) => t.id === state.tierId) || COVERAGE_TIERS[1];
-      let coveragePrice = tier.basePrice;
-      let durationMins = tier.baseMins;
-      let cones = tier.baseCones;
-
-      if (tier.id === 'bridal') {
-        // Base $280 covers Both Hands Palms + Forearms.
-        if (state.hands === 'one_hand') {
-          coveragePrice = 165;
-          durationMins = 105;
-          cones = 3;
-        }
-        if (state.sides === 'both_sides') {
-          coveragePrice += 140;
-          durationMins += 90;
-          cones += 3;
-        }
-      } else {
-        const handMult = state.hands === 'both_hands' ? 1.85 : 1;
-        const sideMult = state.sides === 'both_sides' ? 1.7 : 1;
-        coveragePrice = Math.round((tier.basePrice * handMult * sideMult) / 5) * 5;
-        durationMins = Math.round(tier.baseMins * handMult * sideMult);
-        cones = Math.ceil(tier.baseCones * handMult * sideMult);
-      }
-
-      subtotal += coveragePrice;
-      totalMins = durationMins;
-      totalCones = Math.max(1, Math.ceil(cones));
-      const handLabel = state.hands === 'both_hands' ? 'Both Hands' : 'One Hand';
-      const sideLabel = state.sides === 'both_sides' ? 'Palms + Dorsal' : 'Single Side';
-      lines.push({
-        label: `${tier.label} (${handLabel}, ${sideLabel})`,
-        amount: coveragePrice
-      });
-
-      if (state.formulaId === 'jagua') {
-        subtotal += 15;
-        lines.push({ label: 'Botanical Jagua Gel Upgrade', amount: 15 });
-      } else {
-        lines.push({ label: `${formula.name} Paste`, amount: 0 });
-      }
+      const isBridal = pkg.category === 'bridal';
+      const base = Number(pkg.startingPrice) || 120;
+      const sideFactor = isBridal
+        ? (state.sides === 'one' ? 0.75 : 1)
+        : (state.sides === 'both' ? 1.55 : 1);
+      const handFactor = isBridal
+        ? (state.hands === 'single' ? 0.65 : 1)
+        : (pkg.id === 'custom-sketch-session' && state.hands === 'pair' ? 1.7 : 1);
+      baseInvestment = Math.round((base * sideFactor * handFactor) / 5) * 5;
+      durationMins = Math.round((Number(pkg.durationMins) || 90) * sideFactor * (state.hands === 'single' && isBridal ? 0.65 : 1));
+      cones = Math.max(1, Math.round((baseInvestment / 60) * 1.1));
     }
 
-    const travelFee = Number(zone?.fee || 0);
-    if (travelFee > 0) {
-      subtotal += travelFee;
-    }
-    lines.push({
-      label: `Travel Zone: ${zone?.label || 'Local'}`,
-      amount: travelFee
-    });
-
-    const retainer = Math.round(subtotal * 0.5);
-    const maxGuestsAtHours = state.partyHours * 15;
-    const partyAdvisory =
-      state.mode === 'party' && state.guestCount > maxGuestsAtHours
-        ? `At ~12 to 15 guests/hr, ${state.guestCount} guests fits best with ${Math.min(8, Math.ceil(state.guestCount / 13))} hours or a simpler motif rotation.`
-        : '';
+    const travelFee = Number(zone.fee) || 0;
+    const total = baseInvestment + formulaFee + travelFee;
+    const retainer = Math.round(total * 0.5);
 
     return {
-      subtotal,
-      retainer,
-      totalMins,
-      durationLabel: formatDuration(totalMins),
-      totalCones,
-      lines,
+      pkg,
       zone,
-      formula,
-      partyAdvisory
+      baseInvestment,
+      formulaFee,
+      travelFee,
+      total,
+      retainer,
+      durationMins,
+      cones
     };
   }
 
   function render() {
     const q = computeQuote();
 
-    mount.innerHTML = `
-      <div class="dbs-est-grid">
-        <div class="dbs-panel" style="padding:1.75rem;display:grid;gap:1.45rem;">
-          <div>
-            <div style="font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.55rem;">1. Booking Mode</div>
-            <div class="dbs-choice-grid" role="group" aria-label="Booking mode">
-              <button type="button" class="dbs-choice-card dbs-tactile-btn" data-est-mode="individual" aria-pressed="${state.mode === 'individual'}">
-                <span style="font-weight:600;font-size:0.95rem;">Individual / Bridal Coverage</span>
-                <span style="font-size:0.8rem;color:var(--text-secondary);">Custom studio or in-home appointment</span>
-              </button>
-              <button type="button" class="dbs-choice-card dbs-tactile-btn" data-est-mode="party" aria-pressed="${state.mode === 'party'}">
-                <span style="font-weight:600;font-size:0.95rem;">Hourly Party &amp; Event Artist</span>
-                <span style="font-size:0.8rem;color:var(--text-secondary);">$115/hr for ~12 to 15 guests per hour</span>
-              </button>
-            </div>
-          </div>
-
-          ${
-            state.mode === 'individual'
-              ? `
-            <div>
-              <div style="font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.55rem;">2. Coverage Tier</div>
-              <div class="dbs-choice-grid" role="group" aria-label="Coverage tier">
-                ${COVERAGE_TIERS.map(
-                  (tier) => `
-                  <button type="button" class="dbs-choice-card dbs-tactile-btn" data-est-tier="${tier.id}" aria-pressed="${state.tierId === tier.id}">
-                    <div style="display:flex;justify-content:space-between;align-items:center;gap:0.5rem;">
-                      <span style="font-weight:600;font-size:0.9rem;">${escapeHtml(tier.label)}</span>
-                      <span class="dbs-mono-meta" style="font-size:0.8rem;color:var(--accent-henna);">${escapeHtml(tier.priceLabel)}</span>
-                    </div>
-                    <span style="font-size:0.78rem;color:var(--text-secondary);line-height:1.4;">${escapeHtml(tier.description)}</span>
-                  </button>
-                `
-                ).join('')}
-              </div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
-              <div>
-                <div style="font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">3A. Placement Sides</div>
-                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" role="group" aria-label="Placement sides">
-                  <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-sides="single" aria-pressed="${state.sides === 'single'}">Single Side</button>
-                  <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-sides="both_sides" aria-pressed="${state.sides === 'both_sides'}">Palms + Dorsal (Both Sides)</button>
-                </div>
-              </div>
-              <div>
-                <div style="font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">3B. Hand Count</div>
-                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" role="group" aria-label="Hand count">
-                  <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-hands="one_hand" aria-pressed="${state.hands === 'one_hand'}">One Hand</button>
-                  <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-hands="both_hands" aria-pressed="${state.hands === 'both_hands'}">Both Hands</button>
-                </div>
-              </div>
-            </div>
-          `
-              : `
-            <div style="display:grid;gap:1.1rem;">
-              <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;">
-                  <span style="font-size:0.84rem;font-weight:600;">2. Party Booking Hours ($115/hr)</span>
-                  <span class="dbs-mono-meta" style="font-size:0.86rem;color:var(--accent-henna);">${state.partyHours} Hours</span>
-                </div>
-                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" role="group" aria-label="Party booking hours">
-                  ${[2, 3, 4, 5, 6]
-                    .map(
-                      (hr) => `
-                    <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-hours="${hr}" aria-pressed="${state.partyHours === hr}">${hr} hrs</button>
-                  `
-                    )
-                    .join('')}
-                </div>
-              </div>
-
-              <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;">
-                  <label for="dbs-guest-slider" style="font-size:0.84rem;font-weight:600;">3. Estimated Guest Count</label>
-                  <span class="dbs-mono-meta" style="font-size:0.86rem;color:var(--accent-henna);">${state.guestCount} Guests</span>
-                </div>
-                <input
-                  id="dbs-guest-slider"
-                  class="dbs-range"
-                  type="range"
-                  min="10"
-                  max="90"
-                  step="5"
-                  value="${state.guestCount}"
-                  data-est-guests
-                />
-                ${
-                  q.partyAdvisory
-                    ? `<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--accent-henna);">${escapeHtml(q.partyAdvisory)}</div>`
-                    : `<div style="margin-top:0.45rem;font-size:0.8rem;color:var(--text-secondary);">Comfortable pace at 12 to 15 guests per hour for party motifs.</div>`
-                }
-              </div>
-            </div>
-          `
-          }
-
-          <div>
-            <div style="font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">4. Cone Medium</div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" role="group" aria-label="Cone medium">
-              ${formulas
-                .map((f) => {
-                  const shortLabels = {
-                    organic: 'Organic Henna',
-                    jagua: `Botanical Jagua +$${state.mode === 'party' ? 35 : 15}`,
-                    red: 'Festival Red',
-                    black: 'Midnight Black'
-                  };
-                  const label = shortLabels[f.id] || f.name;
-                  return `
-                  <button type="button" class="dbs-btn-ghost dbs-tactile-btn" data-est-formula="${escapeHtml(f.id)}" aria-pressed="${state.formulaId === f.id}">
-                    ${escapeHtml(label)}
+    mountEl.innerHTML = `
+      <div class="dbs-spread">
+        <div class="dbs-col-7">
+          <div class="dbs-micro" style="margin-bottom: 1rem;">Studio Commission Menu &middot; Select a Tier</div>
+          <div class="dbs-rate-menu" role="list">
+            ${packages
+              .map((pkg, idx) => {
+                const selected = pkg.id === state.packageId;
+                const roman = ROMAN_NUMERALS[idx] || String(idx + 1);
+                const summary = pkg.coverageLevel || (Array.isArray(pkg.includes) ? pkg.includes[0] : '');
+                return `
+                  <button
+                    type="button"
+                    class="dbs-rate-row"
+                    data-rate-pkg="${escapeHtml(pkg.id)}"
+                    aria-pressed="${selected ? 'true' : 'false'}"
+                  >
+                    <span class="dbs-rate-roman">${escapeHtml(roman)}</span>
+                    <span>
+                      <span class="dbs-rate-title">${escapeHtml(pkg.name)}</span>
+                      <div class="dbs-rate-sub">${escapeHtml(pkg.subtitle)}</div>
+                    </span>
+                    <span class="dbs-rate-price">${escapeHtml(formatPackageRate(pkg))}</span>
+                    <span class="dbs-rate-summary">${escapeHtml(summary)}</span>
                   </button>
                 `;
-                })
-                .join('')}
-            </div>
-          </div>
-
-          <div>
-            <label for="dbs-travel-zone" style="display:block;font-size:0.84rem;font-weight:600;color:var(--text-primary);margin-bottom:0.45rem;">
-              5. Northern Virginia &amp; DMV Travel Zone
-            </label>
-            <select
-              id="dbs-travel-zone"
-              data-est-zone
-              style="width:100%;padding:0.8rem 0.95rem;border-radius:12px;background:var(--plane-1-surface);color:var(--text-primary);border:1px solid var(--border-specular);font-size:0.92rem;"
-            >
-              ${travelZones
-                .map(
-                  (z) => `
-                <option value="${escapeHtml(z.id)}" ${state.travelZoneId === z.id ? 'selected' : ''}>
-                  ${escapeHtml(z.label)} (${z.fee === 0 ? '$0 Travel' : `+$${z.fee} Travel`})
-                </option>
-              `
-                )
-                .join('')}
-            </select>
-            <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.35rem;">
-              Studio appointments in Sterling, VA always carry $0 travel fee.
-            </div>
+              })
+              .join('')}
           </div>
         </div>
 
-        <div class="dbs-panel" style="padding:1.75rem;display:grid;gap:1.25rem;position:sticky;top:5.5rem;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--border-specular);padding-bottom:1rem;">
+        <div class="dbs-col-5">
+          <div class="dbs-calc-panel">
             <div>
-              <div style="font-size:0.8rem;color:var(--text-secondary);">Estimated Investment</div>
-              <div class="dbs-mono-meta" style="font-size:clamp(2rem,3.5vw,2.6rem);font-weight:700;color:var(--accent-henna);line-height:1.1;margin-top:0.2rem;">
-                $${q.subtotal}
+              <span class="dbs-micro">Atelier Session Calculator</span>
+              <h3 class="dbs-display-title" style="font-size: 1.65rem; margin-top: 0.35rem;">${escapeHtml(q.pkg.name)}</h3>
+            </div>
+
+            <div>
+              <span class="dbs-field-label">Commission Format</span>
+              <div class="dbs-seg-group" role="group" aria-label="Commission format">
+                <button type="button" class="dbs-seg-btn" data-calc-mode="individual" aria-pressed="${state.mode === 'individual' ? 'true' : 'false'}">Individual / Bridal</button>
+                <button type="button" class="dbs-seg-btn" data-calc-mode="party" aria-pressed="${state.mode === 'party' ? 'true' : 'false'}">Hourly Guest Artist</button>
               </div>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:0.78rem;color:var(--text-secondary);">50% Retainer to Lock Date</div>
-              <div class="dbs-mono-meta" style="font-size:1.15rem;font-weight:600;color:var(--text-primary);margin-top:0.2rem;">$${q.retainer}</div>
-            </div>
-          </div>
 
-          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.75rem;">
-            <div class="dbs-surface-box" style="padding:0.85rem 1rem;">
-              <div style="font-size:0.74rem;color:var(--text-secondary);">Session Duration</div>
-              <div class="dbs-mono-meta" style="font-size:0.98rem;font-weight:600;margin-top:0.15rem;">${escapeHtml(q.durationLabel)}</div>
-            </div>
-            <div class="dbs-surface-box" style="padding:0.85rem 1rem;">
-              <div style="font-size:0.74rem;color:var(--text-secondary);">Hand-Rolled Cones Prepared</div>
-              <div class="dbs-mono-meta" style="font-size:0.98rem;font-weight:600;margin-top:0.15rem;">${q.totalCones} fresh ${q.totalCones === 1 ? 'cone' : 'cones'}</div>
-            </div>
-          </div>
+            ${
+              state.mode === 'individual'
+                ? `
+                  <div>
+                    <label for="dbs-calc-tier" class="dbs-field-label">Coverage Level</label>
+                    <select id="dbs-calc-tier" class="dbs-select-arch">
+                      ${packages
+                        .filter((p) => p.category !== 'party' && p.category !== 'events')
+                        .map((p) => `<option value="${escapeHtml(p.id)}" ${p.id === state.packageId ? 'selected' : ''}>${escapeHtml(p.name)} (${escapeHtml(formatPackageRate(p))})</option>`)
+                        .join('')}
+                    </select>
+                  </div>
 
-          <div class="dbs-surface-box" style="padding:1rem 1.1rem;display:grid;gap:0.65rem;">
-            <div style="font-size:0.78rem;font-weight:600;color:var(--text-primary);">Itemized Quote Breakdown</div>
-            ${q.lines
-              .map(
-                (line) => `
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.8rem;font-size:0.86rem;color:var(--text-secondary);">
-                <span>${escapeHtml(line.label)}</span>
-                <span class="dbs-mono-meta" style="color:var(--text-primary);white-space:nowrap;">
-                  ${line.amount === 0 ? 'Included' : `+$${line.amount}`}
-                </span>
+                  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem;">
+                    <div>
+                      <span class="dbs-field-label">Hand Sides</span>
+                      <div class="dbs-seg-group" role="group" aria-label="Hand sides">
+                        <button type="button" class="dbs-seg-btn" data-calc-sides="one" aria-pressed="${state.sides === 'one' ? 'true' : 'false'}">One Side</button>
+                        <button type="button" class="dbs-seg-btn" data-calc-sides="both" aria-pressed="${state.sides === 'both' ? 'true' : 'false'}">Both Sides</button>
+                      </div>
+                    </div>
+                    <div>
+                      <span class="dbs-field-label">Hand Count</span>
+                      <div class="dbs-seg-group" role="group" aria-label="Hand count">
+                        <button type="button" class="dbs-seg-btn" data-calc-hands="single" aria-pressed="${state.hands === 'single' ? 'true' : 'false'}">Single</button>
+                        <button type="button" class="dbs-seg-btn" data-calc-hands="pair" aria-pressed="${state.hands === 'pair' ? 'true' : 'false'}">Pair</button>
+                      </div>
+                    </div>
+                  </div>
+                `
+                : `
+                  <div>
+                    <label for="dbs-calc-event-tier" class="dbs-field-label">Event Tier</label>
+                    <select id="dbs-calc-event-tier" class="dbs-select-arch">
+                      ${packages
+                        .filter((p) => p.category === 'party' || p.category === 'events')
+                        .map((p) => `<option value="${escapeHtml(p.id)}" ${p.id === state.packageId ? 'selected' : ''}>${escapeHtml(p.name)} (${escapeHtml(formatPackageRate(p))})</option>`)
+                        .join('')}
+                    </select>
+                  </div>
+                  <div>
+                    <label for="dbs-calc-hours" class="dbs-field-label">Artist Booking Hours</label>
+                    <select id="dbs-calc-hours" class="dbs-select-arch">
+                      ${[2, 3, 4, 5, 6]
+                        .map((h) => `<option value="${h}" ${state.partyHours === h ? 'selected' : ''}>${h} Hours (${h * 12}-${h * 15} guests est.)</option>`)
+                        .join('')}
+                    </select>
+                  </div>
+                `
+            }
+
+            <div>
+              <span class="dbs-field-label">Paste Formula</span>
+              <div class="dbs-chip-grid-4" role="group" aria-label="Paste formula selection">
+                ${formulas
+                  .map((f) => {
+                    const label = FORMULA_TAB_LABELS[f.id] || f.name;
+                    const active = f.id === state.formulaId;
+                    return `<button type="button" class="dbs-opt-btn" data-calc-formula="${escapeHtml(f.id)}" aria-pressed="${active ? 'true' : 'false'}">${escapeHtml(label)}</button>`;
+                  })
+                  .join('')}
               </div>
-            `
-              )
-              .join('')}
-          </div>
+            </div>
 
-          <button type="button" class="dbs-btn-primary dbs-tactile-btn" style="width:100%;" data-est-book>
-            Book Consultation
-          </button>
-          <p style="margin:0;font-size:0.78rem;color:var(--text-secondary);line-height:1.5;text-align:center;">
-            Final bridal and intricate custom quotes are confirmed once Sadia reviews your moodboard and hand preferences.
-          </p>
+            <div>
+              <label for="dbs-calc-zone" class="dbs-field-label">Northern Virginia &amp; DMV Travel Zone</label>
+              <select id="dbs-calc-zone" class="dbs-select-arch">
+                ${zones
+                  .map((z) => {
+                    const feeTxt = z.fee === 0 ? 'No Travel Fee' : `+$${z.fee} Travel`;
+                    return `<option value="${escapeHtml(z.id)}" ${z.id === state.travelZoneId ? 'selected' : ''}>${escapeHtml(z.label)} (${feeTxt})</option>`;
+                  })
+                  .join('')}
+              </select>
+            </div>
+
+            <div style="padding-top: 0.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.85rem;">
+                <div>
+                  <span class="dbs-micro">Estimated Investment</span>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                    ${q.travelFee > 0 ? `Includes $${q.travelFee} travel` : 'Sterling studio / local rate'}
+                  </div>
+                </div>
+                <div class="dbs-calc-total" data-calc-total>$${q.total}</div>
+              </div>
+
+              <div class="dbs-calc-summary-row">
+                <span>50% Retainer to Lock Date</span>
+                <strong>$${q.retainer}</strong>
+              </div>
+              <div class="dbs-calc-summary-row">
+                <span>Chair Duration</span>
+                <strong>${escapeHtml(formatDuration(q.durationMins))}</strong>
+              </div>
+              <div class="dbs-calc-summary-row" style="border-bottom: 1px solid var(--border-subtle);">
+                <span>Hand-Rolled Cones</span>
+                <strong>${q.cones} fresh cones</strong>
+              </div>
+            </div>
+
+            <button type="button" class="dbs-cta-rect dbs-cta-rect--full" data-calc-reserve>Reserve a Date</button>
+          </div>
         </div>
       </div>
     `;
 
-    mount.querySelectorAll('[data-est-mode]').forEach((btn) => {
+    mountEl.querySelectorAll('[data-rate-pkg]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        state.mode = btn.getAttribute('data-est-mode');
+        selectPackage(btn.getAttribute('data-rate-pkg'));
         render();
       });
     });
 
-    mount.querySelectorAll('[data-est-tier]').forEach((btn) => {
+    mountEl.querySelectorAll('[data-calc-mode]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        state.tierId = btn.getAttribute('data-est-tier');
+        const nextMode = btn.getAttribute('data-calc-mode');
+        if (!nextMode || nextMode === state.mode) return;
+        state.mode = nextMode;
+        if (nextMode === 'party') {
+          const partyPkg = packages.find((p) => p.category === 'party' || p.category === 'events');
+          if (partyPkg) state.packageId = partyPkg.id;
+        } else {
+          const indPkg = packages.find((p) => p.category === 'bridal' || p.category === 'private');
+          if (indPkg) state.packageId = indPkg.id;
+        }
         render();
       });
     });
 
-    mount.querySelectorAll('[data-est-sides]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.sides = btn.getAttribute('data-est-sides');
-        render();
-      });
-    });
-
-    mount.querySelectorAll('[data-est-hands]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.hands = btn.getAttribute('data-est-hands');
-        render();
-      });
-    });
-
-    mount.querySelectorAll('[data-est-hours]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.partyHours = Number(btn.getAttribute('data-est-hours')) || 3;
-        render();
-      });
-    });
-
-    mount.querySelector('[data-est-guests]')?.addEventListener('input', (ev) => {
-      state.guestCount = Number(ev.target.value) || 35;
+    mountEl.querySelector('#dbs-calc-tier')?.addEventListener('change', (ev) => {
+      selectPackage(ev.target.value);
       render();
     });
 
-    mount.querySelectorAll('[data-est-formula]').forEach((btn) => {
+    mountEl.querySelector('#dbs-calc-event-tier')?.addEventListener('change', (ev) => {
+      selectPackage(ev.target.value);
+      render();
+    });
+
+    mountEl.querySelector('#dbs-calc-hours')?.addEventListener('change', (ev) => {
+      state.partyHours = Number(ev.target.value) || 2;
+      render();
+    });
+
+    mountEl.querySelectorAll('[data-calc-sides]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        state.formulaId = btn.getAttribute('data-est-formula');
+        state.sides = btn.getAttribute('data-calc-sides') || 'both';
         render();
       });
     });
 
-    mount.querySelector('[data-est-zone]')?.addEventListener('change', (ev) => {
+    mountEl.querySelectorAll('[data-calc-hands]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.hands = btn.getAttribute('data-calc-hands') || 'pair';
+        render();
+      });
+    });
+
+    mountEl.querySelectorAll('[data-calc-formula]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.formulaId = btn.getAttribute('data-calc-formula') || formulas[0].id;
+        render();
+      });
+    });
+
+    mountEl.querySelector('#dbs-calc-zone')?.addEventListener('change', (ev) => {
       state.travelZoneId = ev.target.value;
       render();
     });
 
-    mount.querySelector('[data-est-book]')?.addEventListener('click', () => {
-      const packageMap = {
-        minimalist: 'intimate-nikah',
-        festive: 'festive-duo-hands',
-        full: 'custom-sketch-session',
-        bridal: 'royal-bridal'
-      };
-      const preset = {
-        mode: state.mode,
-        tierId: state.tierId,
-        packageId: state.mode === 'party' ? 'party-hourly' : packageMap[state.tierId] || 'festive-duo-hands',
+    mountEl.querySelector('[data-calc-reserve]')?.addEventListener('click', () => {
+      const quote = computeQuote();
+      const note =
+        state.mode === 'party'
+          ? `${state.partyHours} hours hourly guest artistry`
+          : `${state.sides === 'both' ? 'Both sides' : 'One side'}, ${state.hands === 'pair' ? 'pair of hands' : 'single hand'}`;
+      onPresetBook?.({
+        packageId: quote.pkg.id,
         formulaId: state.formulaId,
-        sides: state.sides,
-        hands: state.hands,
-        partyHours: state.partyHours,
-        guestCount: state.guestCount,
         travelZoneId: state.travelZoneId,
-        estimatedTotal: q.subtotal,
-        retainerAmount: q.retainer,
-        durationLabel: q.durationLabel,
-        conesPrepared: q.totalCones,
-        notes:
-          state.mode === 'party'
-            ? `Party booking: ${state.partyHours} hrs for ~${state.guestCount} guests.`
-            : `Coverage quote: ${state.tierId}, ${state.hands}, ${state.sides}.`
-      };
-      if (typeof onPresetBook === 'function') {
-        onPresetBook(preset);
-      }
-      document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        estimatedTotal: quote.total,
+        durationMins: quote.durationMins,
+        customSketch: quote.pkg.id === 'custom-sketch-session',
+        notes: note
+      });
     });
   }
 
@@ -1238,8 +1440,8 @@ export function initInteractiveTools({
   studioData = {},
   onPresetBook
 } = {}) {
-  injectModuleStyles();
-  buildSketchStainComponent(mountSketchStain, studioData, onPresetBook);
-  buildStainLabComponent(mountStainLab, studioData);
-  buildEstimatorComponent(mountEstimator, studioData, onPresetBook);
+  injectInteractiveStyles();
+  mountSketchStainSection(mountSketchStain, studioData.SKETCH_TO_STAIN, onPresetBook);
+  mountStainLabSection(mountStainLab, studioData.CONE_FORMULAS, onPresetBook);
+  mountEstimatorSection(mountEstimator, studioData, onPresetBook);
 }

@@ -4,20 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Design by Sadia | Bespoke Henna &amp; Body Art Atelier in Sterling, VA</title>
-  <meta name="description" content="Freehand Organic, Jagua, Red, and Black henna artistry by Sadia Shoyeb in Sterling, VA. Bridal mehndi, private appointments, and events across Northern Virginia and DMV.">
-  <meta name="theme-color" content="#090d0b">
+  <meta name="description" content="Freehand Organic, Jagua, Crimson, and Jet henna artistry by Sadia Shoyeb in Sterling, VA. Bridal mehndi, private studio commissions, and celebrations across Northern Virginia and DMV.">
+  <meta name="theme-color" content="#090807">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/tokens.css">
-  <link rel="stylesheet" href="./styles/studio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/tokens.css?v=2">
+  <link rel="stylesheet" href="./styles/studio.css?v=2">
   <style>
-    :root { --plane-0: oklch(0.12 0.015 160); --plane-1: oklch(0.16 0.018 160); --color-accent: oklch(0.74 0.145 62); }
-    html, body { background-color: var(--plane-0); color: oklch(0.95 0.012 85); }
-    .mono-num { font-variant-numeric: tabular-nums; }
-    .btn:active { transform: scale(0.97) translateY(1px); }
-    .site-header { box-shadow: inset 0 1px 0 0 color-mix(in oklch, oklch(0.95 0.012 85) 14%, transparent); }
+    :root { --plane-0-void: oklch(0.11 0.008 48); --plane-1-surface: oklch(0.145 0.010 48); --accent-henna: oklch(0.80 0.075 78); }
+    html, body { background-color: var(--plane-0-void); color: oklch(0.95 0.010 80); }
+    .numeral { font-variant-numeric: tabular-nums lining-nums; }
+    .btn:active { transform: scale(0.98); }
   </style>
 </head>
 <body>
@@ -26,38 +25,29 @@
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="brand-mark" href="#top" aria-label="Design by Sadia home">
-        <span class="brand-mark__seal" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v18"/>
-            <path d="M12 8c3.2-2.5 6.5-2.5 8 0-1.5 2.5-4.8 2.5-8 0z"/>
-            <path d="M12 8c-3.2-2.5-6.5-2.5-8 0 1.5 2.5 4.8 2.5 8 0z"/>
-            <circle cx="12" cy="17" r="2.2"/>
-          </svg>
-        </span>
-        <span class="brand-mark__word">Design by Sadia</span>
-      </a>
-
       <nav aria-label="Primary navigation">
         <ul class="nav-links">
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#sketch-to-stain">Sketch to Stain</a></li>
-          <li><a href="#stain-lab">Stain Lab</a></li>
-          <li><a href="#packages">Packages</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#portfolio">Archive</a></li>
+          <li><a href="#styles">Styles</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#packages">Investment</a></li>
         </ul>
       </nav>
+
+      <a class="brand-masthead" href="#top" aria-label="Design by Sadia home">
+        <span class="brand-masthead__word">Design by Sadia</span>
+        <span class="brand-masthead__sub">Sterling, Virginia</span>
+      </a>
 
       <div class="nav-actions">
         <button
           type="button"
-          class="moodboard-pill"
+          class="nav-saved-trigger"
           id="nav-moodboard-btn"
           aria-controls="moodboard-drawer-backdrop"
           aria-expanded="false"
         >
-          <span class="moodboard-pill__dot" aria-hidden="true"></span>
-          <span id="nav-moodboard-count" class="mono-num">0 Saved</span>
+          <span id="nav-moodboard-count" class="numeral">Saved (0)</span>
         </button>
 
         <a
@@ -67,14 +57,14 @@
           rel="noopener noreferrer"
           aria-label="Design by Sadia on Instagram"
         >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
             <circle cx="12" cy="12" r="4"/>
             <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
           </svg>
         </a>
 
-        <a class="btn btn--primary btn--sm nav-cta-desktop" href="#book" data-book-trigger>Book Consultation</a>
+        <a class="btn btn--primary btn--sm nav-cta-desktop" href="#book" data-book-trigger>Reserve a Date</a>
 
         <button
           type="button"
@@ -84,7 +74,7 @@
           aria-expanded="false"
           aria-label="Toggle navigation menu"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
             <line x1="4" y1="7" x2="20" y2="7"/>
             <line x1="4" y1="12" x2="20" y2="12"/>
             <line x1="4" y1="17" x2="20" y2="17"/>
@@ -96,221 +86,222 @@
 
   <div class="mobile-drawer" id="mobile-drawer" hidden>
     <div class="mobile-drawer__links">
-      <a href="#portfolio" data-drawer-link>Portfolio</a>
-      <a href="#sketch-to-stain" data-drawer-link>Sketch to Stain</a>
-      <a href="#stain-lab" data-drawer-link>Stain Lab</a>
-      <a href="#estimator" data-drawer-link>Quote Atelier</a>
-      <a href="#packages" data-drawer-link>Packages</a>
-      <a href="#faq" data-drawer-link>FAQ</a>
+      <a href="#portfolio" data-drawer-link>Archive</a>
+      <a href="#styles" data-drawer-link>Styles</a>
+      <a href="#process" data-drawer-link>Process &amp; Formulas</a>
+      <a href="#packages" data-drawer-link>Investment</a>
+      <a href="#book" data-drawer-link>Reservation Desk</a>
+      <a href="#faq" data-drawer-link>Notes &amp; Policies</a>
     </div>
     <div class="mobile-drawer__footer">
-      <a class="btn btn--primary" href="#book" data-drawer-link data-book-trigger>Book Consultation</a>
+      <a class="btn btn--primary" href="#book" data-drawer-link data-book-trigger>Reserve a Date</a>
       <a class="btn btn--ghost" href="https://www.instagram.com/design.by.sadia/" target="_blank" rel="noopener noreferrer">@design.by.sadia on Instagram</a>
     </div>
   </div>
 
   <main id="main-content">
-    <!-- 1. Split-Screen Hero -->
-    <section class="hero" id="top">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <span class="eyebrow">STERLING, VA &middot; NORTHERN VIRGINIA &amp; DMV</span>
-          <h1 class="hero__title">Freehand Botanical Henna, <em>Crafted for Your Moment.</em></h1>
-          <p class="hero__sub">Organic, Jagua, Red, and Black henna artistry for bridal couture, private appointments, and celebrations across Northern Virginia.</p>
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#book" data-book-trigger>Book Consultation</a>
-            <a class="btn btn--secondary" href="#portfolio">Explore Portfolio</a>
+    <!-- Chapter I: Editorial Split Cover -->
+    <section class="cover-section" id="top">
+      <div class="container cover-grid">
+        <div class="cover-copy">
+          <div class="cover-copy__main">
+            <p class="cover-volume-note">Sadia Shoyeb &middot; Northern Virginia &amp; Washington D.C.</p>
+            <h1 class="cover-title">Intricate Freehand Henna, <em>Composed for Skin.</em></h1>
+            <p class="cover-prose">Bespoke bridal mehndi, private studio commissions, and celebration artistry crafted with fresh organic lawsone, botanical jagua, crimson, and jet pastes.</p>
+            <div class="cover-actions">
+              <a class="btn btn--primary" href="#book" data-book-trigger>Reserve a Date</a>
+              <a class="editorial-link" href="#portfolio">Explore the Archive</a>
+            </div>
+          </div>
+
+          <div class="cover-ledger">
+            <div class="cover-ledger__item">
+              <span class="micro-label">Location</span>
+              <span class="cover-ledger__val">Sterling, VA &amp; DMV</span>
+            </div>
+            <div class="cover-ledger__item">
+              <span class="micro-label">Mediums</span>
+              <span class="cover-ledger__val">4 Fresh Formulas</span>
+            </div>
+            <div class="cover-ledger__item">
+              <span class="micro-label">Craft</span>
+              <span class="cover-ledger__val">100% Freehand</span>
+            </div>
           </div>
         </div>
 
-        <div class="hero__stage">
-          <div class="hero__frame-primary">
-            <span class="hero__availability">
-              <span class="hero__availability-dot" aria-hidden="true"></span>
-              <span>Sterling, VA &middot; Booking 2026</span>
-            </span>
+        <div class="cover-stage">
+          <div class="cover-frame">
             <img
               id="hero-editorial-img"
-              src="./assets/generated/hero-atelier.jpg"
-              alt="Hand-rolled organic henna cones arranged beside eucalyptus leaves and brass bowl on dark slate"
-              width="1408"
-              height="768"
+              src="./assets/generated/hero-couture-bridal.jpg"
+              alt="Intricate Rajasthani and Mughlai freehand bridal mehndi stained in deep espresso mahogany on hands and forearms"
+              width="960"
+              height="1200"
               loading="eager"
               decoding="async"
+              onerror="this.onerror=null;this.src='./assets/portfolio/portfolio-02-royal-bridal-palms.jpg';"
             >
           </div>
 
-          <button type="button" class="hero__preview-float" id="hero-float-preview" aria-label="Inspect featured bridal henna work in lightbox">
+          <button type="button" class="cover-secondary-print" id="hero-float-preview" aria-label="Inspect secondary bridal archival print in lightbox">
             <img
               id="hero-float-img"
-              class="hero__preview-thumb"
-              src="./assets/portfolio/portfolio-02-royal-bridal-palms.jpg"
-              alt="Featured freehand bridal henna work by Sadia Shoyeb"
-              width="148"
-              height="172"
+              src="./assets/portfolio/portfolio-03-rose-vine-initials.jpg"
+              alt="Twin rose-vine bridal henna hands with hidden partner initials"
+              width="144"
+              height="184"
               loading="eager"
             >
-            <span class="hero__preview-meta">
-              <span class="hero__preview-tag">Real Client Stain</span>
-              <span class="hero__preview-title" id="hero-float-title">Bridal Couture Palms</span>
-              <span class="hero__preview-sub" id="hero-float-sub">100% Freehand &middot; Inspect Work</span>
+            <span class="cover-secondary-print__meta">
+              <span class="micro-label">Archival Plate</span>
+              <span class="cover-secondary-print__title" id="hero-float-title">Rose-Vine &amp; Initials</span>
+              <span class="cover-secondary-print__sub" id="hero-float-sub">Inspect Client Stain</span>
             </span>
           </button>
+
+          <div class="cover-caption">
+            <span class="cover-caption__index">Plate 01</span>
+            <span>Freehand Royal Bridal Mehndi &middot; Organic Lawsone &amp; Hidden Initials</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Single Studio Highlights Strip -->
-    <div class="marquee-strip" aria-label="Studio specialties">
-      <div class="marquee-strip__track">
-        <div class="marquee-strip__group">
-          <span>100% Hand-Rolled Organic Cones</span>
-          <span class="marquee-strip__sep" aria-hidden="true">&bull;</span>
-          <span>Botanical Jagua Gel</span>
-          <span class="marquee-strip__sep" aria-hidden="true">&bull;</span>
-          <span>Custom Bridal Hidden Initials</span>
-          <span class="marquee-strip__sep" aria-hidden="true">&bull;</span>
-          <span>Festival Red &amp; Midnight Black</span>
-          <span class="marquee-strip__sep" aria-hidden="true">&bull;</span>
-          <span>Sterling, VA &amp; DMV Travel</span>
-          <span class="marquee-strip__sep" aria-hidden="true">&bull;</span>
-        </div>
-        <div class="marquee-strip__group marquee-strip__group--clone" aria-hidden="true">
-          <span>100% Hand-Rolled Organic Cones</span>
-          <span class="marquee-strip__sep">&bull;</span>
-          <span>Botanical Jagua Gel</span>
-          <span class="marquee-strip__sep">&bull;</span>
-          <span>Custom Bridal Hidden Initials</span>
-          <span class="marquee-strip__sep">&bull;</span>
-          <span>Festival Red &amp; Midnight Black</span>
-          <span class="marquee-strip__sep">&bull;</span>
-          <span>Sterling, VA &amp; DMV Travel</span>
-          <span class="marquee-strip__sep">&bull;</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Curated Portfolio Gallery -->
-    <section class="atelier-section" id="portfolio">
+    <!-- Chapter II: Signature Artistry & Selected Client Archive -->
+    <section class="atelier-section" id="styles">
       <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <h2>Curated Client Portfolio</h2>
-            <p>Every piece below is freehand work applied for Northern Virginia brides, private studio clients, and celebrations. Pin favorites to attach them directly to your booking brief.</p>
+        <div class="styles-subsection">
+          <div class="chapter-header">
+            <div class="chapter-header__copy">
+              <span class="micro-label">01 &middot; Signature Artistry</span>
+              <h2>Four Traditions of Freehand Mehndi</h2>
+            </div>
+            <div class="chapter-header__aside">
+              <p>Every appointment is drawn freehand without stencils, calibrating density, negative space, and cuff symmetry to your proportions.</p>
+            </div>
           </div>
-          <span class="section-header__aside" id="portfolio-total-label">15 REAL CLIENT WORKS</span>
+
+          <div class="styles-lookbook" id="signature-styles-grid"></div>
         </div>
 
-        <div class="portfolio-controls">
-          <div class="filter-pills" role="group" aria-label="Filter portfolio by category" id="portfolio-filters">
-            <button type="button" class="filter-pill" data-category="all" aria-pressed="true">All</button>
-            <button type="button" class="filter-pill" data-category="bridal" aria-pressed="false">Bridal &amp; Forearm</button>
-            <button type="button" class="filter-pill" data-category="vines" aria-pressed="false">Floral Vines</button>
-            <button type="button" class="filter-pill" data-category="festive" aria-pressed="false">Festive &amp; Parties</button>
-            <button type="button" class="filter-pill" data-category="minimalist" aria-pressed="false">Minimalist</button>
+        <div id="portfolio">
+          <div class="chapter-header">
+            <div class="chapter-header__copy">
+              <span class="micro-label">02 &middot; Selected Client Archive</span>
+              <h2>Fifteen Real Works on Skin</h2>
+            </div>
+            <div class="chapter-header__aside">
+              <span class="micro-label numeral" id="portfolio-total-label">15 REAL CLIENT WORKS</span>
+              <p>Click any plate to inspect motif detail or bookmark looks to carry straight into your reservation dossier.</p>
+            </div>
           </div>
-          <div class="portfolio-count" id="portfolio-visible-count" aria-live="polite">Showing 15 of 15 works</div>
-        </div>
 
-        <div class="portfolio-grid-shell">
-          <div class="portfolio-grid" id="portfolio-grid"></div>
+          <div class="archive-controls">
+            <div class="filter-tabs" role="group" aria-label="Filter archive by style" id="portfolio-filters">
+              <button type="button" class="filter-tab" data-category="all" aria-pressed="true">All Works</button>
+              <button type="button" class="filter-tab" data-category="bridal" aria-pressed="false">Bridal &amp; Forearm</button>
+              <button type="button" class="filter-tab" data-category="vines" aria-pressed="false">Botanical Vines</button>
+              <button type="button" class="filter-tab" data-category="festive" aria-pressed="false">Festive &amp; Mehndi Nights</button>
+              <button type="button" class="filter-tab" data-category="minimalist" aria-pressed="false">Minimalist</button>
+            </div>
+            <div class="archive-count" id="portfolio-visible-count" aria-live="polite">Showing 15 of 15 works</div>
+          </div>
+
+          <div class="archive-grid" id="portfolio-grid"></div>
         </div>
       </div>
     </section>
 
-    <!-- 4. Bespoke Sketch-to-Stain Showcase -->
-    <section class="atelier-section atelier-section--surface" id="sketch-to-stain">
+    <!-- Chapter III: Atelier Process & The Four Formulas -->
+    <section class="atelier-section atelier-section--surface" id="process">
       <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <h2>From Digital Concept to Living Stain</h2>
-            <p>Bridal and custom commissions begin with a hand-drawn botanical composition mapped to your hand proportions before a single cone touches skin.</p>
+        <div class="chapter-header">
+          <div class="chapter-header__copy">
+            <span class="micro-label">03 &middot; Atelier Process &amp; Alchemy</span>
+            <h2>From Digital Blueprint to Living Stain</h2>
           </div>
-          <span class="section-header__aside">INTERACTIVE COMPARISON</span>
+          <div class="chapter-header__aside">
+            <p>Custom bridal compositions begin with hand-mapped proportions before small-batch organic cones or botanical jagua ever touch skin.</p>
+          </div>
         </div>
-        <div class="mount-shell" id="sketch-stain-mount"></div>
+
+        <div class="process-block" id="sketch-to-stain">
+          <div class="mount-shell" id="sketch-stain-mount"></div>
+        </div>
+
+        <div id="stain-lab">
+          <div class="subsection-intro">
+            <div>
+              <span class="micro-label">The Four Formulas</span>
+              <h3>48-Hour Stain Oxidation Study</h3>
+            </div>
+            <p>Compare natural plant lawsone, Amazonian jagua, ceremonial crimson, and matte jet-black paste across each hour of maturation.</p>
+          </div>
+          <div class="mount-shell" id="stain-lab-mount"></div>
+        </div>
       </div>
     </section>
 
-    <!-- 5. 4-Formula Cone Bar & 48-Hour Stain Oxidation Lab -->
-    <section class="atelier-section" id="stain-lab">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <span class="eyebrow">4-FORMULA APOTHECARY</span>
-            <h2>Cone Alchemy &amp; 48-Hour Oxidation Lab</h2>
-            <p>Select a paste formula and scrub across 48 hours to preview how skin temperature, lemon-sugar sealing, and oxidation deepen your stain before your event.</p>
+    <!-- Chapter IV: Investment Menu & Bespoke Session Estimator -->
+    <section class="atelier-section" id="packages">
+      <div class="container" id="estimator">
+        <div class="chapter-header">
+          <div class="chapter-header__copy">
+            <span class="micro-label">04 &middot; Investment &amp; Session Estimator</span>
+            <h2>Studio Rates &amp; Bespoke Calculator</h2>
           </div>
-          <span class="section-header__aside">ORGANIC &middot; JAGUA &middot; RED &middot; BLACK</span>
+          <div class="chapter-header__aside">
+            <p>Select any studio offering from the menu or configure coverage, paste formula, and Northern Virginia travel for an immediate estimate.</p>
+          </div>
         </div>
-        <div class="mount-shell" id="stain-lab-mount"></div>
-      </div>
-    </section>
 
-    <!-- 6. Interactive Coverage & Instant Quote Atelier -->
-    <section class="atelier-section atelier-section--surface" id="estimator">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <h2>Coverage &amp; Instant Quote Atelier</h2>
-            <p>Dial in hand coverage, cone formula, and Northern Virginia travel zone for transparent session pricing and cone preparation estimates.</p>
-          </div>
-          <span class="section-header__aside">STERLING, VA &amp; DMV STUDIO RATES</span>
-        </div>
         <div class="mount-shell" id="coverage-estimator-mount"></div>
       </div>
     </section>
 
-    <!-- 7. Bridal Couture & Event Packages Bento -->
-    <section class="atelier-section" id="packages">
+    <!-- Chapter V: Private Reservation Desk, Client Notes & Studio Policies -->
+    <section class="atelier-section atelier-section--surface" id="book">
       <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <h2>Bridal Couture &amp; Event Packages</h2>
-            <p>Tailored sessions for intimate mehndi nights, full South Asian bridal forearms, and high-throughput celebration bookings across Northern Virginia.</p>
+        <div class="chapter-header">
+          <div class="chapter-header__copy">
+            <span class="micro-label">05 &middot; Private Reservation Desk</span>
+            <h2>Reserve a Date at the Atelier</h2>
           </div>
-          <span class="section-header__aside">6 CURATED TIERS</span>
-        </div>
-        <div class="packages-bento" id="packages-bento"></div>
-      </div>
-    </section>
-
-    <!-- 8. Client Love & Studio FAQ -->
-    <section class="atelier-section atelier-section--surface" id="faq">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <h2>Client Love &amp; Studio Policies</h2>
-            <p>Real experiences from Northern Virginia brides and hosts alongside clear preparation, timing, and deposit policies.</p>
+          <div class="chapter-header__aside">
+            <p>Choose your date, session window, paste formula, and saved archive references to generate your reservation dossier for @design.by.sadia.</p>
           </div>
-          <span class="section-header__aside">NORTHERN VIRGINIA REVIEWS</span>
         </div>
 
-        <div class="testimonials-grid" id="testimonials-grid"></div>
-
-        <div class="faq-layout">
-          <div class="faq-list" id="faq-accordion"></div>
-          <aside class="policies-panel" aria-label="Studio booking policies">
-            <h3>Booking &amp; Preparation Policies</h3>
-            <p>Clear guidelines to protect your stain depth and lock your preferred Northern Virginia event date.</p>
-            <div id="policies-list"></div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. Booking Concierge -->
-    <section class="atelier-section" id="book">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-header__copy">
-            <span class="eyebrow">RESERVATIONS &amp; PRIVATE SESSIONS</span>
-            <h2>Book Your Henna Atelier Session</h2>
-            <p>Select your package, cone formula, preferred Northern Virginia date, and pinned moodboard pieces to generate an instant booking dossier.</p>
-          </div>
-          <span class="section-header__aside">DIRECT TO @DESIGN.BY.SADIA</span>
-        </div>
         <div class="mount-shell" id="booking-concierge-mount"></div>
+      </div>
+    </section>
+
+    <section class="atelier-section" id="faq">
+      <div class="container">
+        <div class="chapter-header">
+          <div class="chapter-header__copy">
+            <span class="micro-label">06 &middot; Client Notes &amp; Studio Policies</span>
+            <h2>Words from Past Brides &amp; Care Notes</h2>
+          </div>
+          <div class="chapter-header__aside">
+            <p>Notes from brides and hosts across Loudoun, Fairfax, and Washington D.C. alongside preparation, stain timing, and retainer terms.</p>
+          </div>
+        </div>
+
+        <div class="notes-policies-grid">
+          <div class="client-notes-list" id="testimonials-grid"></div>
+
+          <div class="faq-policies-col">
+            <div class="faq-list" id="faq-accordion"></div>
+
+            <aside class="policies-ledger" aria-label="Studio booking policies">
+              <h3>Booking &amp; Preparation Policies</h3>
+              <p class="policies-ledger__intro">Guidelines designed to protect your stain depth and lock your preferred Northern Virginia date.</p>
+              <div id="policies-list"></div>
+            </aside>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -318,47 +309,36 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <div class="brand-mark">
-            <span class="brand-mark__seal" aria-hidden="true">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v18"/>
-                <path d="M12 8c3.2-2.5 6.5-2.5 8 0-1.5 2.5-4.8 2.5-8 0z"/>
-                <path d="M12 8c-3.2-2.5-6.5-2.5-8 0 1.5 2.5 4.8 2.5 8 0z"/>
-                <circle cx="12" cy="17" r="2.2"/>
-              </svg>
-            </span>
-            <span class="brand-mark__word">Design by Sadia</span>
-          </div>
-          <p class="prose-body" style="margin-top: 0.9rem;" id="footer-bio-summary">
+        <div class="footer-brand">
+          <span class="footer-brand__name">Design by Sadia</span>
+          <p class="footer-prose" id="footer-bio-summary">
             Bespoke freehand henna and jagua studio led by Sadia Shoyeb in Sterling, VA. Freshly hand-rolled organic cones for bridal couture, private appointments, and celebrations.
           </p>
         </div>
 
         <div>
-          <h3 style="font-size: 1.25rem;">Northern Virginia &amp; DMV Service Map</h3>
+          <h3 class="footer-areas-heading">Northern Virginia &amp; DMV Coverage</h3>
           <div class="footer-areas" id="footer-service-areas"></div>
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.85rem;">
-          <h3 style="font-size: 1.25rem;">Connect Directly</h3>
-          <a class="btn btn--primary" href="#book" data-book-trigger>Book Consultation</a>
-          <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/design.by.sadia/" target="_blank" rel="noopener noreferrer">Instagram @design.by.sadia</a>
+        <div class="footer-actions">
+          <a class="btn btn--primary" href="#book" data-book-trigger>Reserve a Date</a>
+          <a class="editorial-link" href="https://www.instagram.com/design.by.sadia/" target="_blank" rel="noopener noreferrer">@design.by.sadia on Instagram</a>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <span>Design by Sadia &middot; Sadia Shoyeb &middot; Sterling, VA</span>
-        <span class="mono-num">Organic &middot; Jagua &middot; Red &middot; Black Henna</span>
+      <div class="footer-colophon">
+        <span>Design by Sadia &middot; Sterling, Virginia &middot; @design.by.sadia</span>
+        <span class="numeral">Organic &middot; Jagua &middot; Crimson &middot; Midnight Black</span>
       </div>
     </div>
   </footer>
 
-  <!-- Lightbox Modal -->
+  <!-- Cinema Gallery Lightbox -->
   <div class="lightbox-backdrop" id="portfolio-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
     <div class="lightbox-dialog">
-      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close portfolio lightbox">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close archive lightbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -366,26 +346,26 @@
 
       <div class="lightbox-media">
         <img id="lightbox-img" src="./assets/portfolio/portfolio-01-botanical-vine.jpg" alt="" width="1200" height="1600">
-        <button type="button" class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Previous portfolio piece">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <button type="button" class="lightbox-nav lightbox-nav--prev" id="lightbox-prev" aria-label="Previous archive piece">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
         </button>
-        <button type="button" class="lightbox-nav lightbox-nav--next" id="lightbox-next" aria-label="Next portfolio piece">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <button type="button" class="lightbox-nav lightbox-nav--next" id="lightbox-next" aria-label="Next archive piece">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="9 18 15 12 9 6"/>
           </svg>
         </button>
       </div>
 
       <div class="lightbox-details">
-        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-          <span class="card-chip card-chip--accent" id="lightbox-medium" style="align-self: flex-start;">Organic Henna</span>
+        <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+          <span class="micro-label" id="lightbox-medium">Organic Henna</span>
           <h3 id="lightbox-title">Design Title</h3>
           <p id="lightbox-story"></p>
           <div class="lightbox-specs">
             <div>
-              <span class="lightbox-spec-label">Coverage</span>
+              <span class="lightbox-spec-label">Placement</span>
               <span class="lightbox-spec-val" id="lightbox-coverage">Full Palm</span>
             </div>
             <div>
@@ -396,23 +376,23 @@
         </div>
 
         <div class="lightbox-actions">
-          <button type="button" class="btn btn--secondary" id="lightbox-pin-btn" aria-pressed="false">Pin to Moodboard</button>
-          <button type="button" class="btn btn--primary" id="lightbox-book-btn">Pin &amp; Book Similar</button>
+          <button type="button" class="btn btn--secondary" id="lightbox-pin-btn" aria-pressed="false">Save to Archive</button>
+          <button type="button" class="btn btn--primary" id="lightbox-book-btn">Reserve a Date with This Look</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Saved Moodboard Drawer -->
+  <!-- Saved Archive Drawer -->
   <div class="moodboard-drawer-backdrop" id="moodboard-drawer-backdrop" role="dialog" aria-modal="true" aria-labelledby="moodboard-drawer-title" hidden>
     <div class="moodboard-drawer">
       <div class="moodboard-drawer__head">
         <div>
-          <h3 id="moodboard-drawer-title">Saved Moodboard</h3>
-          <p class="prose-body" style="font-size: 0.84rem;" id="moodboard-drawer-sub">Pin designs to share inspiration with Sadia.</p>
+          <h3 id="moodboard-drawer-title">Saved Archive</h3>
+          <p class="moodboard-drawer__sub" id="moodboard-drawer-sub">Save designs to attach inspiration to your reservation brief.</p>
         </div>
-        <button type="button" class="lightbox-close" id="moodboard-close-btn" style="position: static;" aria-label="Close saved moodboard">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <button type="button" class="lightbox-close" id="moodboard-close-btn" style="position: static;" aria-label="Close saved archive">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
@@ -422,14 +402,14 @@
       <div class="moodboard-drawer__list" id="moodboard-drawer-list"></div>
 
       <div class="moodboard-drawer__foot">
-        <button type="button" class="btn btn--primary" id="moodboard-book-btn">Book Consultation</button>
-        <button type="button" class="btn btn--destructive btn--sm" id="moodboard-clear-btn">Clear Saved Moodboard</button>
+        <button type="button" class="btn btn--primary" id="moodboard-book-btn">Reserve a Date</button>
+        <button type="button" class="btn btn--destructive btn--sm" id="moodboard-clear-btn">Clear Saved Archive</button>
       </div>
     </div>
   </div>
 
   <div id="client-review-mount"></div>
 
-  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="./js/app.js?v=2"></script>
 </body>
 </html>

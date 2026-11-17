@@ -1,70 +1,67 @@
-/* Design by Sadia: Dark Botanical Atelier Design Tokens */
+/* Design by Sadia (v2): Velvet Espresso Noir & Brushed Champagne Atelier Tokens */
 :root {
   color-scheme: dark;
 
-  /* 5-Plane Monotonic OKLCH Surface Stack */
-  --plane-0-void: oklch(0.12 0.015 160);
-  --plane-1-surface: oklch(0.16 0.018 160);
-  --plane-2-card: oklch(0.20 0.020 160);
-  --plane-3-elevated: oklch(0.25 0.022 160);
-  --plane-4-overlay: oklch(0.29 0.024 160);
+  /* 5-Plane Monotonic OKLCH Velvet Espresso Surface Stack */
+  --plane-0-void: oklch(0.11 0.008 48);
+  --plane-1-surface: oklch(0.145 0.010 48);
+  --plane-2-card: oklch(0.18 0.012 48);
+  --plane-3-elevated: oklch(0.22 0.014 48);
+  --plane-4-overlay: oklch(0.26 0.016 48);
 
-  /* Specular & Structural Borders */
-  --border-specular: color-mix(in oklch, oklch(0.95 0.012 85) 12%, transparent);
-  --border-subtle: color-mix(in oklch, oklch(0.95 0.012 85) 7%, transparent);
-  --border-strong: color-mix(in oklch, oklch(0.95 0.012 85) 22%, transparent);
-  --border-accent: color-mix(in oklch, oklch(0.74 0.145 62) 45%, transparent);
+  /* Specular & Architectural Hairline Borders */
+  --border-specular: color-mix(in oklch, oklch(0.95 0.010 80) 13%, transparent);
+  --border-subtle: color-mix(in oklch, oklch(0.95 0.010 80) 8%, transparent);
+  --border-strong: color-mix(in oklch, oklch(0.95 0.010 80) 22%, transparent);
+  --border-accent: color-mix(in oklch, oklch(0.80 0.075 78) 42%, transparent);
 
-  /* Perceptual Typography Scale (APCA Lc >= 92 primary, Lc >= 66 secondary) */
-  --text-primary: oklch(0.95 0.012 85);
-  --text-secondary: oklch(0.77 0.016 155);
-  --text-muted: oklch(0.68 0.015 155);
+  /* Perceptual Silk Ivory & Warm Taupe Typography Scale (APCA |Lc| >= 94 primary, >= 66 secondary) */
+  --text-primary: oklch(0.95 0.010 80);
+  --text-secondary: oklch(0.76 0.012 72);
+  --text-muted: oklch(0.67 0.012 70);
 
-  /* Single Locked Burnished Henna-Amber Accent */
-  --accent-henna: oklch(0.74 0.145 62);
-  --accent-henna-hover: oklch(0.79 0.150 62);
-  --accent-henna-soft: color-mix(in oklch, oklch(0.74 0.145 62) 14%, transparent);
-  --accent-ink: oklch(0.13 0.020 60);
+  /* Single Locked Brushed Champagne Gold Accent */
+  --accent-henna: oklch(0.80 0.075 78);
+  --accent-henna-hover: oklch(0.85 0.080 78);
+  --accent-henna-soft: color-mix(in oklch, oklch(0.80 0.075 78) 12%, transparent);
+  --accent-ink: oklch(0.12 0.010 48);
 
-  /* Semantic Intent Tokens (XIAS lint_intent) */
+  /* Semantic Intent Tokens */
   --color-primary: var(--accent-henna);
   --color-accent: var(--accent-henna);
   --color-surface: var(--plane-1-surface);
-  --color-destructive: oklch(0.64 0.19 25);
-  --color-destructive-soft: color-mix(in oklch, oklch(0.64 0.19 25) 14%, transparent);
-  --color-success: oklch(0.74 0.14 152);
-  --color-success-soft: color-mix(in oklch, oklch(0.74 0.14 152) 14%, transparent);
+  --color-destructive: oklch(0.64 0.16 25);
+  --color-destructive-soft: color-mix(in oklch, oklch(0.64 0.16 25) 12%, transparent);
+  --color-success: oklch(0.74 0.11 148);
+  --color-success-soft: color-mix(in oklch, oklch(0.74 0.11 148) 12%, transparent);
 
-  /* 1px Top-Edge Inner Specular Highlight & Ambient Elevation */
-  --specular-highlight: inset 0 1px 0 0 color-mix(in oklch, oklch(0.95 0.012 85) 14%, transparent);
-  --shadow-card: var(--specular-highlight), 0 18px 40px -18px oklch(0.05 0.01 160 / 0.72);
-  --shadow-elevated: var(--specular-highlight), 0 28px 64px -20px oklch(0.04 0.01 160 / 0.85);
+  /* Subtle Architectural Elevation (Zero Neon Glow) */
+  --specular-highlight: inset 0 1px 0 0 color-mix(in oklch, oklch(0.95 0.010 80) 12%, transparent);
+  --shadow-card: var(--specular-highlight), 0 16px 36px -20px oklch(0.05 0.008 48 / 0.72);
+  --shadow-elevated: var(--specular-highlight), 0 28px 60px -22px oklch(0.04 0.008 48 / 0.86);
 
-  /* Typography Families */
+  /* Editorial Typography Families (Zero Monospace) */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Fluid Type Scale */
-  --text-hero: clamp(2.55rem, 4.9vw, 4.45rem);
-  --text-h2: clamp(1.95rem, 3.2vw, 3.0rem);
-  --text-h3: clamp(1.32rem, 1.8vw, 1.65rem);
-  --text-body: clamp(0.97rem, 1.05vw, 1.06rem);
+  /* Fluid Editorial Type Scale */
+  --text-hero: clamp(2.75rem, 5.2vw, 4.75rem);
+  --text-h2: clamp(2.05rem, 3.4vw, 3.15rem);
+  --text-h3: clamp(1.38rem, 1.9vw, 1.75rem);
+  --text-body: clamp(0.97rem, 1.05vw, 1.05rem);
   --text-small: 0.875rem;
-  --text-micro: 0.75rem;
+  --text-micro: 0.6875rem;
 
-  /* Layout & Spacing */
-  --nav-height: 68px;
-  --container-max: 1280px;
-  --gutter: clamp(1.15rem, 3.5vw, 2.75rem);
-  --section-pad: clamp(4.25rem, 8vw, 6.75rem);
+  /* Layout & Editorial Proportions */
+  --nav-height: 74px;
+  --container-max: 1320px;
+  --gutter: clamp(1.25rem, 3.8vw, 3.25rem);
+  --section-pad: clamp(4.75rem, 8.5vw, 7.25rem);
 
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-  --radius-pill: 9999px;
+  /* Architectural Print Geometry */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
 
   /* Tactile Motion & W3C Springs */
   --ease-tactile: cubic-bezier(0.23, 1, 0.32, 1);
@@ -73,4 +70,3 @@
   --dur-ui: 240ms;
   --dur-reveal: 420ms;
 }
-
